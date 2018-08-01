@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style_properties>
+  <style_property property_name="tg_border_radius" group_name="telegram_login_widget" title="Custom Corner Radius" description="Input here corner radius. If 0, widget will use default value." property_type="value" value_type="number" display_order="300">
+    <value>"0"</value>
+  </style_property>
+  <style_property property_name="tg_login_size" group_name="telegram_login_widget" title="Size" description="Select the size for login button." property_type="value" value_type="select" display_order="100">
+    <value_parameters>small={{ phrase('telegram_login_button_size.small') }}
+medium={{ phrase('telegram_login_button_size.medium') }}
+large={{ phrase('telegram_login_button_size.large') }}</value_parameters>
+    <value>"large"</value>
+  </style_property>
+  <style_property property_name="tg_user_avatar" group_name="telegram_login_widget" title="User Avatar" description="Show user avatar in login widget?" property_type="value" value_type="boolean" display_order="200">
+    <value>1</value>
+  </style_property>
+</style_properties>

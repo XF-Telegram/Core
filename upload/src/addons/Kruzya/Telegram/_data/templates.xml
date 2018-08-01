@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+  <template type="admin" title="connected_account_provider_telegram" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[<xf:textboxrow name="options[bot_name]" value="{$options.bot_name}"
+	label="{{ phrase('tg_botname') }}"
+	hint="{{ phrase('required') }}"
+	explain="{{ phrase('con_acc_telegram_bot_name_explain') }}" />
+
+<xf:textboxrow name="options[bot_token]" value="{$options.bot_token}"
+	label="{{ phrase('tg_bottoken') }}"
+	hint="{{ phrase('required') }}"
+	explain="{{ phrase('con_acc_telegram_bot_token_explain') }}" />]]></template>
+  <template type="admin" title="connected_account_provider_test_telegram" version_id="1000070" version_string="1.0.0 Alpha"><![CDATA[<xf:if is="!$providerData">
+	<xf:inforow>
+		{{ phrase('this_will_test_x_connected_account_provider_explain', {'title': $provider.title}) }}
+	</xf:inforow>
+
+	<xf:formrow label="{{ phrase('tg_botname') }}">{$provider.options.bot_name}</xf:formrow>
+<xf:else />
+	<xf:inforow rowtype="confirm"><strong>{{ phrase('test_passed') }}</strong></xf:inforow>
+
+	<xf:formrow label="{{ phrase('name') }}">{{ $providerData.getUsername() ?: phrase('n_a') }}</xf:formrow>
+
+	<xf:formrow label="{{ phrase('picture') }}">
+		<xf:if is="$providerData.getAvatar()">
+			<img src="{$providerData.getAvatar()}" width="48" />
+		<xf:else />
+			{{ phrase('n_a') }}
+		</xf:if>
+	</xf:formrow>
+</xf:if>]]></template>
+  <template type="admin" title="telegram_login_page" version_id="1000070" version_string="1.0.0 Alpha"><![CDATA[<div class="block">
+	<center>
+		<p>
+			{{ phrase('telegram_login_page_text') }}:
+		</p>
+		<br />
+		<script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="{$bot_name}" data-size="large" data-radius="20" data-auth-url="{$redirect_uri}" data-request-access="write"></script>
+	</center>
+</div>]]></template>
+  <template type="public" title="connected_account_associated_telegram" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:if is="$providerData.getProfileUrl()">
+	<a href="{$providerData.getProfileUrl()}" target="_blank">
+		<img src="{$providerData.getAvatar()}" width="48" alt="" />
+	</a>
+</xf:if>
+<div>
+	<xf:if is="$providerData.getProfileUrl()">
+		<a href="{$providerData.getProfileUrl()}" target="_blank">{{ $providerData.getUsername() }} (</a>
+	</xf:if>
+	{{ $providerData.getFirstName() }} {{ $providerData.getLastName() }}
+	<xf:if is="$providerData.getProfileUrl()">
+		)
+	</xf:if>
+</div>]]></template>
+  <template type="public" title="kruzya_telegram_button.less" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[// ############################ BUTTONS #################
+
+.button,
+a.button // needed for specificity over a:link
+{
+	&.button--provider
+	{
+		&--telegram
+		{
+			.m-buttonColorVariation(#587EA3, white);
+			.m-buttonIcon(@fa-var-telegram, .86em);
+		}
+	}
+}]]></template>
+  <template type="public" title="telegram_login_page" version_id="1002070" version_string="1.0.2"><![CDATA[<div class="block">
+  <center>
+    <p>
+      {{ phrase('telegram_login_page_text') }}:
+    </p>
+    <br />
+    <script async
+            src="https://telegram.org/js/telegram-widget.js?4"
+            data-telegram-login="{$bot_name}"
+            data-size="{{ property('tg_login_size') }}"
+			<xf:if is="property('tg_border_radius')">
+            data-radius="{{ property('tg_border_radius') }}"
+			</xf:if>
+            data-auth-url="{$redirect_uri}" data-request-access="write"
+            <xf:if is="!property('tg_user_avatar')">
+            data-userpic="false"
+            </xf:if>
+            ></script>
+  </center>
+</div>]]></template>
+</templates>

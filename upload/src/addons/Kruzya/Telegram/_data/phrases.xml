@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phrases>
+  <phrase title="con_acc.telegram" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram]]></phrase>
+  <phrase title="con_acc_desc.telegram" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[]]></phrase>
+  <phrase title="con_acc_telegram_bot_name_explain" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Entering an Bot Name will allow users to login using their Telegram accounts. You can get own Bot via Telegram Bot with name <a href="tg://resolve?domain=botfather" target="_blank">@BotFather</a>]]></phrase>
+  <phrase title="con_acc_telegram_bot_token_explain" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Input here HTTP access token. It will be sent to BotFatner when creating the bot.]]></phrase>
+  <phrase title="style_prop.tg_border_radius" version_id="1002070" version_string="1.0.2"><![CDATA[Custom Corner Radius]]></phrase>
+  <phrase title="style_prop.tg_login_size" version_id="1002070" version_string="1.0.2"><![CDATA[Size]]></phrase>
+  <phrase title="style_prop.tg_user_avatar" version_id="1002070" version_string="1.0.2"><![CDATA[User Avatar]]></phrase>
+  <phrase title="style_prop_desc.tg_border_radius" version_id="1002070" version_string="1.0.2"><![CDATA[Input here corner radius. If 0, widget will use default value.]]></phrase>
+  <phrase title="style_prop_desc.tg_login_size" version_id="1002070" version_string="1.0.2"><![CDATA[Select the size for login button.]]></phrase>
+  <phrase title="style_prop_desc.tg_user_avatar" version_id="1002070" version_string="1.0.2"><![CDATA[Show user avatar in login widget?]]></phrase>
+  <phrase title="style_prop_group.telegram_login_widget" version_id="1002070" version_string="1.0.2"><![CDATA[Telegram]]></phrase>
+  <phrase title="style_prop_group_desc.telegram_login_widget" version_id="1002070" version_string="1.0.2"><![CDATA[Edit style for Telegram Login Widget here]]></phrase>
+  <phrase title="telegram_login_button_size.large" version_id="1002070" version_string="1.0.2"><![CDATA[Large]]></phrase>
+  <phrase title="telegram_login_button_size.medium" version_id="1002070" version_string="1.0.2"><![CDATA[Medium]]></phrase>
+  <phrase title="telegram_login_button_size.small" version_id="1002070" version_string="1.0.2"><![CDATA[Small]]></phrase>
+  <phrase title="telegram_login_page_text" version_id="1000070" version_string="1.0.0 Alpha"><![CDATA[Since Telegram does not provide a direct API for authorization, it is necessary to click manually on the button below]]></phrase>
+  <phrase title="tg_botname" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram Bot Name]]></phrase>
+  <phrase title="tg_bottoken" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram Bot Token]]></phrase>
+</phrases>

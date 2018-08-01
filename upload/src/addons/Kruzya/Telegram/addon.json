@@ -1,0 +1,14 @@
+{
+    "legacy_addon_id": "",
+    "title": "Telegram",
+    "description": "Provides the ability to log in via Telegram",
+    "version_id": 1003010,
+    "version_string": "1.0.3-alpha",
+    "dev": "CrazyHackGUT aka Kruzya",
+    "dev_url": "https://kruzya.me/",
+    "faq_url": "https://xenforo.info/resources/6733/field?field=faq",
+    "support_url": "https://xenforo.info/resources/6733/",
+    "extra_urls": [],
+    "require": [],
+    "icon": "fa-telegram"
+}

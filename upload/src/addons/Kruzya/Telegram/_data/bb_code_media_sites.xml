@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bb_code_media_sites>
+  <site media_site_id="telegram" site_title="Telegram" site_url="https://telegram.org/" match_is_regex="0" match_callback_class="Kruzya\Telegram\BbCode\Helper\Telegram" match_callback_method="matchCallback" supported="1" active="1" oembed_enabled="0" oembed_retain_scripts="1">
+    <match_urls><![CDATA[t.me/{$id}]]></match_urls>
+    <embed_html><![CDATA[<iframe src="https://t.me/{$id}?embed=1"
+        scrolling="no"
+        style="border: medium none; overflow: hidden; min-width: 320px; height: 50px;"
+        width="100%"
+        height=""
+        frameborder="0">
+</iframe>]]></embed_html>
+  </site>
+</bb_code_media_sites>
