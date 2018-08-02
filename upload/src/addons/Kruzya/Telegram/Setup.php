@@ -23,7 +23,7 @@ class Setup extends AbstractSetup
       $table->addColumn('username',       'varchar', 32)->nullable();
       $table->addColumn('photo_url',      'varchar', 256);
 
-      $table->addColumn('notifications',  'bool')->setDefault(false);
+      $table->addColumn('notifications',  'bool')->setDefault(0);
       $table->addColumn('updated',        'int');
     });
   }
