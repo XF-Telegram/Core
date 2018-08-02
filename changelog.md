@@ -8,3 +8,7 @@
 
 ## 1.0.2
 - The code associated with the DB on the page `Connected Accounts` is now optimized.
+
+## 1.0.3
+- Added Telegram Post Widget.
+- Added Notifications.

@@ -3,7 +3,7 @@
   <modification type="public" template="PAGE_CONTAINER" modification_key="kruzya_telegram_script_media" description="Adds the JavaScript function for correct loading media content" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<meta charset="utf-8" />]]></find>
     <replace><![CDATA[$0
-<xf:js src="Kruzya/Telegram/post-widget.js" min="0" />]]></replace>
+<xf:js src="Kruzya/Telegram/post-widget.js" min="1" />]]></replace>
   </modification>
   <modification type="public" template="account_preferences" modification_key="telegram_preferences_mod" description="Adds a Telegram Settings" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[<xf:submitrow icon="save" sticky="true" />]]></find>
