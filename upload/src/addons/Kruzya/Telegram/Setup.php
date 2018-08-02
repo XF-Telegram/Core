@@ -32,7 +32,7 @@ class Setup extends AbstractSetup
     $this->db()->getSchemaManager()->alterTable('tg_user', function (Alter $table) {
       // 1.0.3 beta
       if (!$table->getColumnDefinition('notifications'))
-        $table->addColumn('notifications', 'bool')->setDefault(false)->after('photo_url');
+        $table->addColumn('notifications', 'bool')->setDefault(0)->after('photo_url');
     });
   }
 
