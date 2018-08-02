@@ -16,17 +16,24 @@ class Setup extends AbstractSetup
     ]);
 
     $db->getSchemaManager()->createTable('tg_user', function (Create $table) {
-      $table->addColumn('id',         'int')->primaryKey();
-      $table->addColumn('first_name', 'varchar', 64)->setDefault('');
-      $table->addColumn('last_name',  'varchar', 64)->setDefault('');
-      $table->addColumn('username',   'varchar', 32)->nullable();
-      $table->addColumn('photo_url',  'varchar', 256);
+      $table->addColumn('id',             'int')->primaryKey();
+      $table->addColumn('first_name',     'varchar', 64)->setDefault('');
+      $table->addColumn('last_name',      'varchar', 64)->setDefault('');
+      $table->addColumn('username',       'varchar', 32)->nullable();
+      $table->addColumn('photo_url',      'varchar', 256);
 
-      $table->addColumn('updated',    'int');
+      $table->addColumn('notifications',  'bool')->setDefault(false);
+      $table->addColumn('updated',        'int');
     });
   }
 
-  public function upgrade(array $stepParams = []) {}
+  public function upgrade(array $stepParams = []) {
+    $this->db()->getSchemaManager()->alterTable('tg_user', function (Alter $table) {
+      // 1.0.3 beta
+      if (!$table->getColumnDefinition('notifications'))
+        $table->addColumn('notifications', 'bool')->setDefault(false)->after('photo_url');
+    });
+  }
 
   public function uninstall(array $stepParams = []) {
     $db = $this->db();
