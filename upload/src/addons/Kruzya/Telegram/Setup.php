@@ -3,6 +3,7 @@ namespace Kruzya\Telegram;
 
 use XF\AddOn\AbstractSetup;
 use XF\Db\Schema\Create;
+use XF\Db\Schema\Alter;
 
 class Setup extends AbstractSetup
 {

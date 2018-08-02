@@ -12,3 +12,7 @@
 ## 1.0.3
 - Added Telegram Post Widget.
 - Added Notifications.
+- Added style settings for login button.
+
+## 1.0.3.1
+- Fixed `upgrade()` in `Setup.php`
