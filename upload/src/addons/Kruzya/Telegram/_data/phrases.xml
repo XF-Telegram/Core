@@ -18,4 +18,7 @@
   <phrase title="telegram_login_page_text" version_id="1000070" version_string="1.0.0 Alpha"><![CDATA[Since Telegram does not provide a direct API for authorization, it is necessary to click manually on the button below]]></phrase>
   <phrase title="tg_botname" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram Bot Name]]></phrase>
   <phrase title="tg_bottoken" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram Bot Token]]></phrase>
+  <phrase title="tg_notifications.conversations_create" version_id="1003030" version_string="1.0.3-beta"><![CDATA[{sender} created a conversation {conversation} at {board}.]]></phrase>
+  <phrase title="tg_notifications.conversations_invite" version_id="1003030" version_string="1.0.3-beta"><![CDATA[{sender} invited you to conversation {conversation} at {board}.]]></phrase>
+  <phrase title="tg_notifications.conversations_reply" version_id="1003030" version_string="1.0.3-beta"><![CDATA[{sender} replied to conversation {conversation} at {board}.]]></phrase>
 </phrases>
