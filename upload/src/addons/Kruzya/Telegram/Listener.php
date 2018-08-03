@@ -6,6 +6,10 @@ use XF\Entity\UserAlert;
 
 class Listener {
   public static function saveAlert(Entity $entity) {
+    // If notifications disabled globally, ignore this event.
+    if (!Utils::isNotificationsAllowed())
+      return;
+
     // Before sending, we need check: this is new alert or not.
     if ($entity->view_date != 0) {
       // User viewed this alert now (or later). Just skip.
@@ -35,10 +39,15 @@ class Listener {
     $boardUrl = \XF::app()->options()->boardUrl;
     $text = str_replace('href="/', 'href="' . $boardUrl . '/', $text);
 
-    @file_put_contents("/var/www/html/XF/test.txt", $text);
-
     // Send alert.
-    $TelegramUser->sendMessage($text, 'HTML');
+    if ($TelegramUser->sendMessage($text, 'HTML', true) == -1) {
+      // message don't delivered. why?
+      // anyway, just turn off the notifications (if protection enabled) so as not to go to the ban at the Telegram for flooding.
+      if (Utils::getFloodProtect()) {
+        $TelegramUser->notifications = 0;
+        $TelegramUser->save();
+      }
+    }
 
     // Reset language.
     \XF::setLanguage($old_language);

@@ -13,6 +13,10 @@ class Notifier extends XFCP_Notifier {
   }
 
   private function _sendTelegram($actionType, array $notifyUsers, ConversationMessage $message = NULL, User $sender = NULL) {
+    // If notifications disabled globally, ignore this event.
+    if (!Utils::isNotificationsAllowed())
+      return;
+
     if (!$sender && $message) {
       $sender = $message->User;
     }
@@ -46,7 +50,14 @@ class Notifier extends XFCP_Notifier {
         ->phrase("tg_notifications.conversations_{$actionType}", $message_format, true)
         ->render('raw');
 
-      $TelegramUser->sendMessage($text, 'HTML', true);
+      if ($TelegramUser->sendMessage($text, 'HTML', true) == -1) {
+        // message don't delivered. why?
+        // anyway, just turn off the notifications (if protection enabled) so as not to go to the ban at the Telegram for flooding.
+        if (Utils::getFloodProtect()) {
+          $TelegramUser->notifications = 0;
+          $TelegramUser->save();
+        }
+      }
     }
   }
 }

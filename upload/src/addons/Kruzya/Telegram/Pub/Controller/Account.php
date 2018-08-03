@@ -7,7 +7,7 @@ class Account extends \XF\Pub\Controller\Account {
   public function actionPreferences() {
     $view = parent::actionPreferences();
     $telegramUser = Utils::getTelegramEntityByUser(\XF::visitor());
-    if (get_class($view) == 'XF\Mvc\Reply\View')
+    if (get_class($view) == 'XF\Mvc\Reply\View' && Utils::isNotificationsAllowed())
       $view->setParam('telegram', $telegramUser);
 
     return $view;
@@ -17,7 +17,7 @@ class Account extends \XF\Pub\Controller\Account {
     $form = parent::preferencesSaveProcess($visitor);
     $telegramUser = Utils::getTelegramEntityByUser($visitor);
 
-    if ($telegramUser) {
+    if ($telegramUser && Utils::isNotificationsAllowed()) {
       // $result = $this->filter('telegram[notifications]', 'boolean');
       $result = $this->filter([
         'telegram'  => [

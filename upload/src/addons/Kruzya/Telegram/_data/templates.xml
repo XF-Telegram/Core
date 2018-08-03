@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
-  <template type="admin" title="connected_account_provider_telegram" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[<xf:textboxrow name="options[bot_name]" value="{$options.bot_name}"
+  <template type="admin" title="connected_account_provider_telegram" version_id="1003071" version_string="1.0.3.1"><![CDATA[<xf:textboxrow name="options[bot_name]" value="{$options.bot_name}"
 	label="{{ phrase('tg_botname') }}"
 	hint="{{ phrase('required') }}"
 	explain="{{ phrase('con_acc_telegram_bot_name_explain') }}" />

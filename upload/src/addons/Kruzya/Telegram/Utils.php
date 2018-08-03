@@ -8,17 +8,43 @@ use GuzzleHttp\Exception\RequestException;
 
 class Utils {
   private static $_botToken = NULL;
+  private static $_settings = NULL;
 
-  public static function getBotToken() {
-    if (self::$_botToken === NULL) {
+  private static function getSettings() {
+    if (self::$_settings === NULL) {
       $provider = \XF::finder('XF:ConnectedAccountProvider')->where('provider_id', 'telegram')->fetchOne();
       if (!$provider)
         throw new \LogicException('Account provider not registered');
 
-      self::$_botToken = $provider->options['bot_token'];
+      self::$_settings = $provider->options;
     }
 
-    return self::$_botToken;
+    return self::$_settings;
+  }
+
+  private static function getSetting($key, $default = null) {
+    $settings = self::getSettings();
+    return isset($settings[$key]) ? $settings[$key] : $default;
+  }
+
+  public static function getBotToken() {
+    return self::getSetting('bot_token', '');
+  }
+
+  public static function getBotName() {
+    return self::getSetting('bot_name', '');
+  }
+
+  public static function isNotificationsAllowed() {
+    return \XF::app()
+      ->options()
+      ->telegramAllowNotifications;
+  }
+
+  public static function getFloodProtect() {
+    return \XF::app()
+      ->options()
+      ->telegramFloodProtect;
   }
 
   public static function getApiResponse($method, $body = []) {

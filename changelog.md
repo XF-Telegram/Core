@@ -16,3 +16,9 @@
 
 ## 1.0.3.1
 - Fixed `upgrade()` in `Setup.php`
+
+## 1.0.4
+- Added AddOn settings in options.
+  - Added flood protect.
+  - Added global notifications enabler.
+- Removed accidentally left debug code line.

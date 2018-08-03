@@ -1,2 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<options/>
+<options>
+  <option option_id="telegramAllowNotifications" edit_format="onoff" data_type="boolean">
+    <default_value>1</default_value>
+    <relation group_id="telegram" display_order="1000"/>
+  </option>
+  <option option_id="telegramFloodProtect" edit_format="onoff" data_type="boolean">
+    <default_value>0</default_value>
+    <relation group_id="telegram" display_order="2000"/>
+  </option>
+</options>

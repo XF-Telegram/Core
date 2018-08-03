@@ -23,15 +23,15 @@ class Telegram extends AbstractProvider {
 
   public function getDefaultOptions() {
     return [
-      'bot_name' => '',
-      'bot_token' => ''
+      'bot_name'            => '',
+      'bot_token'           => '',
     ];
   }
 
   public function getOAuthConfig(ConnectedAccountProvider $provider, $redirectUri = null) {
     return [
-      'bot_name' => $provider->options['bot_name'],
-      'bot_token' => $provider->options['bot_token']
+      'bot_name'            => $provider->options['bot_name'],
+      'bot_token'           => $provider->options['bot_token'],
     ];
   }
 
