@@ -3,11 +3,11 @@ namespace Kruzya\Telegram\Pub\Controller;
 
 use Kruzya\Telegram\Utils;
 
-class Account extends \XF\Pub\Controller\Account {
+class Account extends XFCP_Account {
   public function actionPreferences() {
     $view = parent::actionPreferences();
     $telegramUser = Utils::getTelegramEntityByUser(\XF::visitor());
-    if (get_class($view) == 'XF\Mvc\Reply\View' && Utils::isNotificationsAllowed())
+    if (get_class($view) == 'XF\Mvc\Reply\View' && Utils::isNotificationsAllowed(\XF::visitor()))
       $view->setParam('telegram', $telegramUser);
 
     return $view;
@@ -17,7 +17,7 @@ class Account extends \XF\Pub\Controller\Account {
     $form = parent::preferencesSaveProcess($visitor);
     $telegramUser = Utils::getTelegramEntityByUser($visitor);
 
-    if ($telegramUser && Utils::isNotificationsAllowed()) {
+    if ($telegramUser && Utils::isNotificationsAllowed($visitor)) {
       // $result = $this->filter('telegram[notifications]', 'boolean');
       $result = $this->filter([
         'telegram'  => [

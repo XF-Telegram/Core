@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<permissions/>
+<permissions>
+  <permission permission_group_id="telegram" permission_id="notifications" permission_type="flag" interface_group_id="generalPermissions" display_order="3500"/>
+</permissions>
