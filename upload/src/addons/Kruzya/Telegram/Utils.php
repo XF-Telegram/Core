@@ -35,10 +35,8 @@ class Utils {
     return self::getSetting('bot_name', '');
   }
 
-  public static function isNotificationsAllowed() {
-    return \XF::app()
-      ->options()
-      ->telegramAllowNotifications;
+  public static function isNotificationsAllowed(XFUser $user) {
+    return $user->hasPermission('telegram', 'notifications');
   }
 
   public static function getFloodProtect() {
