@@ -7,7 +7,7 @@ use XF\Entity\UserAlert;
 class Listener {
   public static function saveAlert(Entity $entity) {
     // If notifications disabled globally, ignore this event.
-    if (!Utils::isNotificationsAllowed())
+    if (!Utils::isNotificationsAllowed($entity->Receiver))
       return;
 
     // Before sending, we need check: this is new alert or not.

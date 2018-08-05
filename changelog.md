@@ -27,3 +27,6 @@
 - Small refactor.
 - Added permission (see issue #2) for configuring notifications availability.
 - Fixed error when any conversation action creates a error `TypeError`
+
+# 1.0.5.1
+- Added forgotten changes in `Utils` class.
