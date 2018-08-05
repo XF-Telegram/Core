@@ -22,3 +22,8 @@
   - Added flood protect.
   - Added global notifications enabler.
 - Removed accidentally left debug code line.
+
+# 1.0.5
+- Small refactor.
+- Added permission (see issue #2) for configuring notifications availability.
+- Fixed error when any conversation action creates a error `TypeError`
