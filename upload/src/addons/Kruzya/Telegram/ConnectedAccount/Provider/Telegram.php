@@ -96,11 +96,13 @@ class Telegram extends AbstractProvider {
       $data->id = $id;
     }
 
-    $data->first_name = $first_name;
-    $data->last_name  = $last_name;
-    $data->username   = $username;
-    $data->photo_url  = $photo_url;
-    $data->updated    = time();
+    $data->bulkSet([
+      'first_name'    => $first_name,
+      'last_name'     => $last_name,
+      'username'      => $username,
+      'photo_url'     => $photo_url,
+      'updated'       => time()
+    ]);
     $data->save();
 
     $storageState->storeToken($token);
