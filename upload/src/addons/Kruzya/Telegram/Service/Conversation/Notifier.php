@@ -28,8 +28,8 @@ class Notifier extends XFCP_Notifier {
     foreach ($notifyUsers as $receiver) {
       $TelegramUser = Utils::getTelegramEntityByUser($receiver);
       // check, enabled notifications or not.
-      if (!$TelegramUser->notifications) {
-        // disabled. skip this user.
+      if (!$TelegramUser || !$TelegramUser->notifications) {
+        // disabled or user not found. just skip.
         continue;
       }
 
