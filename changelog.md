@@ -30,3 +30,6 @@
 
 # 1.0.5.1
 - Added forgotten changes in `Utils` class.
+
+# 1.0.5.2
+- Added forgotten changes in `Notifier` class (notifications for Conversations).

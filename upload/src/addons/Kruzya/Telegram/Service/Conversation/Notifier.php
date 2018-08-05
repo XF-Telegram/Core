@@ -13,10 +13,6 @@ class Notifier extends XFCP_Notifier {
   }
 
   private function _sendTelegram($actionType, array $notifyUsers, ConversationMessage $message = NULL, User $sender = NULL) {
-    // If notifications disabled globally, ignore this event.
-    if (!Utils::isNotificationsAllowed())
-      return;
-
     if (!$sender && $message) {
       $sender = $message->User;
     }
@@ -26,6 +22,9 @@ class Notifier extends XFCP_Notifier {
 
     /** @var \XF\Entity\User $user */
     foreach ($notifyUsers as $receiver) {
+      if (!Utils::isNotificationsAllowed($receiver))
+        continue;
+
       $TelegramUser = Utils::getTelegramEntityByUser($receiver);
       // check, enabled notifications or not.
       if (!$TelegramUser || !$TelegramUser->notifications) {
