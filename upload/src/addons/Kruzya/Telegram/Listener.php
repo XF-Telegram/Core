@@ -33,21 +33,15 @@ class Listener {
     \XF::setLanguage(\XF::app()->language($entity->Receiver->language_id));
 
     // Clear text.
-    $text = $entity->render();
-    $text = Utils::purifyHtml($text);
+    $text = \XF::asVisitor($entity->Receiver, function () use($entity) {
+      return Utils::purifyHtml($entity->render());
+    });
 
     $boardUrl = \XF::app()->options()->boardUrl;
     $text = str_replace('href="/', 'href="' . $boardUrl . '/', $text);
 
-    // Send alert.
-    if ($TelegramUser->sendMessage($text, 'HTML', true) == -1) {
-      // message don't delivered. why?
-      // anyway, just turn off the notifications (if protection enabled) so as not to go to the ban at the Telegram for flooding.
-      if (Utils::getFloodProtect()) {
-        $TelegramUser->notifications = 0;
-        $TelegramUser->save();
-      }
-    }
+    // Add alert to queue.
+    $TelegramUser->addNotification($text, 'HTML');
 
     // Reset language.
     \XF::setLanguage($old_language);

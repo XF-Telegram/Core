@@ -50,7 +50,20 @@ class User extends Entity {
     return $structure;
   }
 
+  public function addNotification($text, $markup) {
+    $entity = \XF::em()->create('Kruzya\\Telegram:Notification');
+    $entity->bulkSet([
+      'message'   => $text,
+      'receiver'  => $this->get('id'),
+      'marktype'  => $markup,
+    ]);
+    $entity->save();
+  }
+
   public function sendMessage($text, $markup = '', $disable_url_preview = false) {
+    if ($markup == 'none')
+      $markup = '';
+
     $response = Utils::getApiResponse('sendMessage', [
       'chat_id'                   => $this->get('id'),
       'text'                      => $text,

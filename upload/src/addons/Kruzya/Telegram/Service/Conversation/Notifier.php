@@ -49,14 +49,7 @@ class Notifier extends XFCP_Notifier {
         ->phrase("tg_notifications.conversations_{$actionType}", $message_format, true)
         ->render('raw');
 
-      if ($TelegramUser->sendMessage($text, 'HTML', true) == -1) {
-        // message don't delivered. why?
-        // anyway, just turn off the notifications (if protection enabled) so as not to go to the ban at the Telegram for flooding.
-        if (Utils::getFloodProtect()) {
-          $TelegramUser->notifications = 0;
-          $TelegramUser->save();
-        }
-      }
+      $TelegramUser->addNotification($text, 'HTML', true);
     }
   }
 }

@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cron/>
+<cron>
+  <entry entry_id="telegram_notifications" cron_class="Kruzya\Telegram\Cron\Notifications" cron_method="processNotifications" active="1"><![CDATA[{"day_type":"dom","dom":[-1],"hours":[-1],"minutes":[-1]}]]></entry>
+</cron>
