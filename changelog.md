@@ -33,3 +33,7 @@
 
 # 1.0.5.2
 - Added forgotten changes in `Notifier` class (notifications for Conversations).
+
+# 1.0.6
+- Added proxy support.
+- Now notifications adds in queue, and handles by Cron Job.
