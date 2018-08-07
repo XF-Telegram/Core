@@ -49,10 +49,35 @@ class Utils {
     $token    = self::getBotToken();
     $client   = \XF::app()->http()->client();
 
+    $settings = [
+      'json'  => $body,
+    ];
+
+    $options = \XF::app()->options();
+    if ($options->telegramUseProxy) {
+      // get all settings.
+      $address  = $options->telegramProxyAddress;
+      $login    = $options->telegramProxyLogin;
+      $password = $options->telegramProxyPassword;
+
+      // check login exist.
+      if (empty($login))
+        $login = 'anonymous';
+      $credentials = $login;
+
+      // check password exist.
+      if (!empty($password))
+        $credentials .= ":{$password}";
+
+      // add credentials to proxy address.
+      $proxy = str_replace('://', "://$credentials@", $address);
+
+      // push to settings array.
+      $settings['proxy'] = $proxy;
+    }
+
     try {
-      $response = $client->post("https://api.telegram.org/bot{$token}/{$method}", [
-        'json'        => $body,
-      ]);
+      $response = $client->post("https://api.telegram.org/bot{$token}/{$method}", $settings);
 
       return json_decode($response->getBody(), true);
     } catch (RequestException $e) {
