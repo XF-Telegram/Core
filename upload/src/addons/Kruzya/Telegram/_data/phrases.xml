@@ -4,6 +4,7 @@
   <phrase title="con_acc_desc.telegram" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="con_acc_telegram_bot_name_explain" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Entering an Bot Name will allow users to login using their Telegram accounts. You can get own Bot via Telegram Bot with name <a href="tg://resolve?domain=botfather" target="_blank">@BotFather</a>]]></phrase>
   <phrase title="con_acc_telegram_bot_token_explain" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Input here HTTP access token. It will be sent to BotFatner when creating the bot.]]></phrase>
+  <phrase title="cron_entry.telegram_notifications" version_id="1005073" version_string="1.0.5.3"><![CDATA[[Telegram] Notifications Queue Worker]]></phrase>
   <phrase title="option.telegramFloodProtect" version_id="1004070" version_string="1.0.4"><![CDATA[Flood Protect]]></phrase>
   <phrase title="option_explain.telegramFloodProtect" version_id="1004070" version_string="1.0.4"><![CDATA[Enable this if you want disable notifications for users automatically, if user don't allowed send messages. <br /><b>Note</b>: Telegram may return "fail" if can't send messages by technical reasons.]]></phrase>
   <phrase title="option_group.telegram" version_id="1003071" version_string="1.0.3.1"><![CDATA[Telegram]]></phrase>
