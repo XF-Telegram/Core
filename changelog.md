@@ -37,3 +37,7 @@
 # 1.0.6
 - Added proxy support.
 - Now notifications adds in queue, and handles by Cron Job.
+
+# 1.0.6.1
+- Added a new method `editMessage` in `Kruzya\Telegram\Entity\User` entity.
+- Fixed a bug when message sender in conversation receives notification too.
