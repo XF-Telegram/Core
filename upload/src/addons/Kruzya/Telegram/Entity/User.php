@@ -84,4 +84,15 @@ class User extends Entity {
 
     return $response['ok'];
   }
+
+  public function editMessageText($message_id, $text, $markup = 'HTML') {
+    $response = Utils::getApiResponse('editMessageText', [
+      'chat_id'     => $this->get('id'),
+      'message_id'  => $message_id,
+      'text'        => $text,
+      'parse_mode'  => $markup,
+    ]);
+
+    return $response['ok'];
+  }
 }
