@@ -22,6 +22,10 @@ class Notifier extends XFCP_Notifier {
 
     /** @var \XF\Entity\User $user */
     foreach ($notifyUsers as $receiver) {
+      // skip our own entry.
+      if ($receiver == $sender)
+        continue;
+
       if (!Utils::isNotificationsAllowed($receiver))
         continue;
 
