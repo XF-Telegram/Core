@@ -39,12 +39,14 @@ class Telegram extends AbstractProviderData {
       return NULL;
 
     if ($this->_data === NULL) {
-      $this->_data = \XF::finder('Kruzya\\Telegram:User')->where('id', $id)->fetchOne();
+      $this->_data = \XF::app()->em()->find('Kruzya\\Telegram:User', $id);
 
       if (!$this->_data) {
         $this->_data = false;
         return NULL;
       }
+
+      $this->_data->UpdateIfRequired();
     }
 
     switch ($key) {

@@ -61,6 +61,39 @@ class User extends Entity {
   }
 
   /**
+   * Updates information about user if required.
+   * NOTE: this method call save(), if information has been updated.
+   */
+  public function UpdateIfRequired($time = 86400) {
+    $CurrentTS = time();
+
+    if ($CurrentTS - 86400 > $this->updated) {
+      $chat = $this->api()->getChat();
+      if ($chat['ok']) {
+        $chat = $chat['result'];
+
+        $first_name = $chat['first_name'];
+        $last_name  = null;
+        $username   = null;
+
+        if (isset($chat['last_name']))
+          $last_name = $chat['last_name'];
+        if (isset($chat['username']))
+          $username = $chat['username'];
+
+        $this->bulkSet([
+          'first_name'  => $first_name,
+          'last_name'   => $last_name,
+          'username'    => $username,
+
+          'updated'     => $CurrentTS,
+        ]);
+        $this->save();
+      }
+    }
+  }
+
+  /**
    * Returns a API object for working with API.
    *
    * @return \Kruzya\Telegram\API
