@@ -7,8 +7,9 @@ use XF\Entity\User as XFUser;
 use GuzzleHttp\Exception\RequestException;
 
 class Utils {
-  private static $_botToken = NULL;
-  private static $_settings = NULL;
+  private static $_botToken   = NULL;
+  private static $_settings   = NULL;
+  private static $_apiwrapper = NULL;
 
   private static function getSettings() {
     if (self::$_settings === NULL) {
@@ -46,43 +47,7 @@ class Utils {
   }
 
   public static function getApiResponse($method, $body = []) {
-    $token    = self::getBotToken();
-    $client   = \XF::app()->http()->client();
-
-    $settings = [
-      'json'  => $body,
-    ];
-
-    $options = \XF::app()->options();
-    if ($options->telegramUseProxy) {
-      // get all settings.
-      $address  = $options->telegramProxyAddress;
-      $login    = $options->telegramProxyLogin;
-      $password = $options->telegramProxyPassword;
-
-      // check login exist.
-      if (empty($login))
-        $login = 'anonymous';
-      $credentials = $login;
-
-      // check password exist.
-      if (!empty($password))
-        $credentials .= ":{$password}";
-
-      // add credentials to proxy address.
-      $proxy = str_replace('://', "://$credentials@", $address);
-
-      // push to settings array.
-      $settings['proxy'] = $proxy;
-    }
-
-    try {
-      $response = $client->post("https://api.telegram.org/bot{$token}/{$method}", $settings);
-
-      return json_decode($response->getBody(), true);
-    } catch (RequestException $e) {
-      return json_decode($e->getResponse()->getBody(), true);
-    }
+    return call_user_func_array([self::api(), $method], [$body]);
   }
 
   public static function getTelegramEntityByUser(XFUser $user) {
@@ -151,5 +116,37 @@ class Utils {
     }
 
     return $text;
+  }
+
+  public static function api() {
+    if (self::$_apiwrapper === NULL) {
+      $token = self::getBotToken();
+      $proxy = NULL;
+
+      $options = \XF::app()->options();
+      if ($options->telegramUseProxy) {
+        // get all settings.
+        $address  = $options->telegramProxyAddress;
+        $login    = $options->telegramProxyLogin;
+        $password = $options->telegramProxyPassword;
+
+        // check login exist.
+        if (empty($login))
+          $login = 'anonymous';
+        $credentials = $login;
+
+        // check password exist.
+        if (!empty($password))
+          $credentials .= ":{$password}";
+
+        // add credentials to proxy address.
+        $proxy = str_replace('://', "://$credentials@", $address);
+      }
+
+      // create a wrapper.
+      self::$_apiwrapper = new API($token, $proxy);
+    }
+
+    return self::$_apiwrapper->setGlobalVariables([]);
   }
 }
