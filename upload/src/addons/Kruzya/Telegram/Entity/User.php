@@ -35,11 +35,6 @@ class User extends Entity {
         'type'        => self::STR,
         'default'     => '',
       ],
-      'notifications' => [
-        'type'        => self::BOOL,
-        'default'     => false,
-        'required'    => true,
-      ],
       'updated'       => [
         'type'        => self::UINT,
         'default'     => time(),
@@ -48,16 +43,6 @@ class User extends Entity {
     ];
 
     return $structure;
-  }
-
-  public function addNotification($text, $markup) {
-    $entity = \XF::em()->create('Kruzya\\Telegram:Notification');
-    $entity->bulkSet([
-      'message'   => $text,
-      'receiver'  => $this->get('id'),
-      'marktype'  => $markup,
-    ]);
-    $entity->save();
   }
 
   /**

@@ -4,13 +4,10 @@
   <phrase title="con_acc_desc.telegram" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[]]></phrase>
   <phrase title="con_acc_telegram_bot_name_explain" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Entering an Bot Name will allow users to login using their Telegram accounts. You can get own Bot via Telegram Bot with name <a href="tg://resolve?domain=botfather" target="_blank">@BotFather</a>]]></phrase>
   <phrase title="con_acc_telegram_bot_token_explain" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Input here HTTP access token. It will be sent to BotFatner when creating the bot.]]></phrase>
-  <phrase title="cron_entry.telegram_notifications" version_id="1005073" version_string="1.0.5.3"><![CDATA[[Telegram] Notifications Queue Worker]]></phrase>
-  <phrase title="option.telegramFloodProtect" version_id="1004070" version_string="1.0.4"><![CDATA[Flood Protect]]></phrase>
   <phrase title="option.telegramProxyAddress" version_id="1005072" version_string="1.0.5.2"><![CDATA[Proxy Address]]></phrase>
   <phrase title="option.telegramProxyLogin" version_id="1005072" version_string="1.0.5.2"><![CDATA[Proxy Login]]></phrase>
   <phrase title="option.telegramProxyPassword" version_id="1005072" version_string="1.0.5.2"><![CDATA[Proxy Password]]></phrase>
   <phrase title="option.telegramUseProxy" version_id="1005072" version_string="1.0.5.2"><![CDATA[Use Proxy]]></phrase>
-  <phrase title="option_explain.telegramFloodProtect" version_id="1004070" version_string="1.0.4"><![CDATA[Enable this if you want disable notifications for users automatically, if user don't allowed send messages. <br /><b>Note</b>: Telegram may return "fail" if can't send messages by technical reasons.]]></phrase>
   <phrase title="option_explain.telegramProxyAddress" version_id="1005072" version_string="1.0.5.2"><![CDATA[Fill here address to Proxy Server.<br />
 <b>Note</b>: Address should contain protocol name, like <i>socks5h</i>.]]></phrase>
   <phrase title="option_explain.telegramProxyLogin" version_id="1005072" version_string="1.0.5.2"><![CDATA[Fill here your username for Proxy Server, if this exists.<br />
@@ -19,7 +16,6 @@ If this field leaved empty - we use <i>anonymous</i>.]]></phrase>
   <phrase title="option_explain.telegramUseProxy" version_id="1005072" version_string="1.0.5.2"><![CDATA[Enable this, if your hosting block any request for Telegram Bot API.]]></phrase>
   <phrase title="option_group.telegram" version_id="1003071" version_string="1.0.3.1"><![CDATA[Telegram]]></phrase>
   <phrase title="option_group_description.telegram" version_id="1003071" version_string="1.0.3.1"><![CDATA[Telegram Sync Settings]]></phrase>
-  <phrase title="permission.telegram_notifications" version_id="1004070" version_string="1.0.4"><![CDATA[Receive notifications in Telegram]]></phrase>
   <phrase title="style_prop.tg_border_radius" version_id="1002070" version_string="1.0.2"><![CDATA[Custom Corner Radius]]></phrase>
   <phrase title="style_prop.tg_login_size" version_id="1002070" version_string="1.0.2"><![CDATA[Size]]></phrase>
   <phrase title="style_prop.tg_user_avatar" version_id="1002070" version_string="1.0.2"><![CDATA[User Avatar]]></phrase>
@@ -32,12 +28,6 @@ If this field leaved empty - we use <i>anonymous</i>.]]></phrase>
   <phrase title="telegram_login_button_size.medium" version_id="1002070" version_string="1.0.2"><![CDATA[Medium]]></phrase>
   <phrase title="telegram_login_button_size.small" version_id="1002070" version_string="1.0.2"><![CDATA[Small]]></phrase>
   <phrase title="telegram_login_page_text" version_id="1000070" version_string="1.0.0 Alpha"><![CDATA[Since Telegram does not provide a direct API for authorization, it is necessary to click manually on the button below]]></phrase>
-  <phrase title="telegram_notifications" version_id="1003030" version_string="1.0.3-beta"><![CDATA[Receive notifications in Telegram]]></phrase>
-  <phrase title="telegram_notifications.note" version_id="1003030" version_string="1.0.3-beta"><![CDATA[<b>Note</b>: You must allow messages from the bot.]]></phrase>
-  <phrase title="telegram_preferences" version_id="1003030" version_string="1.0.3-beta"><![CDATA[Telegram]]></phrase>
   <phrase title="tg_botname" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram Bot Name]]></phrase>
   <phrase title="tg_bottoken" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram Bot Token]]></phrase>
-  <phrase title="tg_notifications.conversations_create" version_id="1003030" version_string="1.0.3-beta"><![CDATA[{sender} created a conversation {conversation} at {board}.]]></phrase>
-  <phrase title="tg_notifications.conversations_invite" version_id="1003030" version_string="1.0.3-beta"><![CDATA[{sender} invited you to conversation {conversation} at {board}.]]></phrase>
-  <phrase title="tg_notifications.conversations_reply" version_id="1003030" version_string="1.0.3-beta"><![CDATA[{sender} replied to conversation {conversation} at {board}.]]></phrase>
 </phrases>

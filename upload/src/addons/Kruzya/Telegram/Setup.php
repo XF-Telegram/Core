@@ -24,25 +24,21 @@ class Setup extends AbstractSetup
       $table->addColumn('username',       'varchar', 32)->nullable();
       $table->addColumn('photo_url',      'varchar', 256);
 
-      $table->addColumn('notifications',  'bool')->setDefault(0);
       $table->addColumn('updated',        'int');
     });
-
-    $this->makeNotificationsQueueTable($sm);
   }
 
   public function upgrade(array $stepParams = []) {
     $db = $this->db();
     $sm = $db->getSchemaManager();
 
-    $sm->alterTable('tg_user', function (Alter $table) {
-      // 1.0.3 beta
-      if (!$table->getColumnDefinition('notifications'))
-        $table->addColumn('notifications', 'bool')->setDefault(0)->after('photo_url');
-    });
+    if (!$this->IsAddOnInstalled('Kruzya/TelegramNotifications')) {
+      $sm->alterTable('tg_user', function (Alter $table) {
+        if ($table->getColumnDefinition('notifications'))
+          $table->dropColumns(['notifications']);
+      });
 
-    if (!$sm->tableExists('tg_notifications_queue')) {
-      $this->makeNotificationsQueueTable($sm);
+      $sm->dropTable('tg_notifications_queue');
     }
   }
 
@@ -52,17 +48,13 @@ class Setup extends AbstractSetup
 
     $db->delete('xf_connected_account_provider', "provider_id = 'telegram'");
     $sm->dropTable('tg_user');
-    $sm->dropTable('tg_notifications_queue');
   }
 
-  // Some additional functions
-  private function makeNotificationsQueueTable(\XF\Db\SchemaManager $sm) {
-    $sm->createTable('tg_notifications_queue', function (Create $table) {
-      $table->addColumn('id',       'int')->autoIncrement();
-      $table->addColumn('receiver', 'int');
-      $table->addColumn('message',  'text');
-      $table->addColumn('marktype', 'enum')->values(['none', 'HTML', 'MarkDown'])->setDefault('none');
-      $table->addColumn('status',   'enum')->values(['planned', 'finished', 'failed'])->setDefault('planned');
-    });
+  private function IsAddOnInstalled($ID) {
+    $AddOn = $this->app->em()->find('XF:AddOn', $ID);
+    if (!$AddOn)
+      return false;
+
+    return $AddOn->active;
   }
 }

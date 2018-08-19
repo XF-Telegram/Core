@@ -1,8 +1,0 @@
-{
-  "additional_files": [
-    "js/Kruzya/Telegram/post-widget.js"
-  ],
-  "minify": [
-    "js/Kruzya/Telegram/post-widget.js"
-  ]
-}
