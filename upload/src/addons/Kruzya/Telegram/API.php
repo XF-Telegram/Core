@@ -95,6 +95,9 @@ class API {
   }
 
   public function __call($method, array $arguments) {
-    return $this->_execute($method, $arguments[0]);
+    $MethodArguments = [];
+    if (isset($arguments[0]))
+      $MethodArguments = $arguments[0];
+    return $this->_execute($method, $MethodArguments);
   }
 }
