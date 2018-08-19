@@ -17,33 +17,33 @@ class User extends Entity {
     $structure->columns    = [
       'id'            => [
         'type'        => self::UINT,
-        'required'    => true
+        'required'    => true,
       ],
       'first_name'    => [
         'type'        => self::STR,
-        'default'     => ''
+        'default'     => '',
       ],
       'last_name'     => [
         'type'        => self::STR,
-        'default'     => ''
+        'default'     => '',
       ],
       'username'      => [
         'type'        => self::STR,
-        'default'     => ''
+        'default'     => '',
       ],
       'photo_url'     => [
         'type'        => self::STR,
-        'default'     => ''
+        'default'     => '',
       ],
       'notifications' => [
         'type'        => self::BOOL,
         'default'     => false,
-        'required'    => true
+        'required'    => true,
       ],
       'updated'       => [
         'type'        => self::UINT,
         'default'     => time(),
-        'required'    => true
+        'required'    => true,
       ]
     ];
 

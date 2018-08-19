@@ -59,9 +59,7 @@ class Utils {
       /** @var int userid */
       $userid = $ConnectedAccount->provider_key;
 
-      return \XF::finder('Kruzya\\Telegram:User')
-        ->where('id', $userid)
-        ->fetchOne();
+      return \XF::app()->em()->find('Kruzya\\Telegram:User', $userid);
     }
 
     return NULL;
