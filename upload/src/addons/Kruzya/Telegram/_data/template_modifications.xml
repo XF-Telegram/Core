@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template_modifications>
-  <modification type="public" template="PAGE_CONTAINER" modification_key="kruzya_telegram_script_media" description="Adds the JavaScript function for correct loading media content" execution_order="10" enabled="1" action="str_replace">
-    <find><![CDATA[<meta charset="utf-8" />]]></find>
-    <replace><![CDATA[$0
-<xf:js src="Kruzya/Telegram/post-widget.js" min="1" />]]></replace>
-  </modification>
   <modification type="public" template="core.less" modification_key="kruzya_telegram_button_less" description="Add custom buttons to account provider" execution_order="10" enabled="1" action="str_replace">
     <find><![CDATA[{{ include('core_button.less') }}]]></find>
     <replace><![CDATA[$0
