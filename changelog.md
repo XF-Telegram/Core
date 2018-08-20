@@ -41,3 +41,10 @@
 # 1.0.6.1
 - Added a new method `editMessage` in `Kruzya\Telegram\Entity\User` entity.
 - Fixed a bug when message sender in conversation receives notification too.
+
+# 1.0.7
+- Removed a notifications.
+  Now notifications placed [in separate addon](https://github.com/XF-Telegram/Notifications).
+- Removed a Post BB-Media code.
+  Now post BB-Media code placed [in separate addon](https://github.com/XF-Telegram/MediaPost).
+- Implemented new API class.

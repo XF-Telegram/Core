@@ -37,9 +37,9 @@ class Setup extends AbstractSetup
         if ($table->getColumnDefinition('notifications'))
           $table->dropColumns(['notifications']);
       });
-
-      $sm->dropTable('tg_notifications_queue');
     }
+
+    $sm->dropTable('tg_notifications_queue');
   }
 
   public function uninstall(array $stepParams = []) {
