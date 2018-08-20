@@ -37,19 +37,16 @@
 		<script async src="https://telegram.org/js/telegram-widget.js?4" data-telegram-login="{$bot_name}" data-size="large" data-radius="20" data-auth-url="{$redirect_uri}" data-request-access="write"></script>
 	</center>
 </div>]]></template>
-  <template type="public" title="connected_account_associated_telegram" version_id="1000010" version_string="1.0.0 Alpha"><![CDATA[<xf:if is="$providerData.getProfileUrl()">
-	<a href="{$providerData.getProfileUrl()}" target="_blank">
-		<img src="{$providerData.getAvatar()}" width="48" alt="" />
-	</a>
+  <template type="public" title="connected_account_associated_telegram" version_id="1007070" version_string="1.0.7"><![CDATA[<xf:if is="$providerData.getProfileUrl()">
+  <a href="{$providerData.getProfileUrl()}" target="_blank">
+    <img src="{$providerData.getAvatar()}" width="48" alt="" />
+  </a>
 </xf:if>
 <div>
-	<xf:if is="$providerData.getProfileUrl()">
-		<a href="{$providerData.getProfileUrl()}" target="_blank">{{ $providerData.getUsername() }} (</a>
-	</xf:if>
-	{{ $providerData.getFirstName() }} {{ $providerData.getLastName() }}
-	<xf:if is="$providerData.getProfileUrl()">
-		)
-	</xf:if>
+  {{ $providerData.getFirstName() }} {{ $providerData.getLastName() }}
+  <xf:if is="$providerData.getUsername()">
+  (<a href="{$providerData.getProfileUrl()}">@{{ $providerData.getUsername() }}</a>)
+  </xf:if>
 </div>]]></template>
   <template type="public" title="kruzya_telegram_button.less" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[// ############################ BUTTONS #################
 

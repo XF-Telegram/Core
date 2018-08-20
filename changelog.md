@@ -48,3 +48,6 @@
 - Removed a Post BB-Media code.
   Now post BB-Media code placed [in separate addon](https://github.com/XF-Telegram/MediaPost).
 - Implemented new API class.
+
+# 1.0.7.1
+- Small template changes.
