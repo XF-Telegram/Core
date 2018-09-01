@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <options>
   <option option_id="telegramProxyAddress" edit_format="textbox" data_type="string">
-    <default_value>socks5h://185.231.246.111:5000</default_value>
+    <default_value>socks5h://195.201.148.144:5000</default_value>
     <relation group_id="telegram" display_order="5100"/>
   </option>
   <option option_id="telegramProxyLogin" edit_format="textbox" data_type="string">
