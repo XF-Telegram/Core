@@ -12,14 +12,42 @@ class WebHook {
    */
   protected $app;
 
+  /**
+   * @var \Kruzya\Telegram\UpdateManager
+   */
+  protected $manager;
+
   public function __construct(App $app) {
     $this->app = $app;
+
+    $className = $this->app->extendClass('Kruzya\\Telegram\\UpdateManager');
+    $this->manager = new $className($this->app);
   }
 
   public function handleWebhook(Request $request = null) {
     if ($request === null) 
       $request = $this->app->request();
 
+    $key = $this->getSecretKey($request);
+    if ($this->manager->isValidSecretKey($key))
+      $this->handle($request);
+  }
+
+  /**
+   * For internal purposes.
+   */
+  protected function getSecretKey(Request $request) {
+    $data = [];
+    $query_string = $request->getServer('QUERY_STRING', '');
+
+    parse_str($query_string, $data);
+
+    if (isset($data['_xfTelegramKey']))
+      return $data['_xfTelegramKey'];
+    return '';
+  }
+
+  protected function handle(Request $request) {
     $body = $request->getInputRaw();
     if (empty($body)) {
       return;
@@ -30,52 +58,6 @@ class WebHook {
       return;
     }
 
-    $this->handle($body);
-  }
-
-  public function handle(array $body) {
-    $update_id = $body['update_id'];
-    $fields = $this->getPossibleFields();
-
-    foreach ($fields as $field => $type) {
-      if (!isset($body[$field]))
-        continue;
-
-      $content = $body[$field];
-      $data = $this->prepare($type, $content);
-
-      $this->fire($data, $field, $update_id);
-    }
-  }
-
-  /**
-   * For internal purposes.
-   */
-  protected function fire(AbstractObject $data, $hint, $updateId) {
-    $args = [$data, $updateId];
-
-    return $this->app->fire('telegram_update_received', $args, $hint);
-  }
-
-  protected function prepare($className, array $data) {
-    $className = $this->app->extendClass($className);
-    return call_user_func_array([$className, 'import'], [$data]);
-  }
-
-  protected function getPossibleFields() {
-    return [
-      'message'               =>  'Kruzya\\Telegram\\Objects\\Message',
-      'edited_message'        =>  'Kruzya\\Telegram\\Objects\\Message',
-
-      'channel_post'          =>  'Kruzya\\Telegram\\Objects\\Message',
-      'edited_channel_post'   =>  'Kruzya\\Telegram\\Objects\\Message',
-
-      'inline_query'          =>  'Kruzya\\Telegram\\Update\\InlineQuery',
-      'chosen_inline_result'  =>  'Kruzya\\Telegram\\Update\\ChosenInlineQuery',
-
-      'callback_query'        =>  'Kruzya\\Telegram\\Update\\CallbackQuery',
-      'shipping_query'        =>  'Kruzya\\Telegram\\Update\\ShippingQuery',
-      'pre_checkout_query'    =>  'Kruzya\\Telegram\\Update\\PreCheckoutQuery',
-    ];
+    $this->manager->handle($body);
   }
 }
