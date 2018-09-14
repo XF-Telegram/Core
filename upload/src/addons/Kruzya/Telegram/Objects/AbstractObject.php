@@ -38,6 +38,12 @@ abstract class AbstractObject {
     }
   }
 
+  public function bulkSet($data) {
+    foreach ($data as $key => $value) {
+      $this->__set($key, $value);
+    }
+  }
+
   private function IsValidRemapKey($key) {
     return isset($this->_int_remappings[$key]);
   }

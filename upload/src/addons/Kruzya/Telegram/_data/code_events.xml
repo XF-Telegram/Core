@@ -7,7 +7,7 @@
 
 <p>Arguments:</p>
 <ol>
-  <li><code><em>\Kruzya\Telegram\Update\AbstractUpdate</em> $update</code> - Abstract update event object.</li>
+  <li><code><em>\Kruzya\Telegram\Objects\AbstractObject</em> $object</code> - Abstract event data object.</li>
   <li><code>$update_id</code> - The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially.</li>
 </ol>
 
@@ -23,5 +23,26 @@
   <li><code>callback_query</code> - New incoming callback query</li>
   <li><code>shipping_query</code> - New incoming shipping query. Only for invoices with flexible price</li>
   <li><code>pre_checkout_query</code> - New incoming pre-checkout query. Contains full information about checkout</li>
+</ul>
+
+<p>What types of data you receive and when?</p>
+<ul>
+  <li>
+    <code>Kruzya\Telegram\Objects\Message</code>
+    <ul>
+      <li><code>message</code></li>
+      <li><code>edited_message</code></li>
+      
+      <li><code>channel_post</code></li>
+      <li><code>edited_channel_post</code></li>
+    </ul>
+  </li>
+
+  <li><code>Kruzya\Telegram\Objects\InlineQuery</code> - <code>inline_query</code></li>
+  <li><code>Kruzya\Telegram\Objects\ChosenInlineResult</code> - <code>chosen_inline_result</code></li>
+
+  <li><code>Kruzya\Telegram\Objects\CallbackQuery</code> - <code>callback_query</code></li>
+  <li><code>Kruzya\Telegram\Objects\ShippingQuery</code> - <code>shipping_query</code></li>
+  <li><code>Kruzya\Telegram\Objects\PreCheckoutQuery</code> - <code>pre_checkout_query</code></li>
 </ul>]]></event>
 </code_events>

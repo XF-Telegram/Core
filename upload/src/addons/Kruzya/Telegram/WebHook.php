@@ -37,40 +37,38 @@ class WebHook {
     $update_id = $body['update_id'];
     $fields = $this->getPossibleFields();
 
-    foreach ($fields as $field => $callback) {
+    foreach ($fields as $field => $type) {
       if (!isset($body[$field]))
         continue;
 
       $content = $body[$field];
-      $data = $this->prepare($callback);
-      $data->exportData($content);
+      $data = $this->prepare($type, $content);
 
-      $this->fire($data, $update_id);
+      $this->fire($data, $field, $update_id);
     }
   }
 
   /**
    * For internal purposes.
    */
-  protected function fire(Update $updateInstance, $updateId) {
-    $hint = $updateInstance->getHint();
-    $args = [$updateInstance, $updateId];
+  protected function fire(AbstractObject $data, $hint, $updateId) {
+    $args = [$data, $updateId];
 
     return $this->app->fire('telegram_update_received', $args, $hint);
   }
 
-  protected function prepare($className) {
+  protected function prepare($className, array $data) {
     $className = $this->app->extendClass($className);
-    return new $className($this->app);
+    return call_user_func_array([$className, 'import'], [$data]);
   }
 
   protected function getPossibleFields() {
     return [
-      'message'               =>  'Kruzya\\Telegram\\Update\\Message',
-      'edited_message'        =>  'Kruzya\\Telegram\\Update\\EditedMessage',
+      'message'               =>  'Kruzya\\Telegram\\Objects\\Message',
+      'edited_message'        =>  'Kruzya\\Telegram\\Objects\\Message',
 
-      'channel_post'          =>  'Kruzya\\Telegram\\Update\\ChannelPost',
-      'edited_channel_post'   =>  'Kruzya\\Telegram\\Update\\EditedChannelPost',
+      'channel_post'          =>  'Kruzya\\Telegram\\Objects\\Message',
+      'edited_channel_post'   =>  'Kruzya\\Telegram\\Objects\\Message',
 
       'inline_query'          =>  'Kruzya\\Telegram\\Update\\InlineQuery',
       'chosen_inline_result'  =>  'Kruzya\\Telegram\\Update\\ChosenInlineQuery',
