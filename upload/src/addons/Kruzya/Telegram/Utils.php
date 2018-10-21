@@ -79,7 +79,8 @@ class Utils {
       }
 
       // create a wrapper.
-      self::$_apiwrapper = new API($token, $proxy);
+      $class_name = \XF::extendClass('Kruzya\Telegram\API');
+      self::$_apiwrapper = new $class_name($token, $proxy);
     }
 
     return self::$_apiwrapper->setGlobalVariables([]);
