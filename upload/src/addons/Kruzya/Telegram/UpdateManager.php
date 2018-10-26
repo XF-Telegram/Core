@@ -92,7 +92,7 @@ class UpdateManager {
     $botToken = Utils::getBotToken();
     $botName  = Utils::getBotName();
 
-    return Hash::hashText("{$botToken}:{$botName}", 'sha2');
+    return Hash::hashText("{$botToken}:{$botName}", 'sha256');
   }
 
   protected function fire(AbstractObject $data, $hint, $updateId) {
