@@ -2,6 +2,7 @@
 namespace Kruzya\Telegram;
 
 use Kruzya\Telegram\Objects\AbstractObject;
+use XF\Util\Hash;
 use XF\App;
 
 class UpdateManager {
@@ -91,7 +92,7 @@ class UpdateManager {
     $botToken = Utils::getBotToken();
     $botName  = Utils::getBotName();
 
-    return crypt($botName, $botToken);
+    return Hash::hashText("{$botToken}:{$botName}", 'sha2');
   }
 
   protected function fire(AbstractObject $data, $hint, $updateId) {
