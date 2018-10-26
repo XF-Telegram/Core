@@ -1,2 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<code_event_listeners/>
+<code_event_listeners>
+  <listener event_id="telegram_update_received" execute_order="10" callback_class="Kruzya\Telegram\DirectAuth" callback_method="onGotMessage" active="1" hint="message" description="Handles Direct Authorization requests"/>
+</code_event_listeners>

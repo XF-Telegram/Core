@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <options>
+  <option option_id="telegramAuthMethod" edit_format="radio" data_type="string">
+    <default_value>oauth</default_value>
+    <edit_format_params>oauth={{ phrase('tg_authMethod.oauth') }}
+direct={{ phrase('tg_authMethod.direct') }}</edit_format_params>
+    <relation group_id="telegram" display_order="15000"/>
+  </option>
   <option option_id="telegramGetUpdates" edit_format="radio" data_type="string">
     <default_value>none</default_value>
     <edit_format_params>none={{ phrase('tg_updateMode.none') }}
