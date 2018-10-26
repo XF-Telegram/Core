@@ -1,32 +1,31 @@
 <?php
 namespace Kruzya\Telegram;
 
-use XF\Util\Hash;
-
 class DirectAuth {
   public static function onGotMessage(Objects\Message $message, $update_id) {
     if ($message->Chat->Type !== 'private')
       return;
 
-    $text = $message->Text;
-    if (!self::startsWith($text, '/start ')) {
+    if ($message->Text != '/start auth') {
       return;
     }
 
-    $token = Hash::hashText(str_replace('/start ', '', $text), 'sha256');
-
     /** @var \Kruzya\Telegram\Objects\User */
     $user = $message->From;
+
     $data = [
-      'id'          => $user->ID,
       'first_name'  => $user->FirstName,
       'last_name'   => $user->LastName,
       'username'    => $user->Username,
-      'auth_date'   => \XF::$time,
-      'hash'        => $token,
     ];
 
-    $redirectTo = \XF::app()->options()->boardUrl . '/connected_account.php?' . http_build_query($data);
+    $hash  = Hash::getHash($user->ID, $data, \XF::$time);
+
+    $redirectTo = \XF::app()->options()->boardUrl . '/connected_account.php?' . http_build_query(array_merge($data, [
+      'id'        => $user->ID,
+      'auth_date' => \XF::$time,
+      'hash'      => $hash,
+    ]));
 
     Utils::api()->sendMessage([
       'chat_id'                   => $user->ID,
