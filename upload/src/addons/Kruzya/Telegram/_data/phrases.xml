@@ -6,11 +6,13 @@
   <phrase title="con_acc_telegram_bot_token_explain" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Input here HTTP access token. It will be sent to BotFatner when creating the bot.]]></phrase>
   <phrase title="cron_entry.telegram_receiveUpdates" version_id="1007071" version_string="1.0.7.1"><![CDATA[[Telegram] Core: Handle updates]]></phrase>
   <phrase title="cron_entry.telegram_updateMode" version_id="1007071" version_string="1.0.7.1"><![CDATA[[Telegram] Core: Update bot mode]]></phrase>
+  <phrase title="option.telegramAuthMethod" version_id="1007071" version_string="1.0.7.1"><![CDATA[Auth Method]]></phrase>
   <phrase title="option.telegramGetUpdates" version_id="1007071" version_string="1.0.7.1"><![CDATA[Receive bot updates]]></phrase>
   <phrase title="option.telegramProxyAddress" version_id="1005072" version_string="1.0.5.2"><![CDATA[Proxy Address]]></phrase>
   <phrase title="option.telegramProxyLogin" version_id="1005072" version_string="1.0.5.2"><![CDATA[Proxy Login]]></phrase>
   <phrase title="option.telegramProxyPassword" version_id="1005072" version_string="1.0.5.2"><![CDATA[Proxy Password]]></phrase>
   <phrase title="option.telegramUseProxy" version_id="1005072" version_string="1.0.5.2"><![CDATA[Use Proxy]]></phrase>
+  <phrase title="option_explain.telegramAuthMethod" version_id="1007071" version_string="1.0.7.1"><![CDATA[How method we should use for authentication?]]></phrase>
   <phrase title="option_explain.telegramGetUpdates" version_id="1007071" version_string="1.0.7.1"><![CDATA[This compels plugin receiving all bot updates from Telegram, like messages from users.]]></phrase>
   <phrase title="option_explain.telegramProxyAddress" version_id="1005072" version_string="1.0.5.2"><![CDATA[Fill here address to Proxy Server.<br />
 <b>Note</b>: Address should contain protocol name, like <i>socks5h</i>.]]></phrase>
@@ -32,6 +34,11 @@ If this field leaved empty - we use <i>anonymous</i>.]]></phrase>
   <phrase title="telegram_login_button_size.medium" version_id="1002070" version_string="1.0.2"><![CDATA[Medium]]></phrase>
   <phrase title="telegram_login_button_size.small" version_id="1002070" version_string="1.0.2"><![CDATA[Small]]></phrase>
   <phrase title="telegram_login_page_text" version_id="1000070" version_string="1.0.0 Alpha"><![CDATA[Since Telegram does not provide a direct API for authorization, it is necessary to click manually on the button below]]></phrase>
+  <phrase title="tg_authMethod.direct" version_id="1007071" version_string="1.0.7.1"><![CDATA[Directly in Telegram <br />
+User will be redirected to bot in Telegram with specially prepared start argument. In reply, bot send message with URL on forum auth handler. <br />
+<b>Note</b>: any URL from bot can be used once, and this method require enabled receiving updates.]]></phrase>
+  <phrase title="tg_authMethod.oauth" version_id="1007071" version_string="1.0.7.1"><![CDATA[Telegram OAuth Widget <br />
+<b>Note</b>: users from some countries like Russia can't see this widget without enabled proxy or VPN.]]></phrase>
   <phrase title="tg_botname" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram Bot Name]]></phrase>
   <phrase title="tg_bottoken" version_id="2000010" version_string="2.0.0 Alpha"><![CDATA[Telegram Bot Token]]></phrase>
   <phrase title="tg_updateMode.longpoll" version_id="1007071" version_string="1.0.7.1"><![CDATA[Use Cron Job<br />

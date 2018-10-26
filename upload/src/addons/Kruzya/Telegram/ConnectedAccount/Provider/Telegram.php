@@ -12,6 +12,8 @@ use XF\Mvc\Controller;
 use XF\Entity\ConnectedAccountProvider;
 use XF\Http\Request;
 
+use Kruzya\Telegram\Hash;
+
 class Telegram extends AbstractProvider {
   public function getOAuthServiceName() {
     return 'Telegram';
@@ -36,76 +38,89 @@ class Telegram extends AbstractProvider {
   }
 
   public function handleAuthorization(Controller $controller, ConnectedAccountProvider $provider, $returnUrl) {
-    $session = \XF::app()['session.public'];
+    $app = \XF::app();
+    $session = $app['session.public'];
     $session->set('connectedAccountRequest', [
       'provider'  => $this->providerId,
       'returnUrl' => $returnUrl,
-      'test'      => $this->testMode
+      'test'      => $this->testMode,
     ]);
     $session->save();
 
+    $auth_method = $app->options()->telegramAuthMethod;
+    if ($auth_method === 'oauth')
+      return $this->handleOAuthAuthorization($controller, $provider);
+    else if ($auth_method === 'direct')
+      return $this->handleDirectAuthorization($controller, $provider);
+  }
+
+  public function requestProviderToken(StorageState $storageState, Request $request, &$error = null, $skipStoredToken = false) {
+    $id = $request->get('id');
+
+    $data = [
+      'first_name'  => $request->get('first_name'),
+      'last_name'   => $request->get('last_name', ''),
+      'username'    => $request->get('username', ''),
+      'photo_url'   => $request->get('photo_url', ''),
+    ];
+
+    $auth_date  = $request->get('auth_date');
+    $hash       = $request->get('hash');
+
+    if (!$this->isValidAuth($id, $data, $auth_date, $hash, $error))
+      return false;
+
+    $token = new TelegramToken($id);
+
+    $user = $this->user($id);
+    $user->bulkSet($data);
+    $user->updated = \XF::$time;
+    $user->save();
+
+    $storageState->storeToken($token);
+    return $token;
+  }
+
+  /**
+   * Checks for valid auth.
+   */
+  protected function isValidAuth($id, array $data, $auth_date, $hash, &$error = null) {
+    if (!Hash::isCorrectHash($id, $data, $auth_date, $hash)) {
+      $error = \XF::phraseDeferred('error_occurred_while_connecting_with_x', ['provider' => $this->getTitle()]);
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Auth methods
+   */
+  protected function handleOAuthAuthorization(Controller $controller, ConnectedAccountProvider $provider) {
     $data = [
       'bot_name'     => $provider->options['bot_name'],
       'redirect_uri' => $this->getRedirectUri($provider)
     ];
 
-    return $controller->view('Telegram:Auth', 'telegram_login_page', $data);
+    return $controller->view('Kruzya\Telegram:Auth', 'telegram_login_page', $data);
   }
 
-  public function requestProviderToken(StorageState $storageState, Request $request, &$error = null, $skipStoredToken = false) {
-    $id         = $request->get('id');
-    $first_name = $request->get('first_name');
-    $last_name  = $request->get('last_name');
-    $username   = $request->get('username');
-    $photo_url  = $request->get('photo_url');
-    $auth_date  = $request->get('auth_date');
+  protected function handleDirectAuthorization(Controller $controller, ConnectedAccountProvider $provider) {
+    $url = "tg://resolve?domain={$provider->options['bot_name']}&start=auth";
 
-    $hash       = $request->get('hash');
+    return $controller->redirect($url);
+  }
 
-    $data = [];
-    $data['id'] = $id;
-    $data['first_name'] = $first_name;
-
-    if ($last_name !== false)
-      $data['last_name'] = $last_name;
-    if ($username !== false)
-      $data['username'] = $username;
-    if ($photo_url !== false)
-      $data['photo_url'] = $photo_url;
-    $data['auth_date'] = $auth_date;
-
-    $hashvar = [];
-    foreach ($data as $key => $value)
-      $hashvar[] = "{$key}={$value}";
-    sort($hashvar);
-    $data_check_string = implode("\n", $hashvar);
-
-    $secret_key  = hash('sha256', $storageState->getProvider()->options['bot_token'], true);
-    $except_hash = hash_hmac('sha256', $data_check_string, $secret_key);
-
-    if (!hash_equals($hash, $except_hash)) {
-      $error = \XF::phraseDeferred('error_occurred_while_connecting_with_x', ['provider' => $this->getTitle()]);
-      return false;
-    }
-
-    $token = new TelegramToken($id);
-
-    $data = \XF::finder('Kruzya\\Telegram:User')->where('id', $id)->fetchOne();
+  /**
+   * For internal usage.
+   */
+  protected function user($id) {
+    $data = \XF::finder('Kruzya\Telegram:User')->where('id', $id)->fetchOne();
     if (!$data) {
-      $data = \XF::em()->create('Kruzya\\Telegram:User');
+      $data = \XF::em()->create('Kruzya\Telegram:User');
       $data->id = $id;
     }
 
-    $data->bulkSet([
-      'first_name'    => $first_name,
-      'last_name'     => $last_name,
-      'username'      => $username,
-      'photo_url'     => $photo_url,
-      'updated'       => time()
-    ]);
-    $data->save();
-
-    $storageState->storeToken($token);
-    return $token;
+    return $data;
   }
 }
