@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cron/>
+<cron>
+  <entry entry_id="telegram_receiveUpdates" cron_class="Kruzya\Telegram\Cron\UpdateReceiver" cron_method="processUpdates" active="1"><![CDATA[{"day_type":"dom","dom":[-1],"hours":[-1],"minutes":[-1]}]]></entry>
+  <entry entry_id="telegram_updateMode" cron_class="Kruzya\Telegram\Cron\UpdateReceiver" cron_method="updateMode" active="1"><![CDATA[{"day_type":"dom","dom":[-1],"hours":[-1],"minutes":[5,10,15,20,25,30,35,40,45,50,55]}]]></entry>
+</cron>

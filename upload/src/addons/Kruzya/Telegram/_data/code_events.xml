@@ -3,7 +3,7 @@
   <event event_id="telegram_update_received"><![CDATA[<p>Called when received a new update</p>
 
 <p>Callback signature:</p>
-<blockquote><code><em>\Kruzya\Telegram\Update\AbstractUpdate</em> $update, $update_id</code></blockquote>
+<blockquote><code><em>\Kruzya\Telegram\Objects\AbstractObject</em> $object, $update_id</code></blockquote>
 
 <p>Arguments:</p>
 <ol>
