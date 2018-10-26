@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <options>
+  <option option_id="telegramGetUpdates" edit_format="radio" data_type="string">
+    <default_value>none</default_value>
+    <edit_format_params>none={{ phrase('tg_updateMode.none') }}
+longpoll={{ phrase('tg_updateMode.longpoll') }}
+webhook={{ phrase('tg_updateMode.webhook') }}</edit_format_params>
+    <relation group_id="telegram" display_order="10000"/>
+  </option>
   <option option_id="telegramProxyAddress" edit_format="textbox" data_type="string">
     <default_value>socks5h://195.201.148.144:5000</default_value>
     <relation group_id="telegram" display_order="5100"/>

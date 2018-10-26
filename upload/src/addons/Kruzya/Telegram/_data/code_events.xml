@@ -1,2 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<code_events/>
+<code_events>
+  <event event_id="telegram_update_received"><![CDATA[<p>Called when received a new update</p>
+
+<p>Callback signature:</p>
+<blockquote><code><em>\Kruzya\Telegram\Objects\AbstractObject</em> $object, $update_id</code></blockquote>
+
+<p>Arguments:</p>
+<ol>
+  <li><code><em>\Kruzya\Telegram\Objects\AbstractObject</em> $object</code> - Abstract event data object.</li>
+  <li><code>$update_id</code> - The update‘s unique identifier. Update identifiers start from a certain positive number and increase sequentially.</li>
+</ol>
+
+<p><b>Event hint:</b> Required field name from update</p>
+<p>Possible field names:</p>
+<ul>
+  <li><code>message</code> - New incoming message of any kind — text, photo, sticker, etc.</li>
+  <li><code>edited_message</code> - New version of a message that is known to the bot and was edited</li>
+  <li><code>channel_post</code> - New incoming channel post of any kind — text, photo, sticker, etc.</li>
+  <li><code>edited_channel_post</code> - New version of a channel post that is known to the bot and was edited</li>
+  <li><code>inline_query</code> - New incoming <a href="https://core.telegram.org/bots/api#inline-mode" target="_blank">inline</a> query</li>
+  <li><code>chosen_inline_result</code> - The result of an <a href="https://core.telegram.org/bots/api#inline-mode" target="_blank">inline</a> query that was chosen by a user and sent to their chat partner. Please see our documentation on the <a href="https://core.telegram.org/bots/inline#collecting-feedback" target="_blank">feedback collecting</a> for details on how to enable these updates for your bot.</li>
+  <li><code>callback_query</code> - New incoming callback query</li>
+  <li><code>shipping_query</code> - New incoming shipping query. Only for invoices with flexible price</li>
+  <li><code>pre_checkout_query</code> - New incoming pre-checkout query. Contains full information about checkout</li>
+</ul>
+
+<p>What types of data you receive and when?</p>
+<ul>
+  <li>
+    <code>Kruzya\Telegram\Objects\Message</code>
+    <ul>
+      <li><code>message</code></li>
+      <li><code>edited_message</code></li>
+      
+      <li><code>channel_post</code></li>
+      <li><code>edited_channel_post</code></li>
+    </ul>
+  </li>
+
+  <li><code>Kruzya\Telegram\Objects\InlineQuery</code> - <code>inline_query</code></li>
+  <li><code>Kruzya\Telegram\Objects\ChosenInlineResult</code> - <code>chosen_inline_result</code></li>
+
+  <li><code>Kruzya\Telegram\Objects\CallbackQuery</code> - <code>callback_query</code></li>
+  <li><code>Kruzya\Telegram\Objects\ShippingQuery</code> - <code>shipping_query</code></li>
+  <li><code>Kruzya\Telegram\Objects\PreCheckoutQuery</code> - <code>pre_checkout_query</code></li>
+</ul>]]></event>
+</code_events>
