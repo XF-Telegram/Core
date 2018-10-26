@@ -20,7 +20,7 @@ class WebHook {
   public function __construct(App $app) {
     $this->app = $app;
 
-    $className = $this->app->extendClass('Kruzya\\Telegram\\UpdateManager');
+    $className = $this->app->extendClass('Kruzya\Telegram\UpdateManager');
     $this->manager = new $className($this->app);
   }
 
@@ -28,32 +28,20 @@ class WebHook {
     if ($request === null) 
       $request = $this->app->request();
 
-    $key = $this->getSecretKey($request);
-    if ($this->manager->isValidSecretKey($key))
+    if ($this->manager->isValidSecretKey($request->filter('_xfTelegramKey', 'str')))
       $this->handle($request);
   }
 
   /**
    * For internal purposes.
    */
-  protected function getSecretKey(Request $request) {
-    $data = [];
-    $query_string = $request->getServer('QUERY_STRING', '');
-
-    parse_str($query_string, $data);
-
-    if (isset($data['_xfTelegramKey']))
-      return $data['_xfTelegramKey'];
-    return '';
-  }
-
   protected function handle(Request $request) {
     $body = $request->getInputRaw();
     if (empty($body)) {
       return;
     }
 
-    $body = @json_decode($body);
+    $body = @json_decode($body, true);
     if (!$body) {
       return;
     }

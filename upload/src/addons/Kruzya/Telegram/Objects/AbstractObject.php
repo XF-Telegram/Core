@@ -60,22 +60,23 @@ abstract class AbstractObject {
    * Maybe implement something like
    * "object storage"?
    */
-  private function exportData(array $data) {
+  protected function importData(array $data) {
     foreach ($data as $key => $value) {
       $push_value = $value;
-      if ($this->IsValidClassMap($key) && !is_null($value)) {
+      if ($this->IsValidClassMap($key) && !is_null($value) && is_array($value)) {
         $className = $this->_int_classMaps[$key];
-        $push_value = $this->classExport($className, $value);
+        $push_value = $this->classImport($className, $value);
       }
 
       $this->{$key} = $push_value;
     }
   }
 
-  private function isSeqArray(array $data) {
+  private function isSeqArray($data) {
+    if (!is_array($data)) return false;
     if (array() === $data) return false;
 
-    return (array_keys($data) !== range(0, count($data) - 1));
+    return (array_keys($data) === range(0, count($data) - 1));
   }
 
   private function classImport($className, $value) {
@@ -83,17 +84,13 @@ abstract class AbstractObject {
       return $this->classSeqImport($className, $value);
     }
 
-    return call_user_method_array([$className, 'export'], [$value]);
+    return call_user_func_array([$className, 'import'], [$value]);
   }
 
   private function classSeqImport($className, $value) {
-    if (!$this->isSeqArray($value)) {
-      return call_user_method_array([$className, 'export'], [$value]);
-    }
-
     $data = [];
     foreach ($value as $item) {
-      $data[] = $this->classSeqImport($className, $item);
+      $data[] = $this->classImport($className, $item);
     }
 
     return $data;
@@ -136,6 +133,6 @@ abstract class AbstractObject {
    *   getClassMaps() returns an array with
    * class object names for fields.
    */
-  protected function getRemappings();
-  protected function getClassMaps();
+  abstract protected function getRemappings();
+  abstract protected function getClassMaps();
 }

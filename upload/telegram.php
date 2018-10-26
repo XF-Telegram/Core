@@ -11,6 +11,6 @@ require ($dir . '/src/XF.php');
 XF::start($dir);
 $app = XF::setupApp('XF\Pub\App');
 
-$hookClass = $app->extendClass('Kruzya\\Telegram\\WebHook');
+$hookClass = $app->extendClass('Kruzya\Telegram\WebHook');
 $hook = new $hookClass($app);
 $hook->handleWebhook($app->request());

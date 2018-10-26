@@ -1,28 +1,35 @@
 <?php
 namespace Kruzya\Telegram;
 
+use Kruzya\Telegram\Objects\AbstractObject;
+use XF\App;
+
 class UpdateManager {
   /**
    * @var \XF\App
    */
   protected $app;
 
+  /**
+   * @var \XF\DataRegistry
+   */
+  protected $registry;
+
   public function __construct(App $app) {
-    $this->app = $app;
+    $this->app      = $app;
+    $this->registry = $app->registry();
   }
 
   public function updateMode() {
     $secretKey = $this->getSecretKey();
-
-    $mode = $this->app->options()->telegramGetUpdates;
-    $url  = $this->app->options()->boardUrl . "/telegram.php?_xfTelegramKey={$secretKey}";
+    $options   = $this->app->options();
 
     $params = [
       'url' => '',
     ];
 
-    if ($mode === 'webhook') {
-      $params['url'] = $url;
+    if ($options->telegramGetUpdates === 'webhook') {
+      $params['url'] = $options->boardUrl . "/telegram.php?_xfTelegramKey={$secretKey}";
       $params['max_connections'] = 25;
     }
 
@@ -30,17 +37,17 @@ class UpdateManager {
   }
 
   public function getUpdates() {
-    if ($this->app->options()->telegramGetUpdates != 'longpoll') {
+    if ($this->app->options()->telegramGetUpdates !== 'longpoll') {
       return;
     }
 
-    $registry = $this->app->registry();
+    $registry = $this->registry;
     if ($registry['tg_botActivePoll'] == 1)
       return;
 
     $id = 0;
     if (isset($registry['tg_botUpdateId']))
-      $id = $registry['tg_botUpdateId'];
+      $id = $registry['tg_botUpdateId'] + 1;
 
     $registry['tg_botActivePoll'] = 1;
     $response = Utils::api()->getUpdates([
@@ -49,7 +56,11 @@ class UpdateManager {
     ]);
     $registry['tg_botActivePoll'] = 0;
 
-    $this->handle($response);
+    $response = $response['result'];
+    foreach ($response as $body) {
+      $registry['tg_botUpdateId'] = $body['update_id'];
+      $this->handle($body);
+    }
   }
 
   public function handle(array $body) {
@@ -65,6 +76,8 @@ class UpdateManager {
 
       $this->fire($data, $field, $update_id);
     }
+
+    
   }
 
   public function isValidSecretKey($key) {
@@ -82,9 +95,7 @@ class UpdateManager {
   }
 
   protected function fire(AbstractObject $data, $hint, $updateId) {
-    $args = [$data, $updateId];
-
-    return $this->app->fire('telegram_update_received', $args, $hint);
+    return $this->app->fire('telegram_update_received', [$data, $updateId], $hint);
   }
 
   protected function prepare($className, array $data) {
@@ -94,18 +105,18 @@ class UpdateManager {
 
   protected function getPossibleFields() {
     return [
-      'message'               =>  'Kruzya\\Telegram\\Objects\\Message',
-      'edited_message'        =>  'Kruzya\\Telegram\\Objects\\Message',
+      'message'               =>  'Kruzya\Telegram\Objects\Message',
+      'edited_message'        =>  'Kruzya\Telegram\Objects\Message',
 
-      'channel_post'          =>  'Kruzya\\Telegram\\Objects\\Message',
-      'edited_channel_post'   =>  'Kruzya\\Telegram\\Objects\\Message',
+      'channel_post'          =>  'Kruzya\Telegram\Objects\Message',
+      'edited_channel_post'   =>  'Kruzya\Telegram\Objects\Message',
 
-      'inline_query'          =>  'Kruzya\\Telegram\\Objects\\InlineQuery',
-      'chosen_inline_result'  =>  'Kruzya\\Telegram\\Objects\\ChosenInlineResult',
+      'inline_query'          =>  'Kruzya\Telegram\Objects\InlineQuery',
+      'chosen_inline_result'  =>  'Kruzya\Telegram\Objects\ChosenInlineResult',
 
-      'callback_query'        =>  'Kruzya\\Telegram\\Objects\\CallbackQuery',
-      'shipping_query'        =>  'Kruzya\\Telegram\\Objects\\ShippingQuery',
-      'pre_checkout_query'    =>  'Kruzya\\Telegram\\Objects\\PreCheckoutQuery',
+      'callback_query'        =>  'Kruzya\Telegram\Objects\CallbackQuery',
+      'shipping_query'        =>  'Kruzya\Telegram\Objects\ShippingQuery',
+      'pre_checkout_query'    =>  'Kruzya\Telegram\Objects\PreCheckoutQuery',
     ];
   }
 }
