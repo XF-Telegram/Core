@@ -9,11 +9,6 @@ use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
 
-/**
- * TODO (before release 1.1)
- *
- * -> Add table prefix xf_
- */
 class Setup extends AbstractSetup
 {
 	use StepRunnerInstallTrait;
@@ -41,7 +36,7 @@ class Setup extends AbstractSetup
 			$table->addColumn('photo_url',      'varchar', 256);
 
 			$table->addColumn('updated',        'int');
-		})
+		});
 	}
 
 	/**
