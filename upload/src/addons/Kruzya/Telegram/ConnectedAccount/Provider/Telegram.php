@@ -20,7 +20,7 @@ class Telegram extends AbstractProvider {
   }
 
   public function getProviderDataClass() {
-    return 'Kruzya\\Telegram:ProviderData\\' . $this->getOAuthServiceName();
+    return 'Kruzya\Telegram:ProviderData\\' . $this->getOAuthServiceName();
   }
 
   public function getDefaultOptions() {
