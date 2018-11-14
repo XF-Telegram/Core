@@ -51,3 +51,19 @@
 
 # 1.0.7.1
 - Small template changes.
+
+# 1.0.7.2
+- `Kruzya\Telegram\API` can be extended.
+- Fixed bug related with updating information about user.
+
+# 1.1 Beta 1
+- Implemented [Bot Polling](https://github.com/XF-Telegram/Core/pull/13) with simple API. See event `telegram_update_received` in admin for more details.
+- Implemented [Direct Authorization](https://github.com/XF-Telegram/Core/pull/14)
+
+# 1.1 Beta 2
+- Added forgotten `build.json` on Git
+- Added forgotten `telegram.php` in webroot
+- Rewritten installer with using `StepRunnerTraits`
+
+# 1.1 Beta 3
+- Fixed rewrited installer.
