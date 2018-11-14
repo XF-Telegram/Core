@@ -28,7 +28,7 @@ class Setup extends AbstractSetup
 	}
 
 	public function installStep2() {
-		$this->db->getSchemaManager()->createTable('tg_user', function (Create $table) {
+		$this->db()->getSchemaManager()->createTable('tg_user', function (Create $table) {
 			$table->addColumn('id',             'int')->primaryKey();
 			$table->addColumn('first_name',     'varchar', 64)->setDefault('');
 			$table->addColumn('last_name',      'varchar', 64)->setDefault('');
