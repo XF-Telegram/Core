@@ -67,3 +67,7 @@
 
 # 1.1 Beta 3
 - Fixed rewrited installer.
+
+# 1.1 Beta 4
+- Rebuilded addon with correct `_data` directory.
+- Added prefix `xf_` for table.

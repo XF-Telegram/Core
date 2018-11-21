@@ -19,16 +19,17 @@ class Setup extends AbstractSetup
 	 * Install
 	 */
 	public function installStep1() {
-		$this->db()->insert('xf_connected_account_provider', [
+		$provider = $this->app->em()->create('XF:ConnectedAccountProvider');
+		$provider->bulkSet([
 			'provider_id'           => 'telegram',
-			'provider_class'        => 'Kruzya\\Telegram:Provider\\Telegram',
+			'provider_class'        => 'Kruzya\Telegram:Provider\Telegram',
 			'display_order'         => 150,
-			'options'               => '[]'
 		]);
+		$provider->save();
 	}
 
 	public function installStep2() {
-		$this->db()->getSchemaManager()->createTable('tg_user', function (Create $table) {
+		$this->db()->getSchemaManager()->createTable('xf_tg_user', function (Create $table) {
 			$table->addColumn('id',             'int')->primaryKey();
 			$table->addColumn('first_name',     'varchar', 64)->setDefault('');
 			$table->addColumn('last_name',      'varchar', 64)->setDefault('');
@@ -67,14 +68,22 @@ class Setup extends AbstractSetup
 		});
 	}
 
+	public function upgrade1010034Step1()
+	{
+		$this->db()->getSchemaManager()
+			->renameTable('tg_user', 'xf_tg_user');
+	}
+
 	/**
 	 * Uninstall
 	 */
 	public function uninstallStep1() {
-		$db = $this->db()->delete('xf_connected_account_provider', "provider_id = 'telegram'");
+		$provider = $this->app->em()->find('XF:ConnectedAccountProvider', 'telegram');
+		if ($provider)
+			$provider->delete();
 	}
 
 	public function uninstallStep2() {
-		$this->db()->getSchemaManager()->dropTable('tg_user');
+		$this->db()->getSchemaManager()->dropTable('xf_tg_user');
 	}
 }

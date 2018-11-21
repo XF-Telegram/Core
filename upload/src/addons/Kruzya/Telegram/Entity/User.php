@@ -8,8 +8,8 @@ use Kruzya\Telegram\Utils;
 
 class User extends Entity {
   public static function getStructure(Structure $structure) {
-    $structure->table      = 'tg_user';
-    $structure->shortName  = 'Kruzya\\Telegram:User';
+    $structure->table      = 'xf_tg_user';
+    $structure->shortName  = 'Kruzya\Telegram:User';
     $structure->primaryKey = 'id';
 
     $structure->relations  = [];
