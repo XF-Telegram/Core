@@ -45,8 +45,4 @@ before_script:
 script:
     # Copy files for our addon, import all and build release.
     - cp -Rf ${TRAVIS_BUILD_DIR}/upload/* ./
-    - php cmd.php xf-addon:install -f -n ${XENFORO_ADDON_ID}
-    - "[[ $? -eq 1 ]] && exit 1"
-    - php cmd.php xf-dev:import -n -a ${XENFORO_ADDON_ID}
-    - "[[ $? -eq 1 ]] && exit 1"
-    - php cmd.php xf-addon:build-release ${XENFORO_ADDON_ID}
+    - php cmd.php xf-addon:install -f -n ${XENFORO_ADDON_ID} && php cmd.php xf-dev:import -n -a ${XENFORO_ADDON_ID} && php cmd.php xf-addon:build-release ${XENFORO_ADDON_ID}
