@@ -1,0 +1,52 @@
+language: php
+php: '7.2'
+fast_fail: true
+
+env:
+    - MYSQL_PASSWORD=travis
+
+services:
+    - mysql
+
+before_install:
+    # Update apt cache
+    - sudo apt-get update
+
+    # Install MySQL, create database and set password for "root".
+    - sudo -E apt-get -q -y install unzip
+    - mysql -e 'CREATE DATABASE xenforo'
+    - mysqladmin -u root password ${MYSQL_PASSWORD}
+
+    # Download and unzip XenForo
+    - mkdir -p ${TRAVIS_BUILD_DIR}/xenforo
+    - cd ${TRAVIS_BUILD_DIR}/xenforo
+    - wget -q ${XENFORO_BASEURL}/${XENFORO_FILENAME}
+    - unzip -q ${XENFORO_FILENAME}
+    - cd upload
+
+before_script:
+    # Go to XF/src
+    - cd ${TRAVIS_BUILD_DIR}/xenforo/upload/src
+
+    # Fill config
+    - echo "<?php" > config.php
+    - echo "\$config['db']['host'] = 'localhost';" >> config.php
+    - echo "\$config['db']['port'] = 3306;" >> config.php
+    - echo "\$config['db']['username'] = 'root';" >> config.php
+    - echo "\$config['db']['password'] = '${MYSQL_PASSWORD}';" >> config.php
+    - echo "\$config['db']['dbname'] = 'xenforo';" >> config.php
+    - echo "\$config['debug'] = true;" >> config.php
+    - echo "\$config['development']['enabled'] = true;" >> config.php
+    - cd ..
+
+    # Install.
+    - php cmd.php xf:install -q --user=Travis --password=Travis --email noreply@travis-ci.com --title=Travis --url=http://localhost --skip-statistics --clear
+
+script:
+    # Copy files for our addon, import all and build release.
+    - cp -Rf ${TRAVIS_BUILD_DIR}/upload/* ./
+    - php cmd.php xf-addon:install -f -n ${XENFORO_ADDON_ID}
+    - "[[ $? -eq 1 ]] && exit 1"
+    - php cmd.php xf-dev:import -n -a ${XENFORO_ADDON_ID}
+    - "[[ $? -eq 1 ]] && exit 1"
+    - php cmd.php xf-addon:build-release ${XENFORO_ADDON_ID}
