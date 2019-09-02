@@ -1,0 +1,12 @@
+# Ignore XenForo installation.
+upload/*
+!upload/src
+upload/src/*
+!upload/src/addons
+upload/src/addons/*
+!upload/src/addons/SModders
+upload/src/addons/SModders/*
+!upload/src/addons/SModders/TelegramCore
+
+# Ignore Vendor directory.
+upload/src/addons/SModders/TelegramCore/vendor

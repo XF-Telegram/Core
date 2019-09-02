@@ -40,11 +40,15 @@ before_script:
     - echo "\$config['debug'] = true;" >> config.php
     - echo "\$config['development']['enabled'] = true;" >> config.php
     - cd ..
+    - export XENFORO_INSTALLATION=$(pwd)
 
     # Install.
     - php cmd.php xf:install -q --user=Travis --password=Travis --email noreply@travis-ci.com --title=Travis --url=http://localhost --skip-statistics --clear
 
 script:
-    # Copy files for our addon, import all and build release.
-    - cp -Rf ${TRAVIS_BUILD_DIR}/upload/* ./
-    - php cmd.php xf-addon:install -f -n ${XENFORO_ADDON_ID} && php cmd.php xf-dev:import -n -a ${XENFORO_ADDON_ID} && php cmd.php xf-addon:build-release ${XENFORO_ADDON_ID}
+    # Copy files for our addon, import all, grab composer packages and build release.
+    - cp -Rf ${TRAVIS_BUILD_DIR}/upload/* ${XENFORO_INSTALLATION}/
+    - cd ${XENFORO_INSTALLATION}/src/addons/SModders/TelegramCore
+    - composer install
+    - cd ${XENFORO_INSTALLATION}
+    - php cmd.php xf-addon:install -n ${XENFORO_ADDON_ID} && php cmd.php xf-dev:import -n -a ${XENFORO_ADDON_ID} && php cmd.php xf-addon:build-release ${XENFORO_ADDON_ID}

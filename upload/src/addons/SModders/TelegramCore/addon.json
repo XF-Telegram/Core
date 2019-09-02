@@ -2,8 +2,8 @@
     "legacy_addon_id": "",
     "title": "[Telegram] Core",
     "description": "Provides the ability to log in via Telegram",
-    "version_id": 2000010,
-    "version_string": "2.0.0 Alpha",
+    "version_id": 2000011,
+    "version_string": "2.0.0 Alpha 1",
     "dev": "SourceModders",
     "dev_url": "https://board.kruzya.me",
     "faq_url": "https://github.com/XF-Telegram/Core/wiki/FAQ",
@@ -12,5 +12,6 @@
     "require": {
         "XF": [2010010, "XenForo v2.1.0"]
     },
-    "icon": "fa-telegram fab"
+    "icon": "fa-telegram fab",
+    "composer_autoload": "vendor/composer"
 }

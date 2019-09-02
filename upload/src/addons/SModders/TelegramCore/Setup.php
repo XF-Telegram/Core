@@ -14,19 +14,20 @@ use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
 use XF\Db\Schema\Create;
+use XF\Util\Arr;
 
 class Setup extends AbstractSetup
 {
-	use StepRunnerInstallTrait;
-	use StepRunnerUpgradeTrait;
-	use StepRunnerUninstallTrait;
+    use StepRunnerInstallTrait;
+    use StepRunnerUpgradeTrait;
+    use StepRunnerUninstallTrait;
 
     /**
      * Creates the tables.
      * @return void
      * @throws \XF\PrintableException
      */
-	public function installStep1()
+    protected function installStep1()
     {
         /**
          * @var string $name
@@ -43,7 +44,7 @@ class Setup extends AbstractSetup
      * @return void
      * @throws \XF\PrintableException
      */
-    public function installStep2()
+    protected function installStep2()
     {
         $provider = $this->app->em()->create('XF:ConnectedAccountProvider');
         $provider->bulkSet($this->getProviderDetails());
@@ -54,7 +55,7 @@ class Setup extends AbstractSetup
      * Deletes all connections with Telegram.
      * @return void
      */
-    public function uninstallStep1()
+    protected function uninstallStep1()
     {
         $this->db()->delete('xf_connected_account_provider', 'provider_id = ?', $this->getProviderDetails('provider_id'));
     }
@@ -63,7 +64,7 @@ class Setup extends AbstractSetup
      * Deletes the provider.
      * @return void
      */
-    public function uninstallStep2()
+    protected function uninstallStep2()
     {
         $this->db()->delete('xf_connected_account_provider', 'provider_id = ?', $this->getProviderDetails('provider_id'));
     }
@@ -73,7 +74,7 @@ class Setup extends AbstractSetup
      * @return void
      * @throws \XF\PrintableException
      */
-    public function uninstallStep3()
+    protected function uninstallStep3()
     {
         /**
          * @var string $name

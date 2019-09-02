@@ -1,0 +1,1 @@
+Redirects a user to Telegram Client.

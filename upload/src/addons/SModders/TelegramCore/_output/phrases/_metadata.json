@@ -1,0 +1,62 @@
+{
+    "con_acc.smodders_telegram.txt": {
+        "global_cache": true,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "c915683f3ec888b8edcc7b06bd1428ec"
+    },
+    "con_acc_desc.smodders_telegram.txt": {
+        "global_cache": false,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "smodders_tgcore.authMethod_direct.txt": {
+        "global_cache": true,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "57a1febfa7a91aebcf5cc088fe3c61f4"
+    },
+    "smodders_tgcore.authMethod_direct_explain.txt": {
+        "global_cache": true,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "99e843a4ff193feebfc4de97bc7a32f1"
+    },
+    "smodders_tgcore.authMethod_oauth.txt": {
+        "global_cache": true,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "54699d9a7e6df4edbca4053281b2458e"
+    },
+    "smodders_tgcore.authMethod_oauth_explain.txt": {
+        "global_cache": true,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "ee7840aabdec45ffef2dc79037c64770"
+    },
+    "smodders_tgcore.auth_method.txt": {
+        "global_cache": false,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "e365be0d5c5d82b19311e6ee1c799e21"
+    },
+    "smodders_tgcore.provider_blockMessage.txt": {
+        "global_cache": true,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "69b1d7fd21874f1eb9387f79267d6648"
+    },
+    "smodders_tgcore.token.txt": {
+        "global_cache": true,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "459a6f79ad9b13cbcb5f692d2cc7a94d"
+    },
+    "smodders_tgcore.token_explain.txt": {
+        "global_cache": true,
+        "version_id": 2000011,
+        "version_string": "2.0.0 Alpha 1",
+        "hash": "132022c0d1c088667c7e8f014e73dfdd"
+    }
+}

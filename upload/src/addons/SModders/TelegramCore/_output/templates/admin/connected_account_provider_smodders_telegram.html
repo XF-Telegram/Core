@@ -1,0 +1,27 @@
+<!-- [SModders\Telegram:Notification] -->
+<div class="blockMessage blockMessage--iconic blockMessage--important" style="margin-bottom: 0;">
+	<xf:set var="$bot">
+		<a href="tg://resolve?domain=botfather" target="_blank">@BotFather</a>
+	</xf:set>
+
+	{{ phrase('smodders_tgcore.provider_blockMessage', {'bot': $bot}) }}<br />
+	If Telegram is unavailable on your server - you can setup proxy settings.
+</div>
+<!-- /[SModders\Telegram:Notification] -->
+
+<!-- [SModders\Telegram:BotToken] -->
+<xf:textboxrow name="options[token]" value="{$options.token}"
+	label="{{ phrase('smodders_tgcore.token') }}" hint="{{ phrase('required') }}"
+	explain="{{ phrase('smodders_tgcore.token_explain') }}" />
+<!-- /[SModders\Telegram:BotToken] -->
+
+<!-- [SModders\Telegram:AuthMethods] -->
+<xf:radiorow name="options[method]" value="{$options.method}"
+			 label="{{ phrase('smodders_tgcore.auth_method') }}">
+	<xf:foreach loop="{$authMethods}" key="{$id}" value="{$details}">
+		<xf:option value="{$id}"
+				   label="{$details.name}"
+				   hint="{$details.explain}" />
+	</xf:foreach>
+</xf:radiorow>
+<!-- /[SModders\Telegram:AuthMethods] -->

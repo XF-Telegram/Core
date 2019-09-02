@@ -1,0 +1,9 @@
+{
+    "event_id": "app_setup",
+    "execute_order": 10,
+    "callback_class": "SModders\\TelegramCore\\Listener",
+    "callback_method": "app_setup",
+    "active": true,
+    "hint": "",
+    "description": "Add a new element in app container"
+}

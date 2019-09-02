@@ -1,0 +1,1 @@
+You need create own bot in Telegram. You can do it with {bot} help.

@@ -1,0 +1,1 @@
+HTTP access token used for accessing Telegram Bot API.
