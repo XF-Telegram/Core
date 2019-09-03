@@ -11,6 +11,30 @@
         "version_string": "2.0.0 Alpha 1",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
+    "option.smodders_tgcore__proxy.txt": {
+        "global_cache": false,
+        "version_id": 2000012,
+        "version_string": "2.0.0 Alpha 2",
+        "hash": "1c63620d4f83a6e5a8d10885e7e27c29"
+    },
+    "option_explain.smodders_tgcore__proxy.txt": {
+        "global_cache": false,
+        "version_id": 2000012,
+        "version_string": "2.0.0 Alpha 2",
+        "hash": "b10cd181d1888884b7b2afdae7f20c3b"
+    },
+    "option_group.smodders_telegram.txt": {
+        "global_cache": false,
+        "version_id": 2000012,
+        "version_string": "2.0.0 Alpha 2",
+        "hash": "c915683f3ec888b8edcc7b06bd1428ec"
+    },
+    "option_group_description.smodders_telegram.txt": {
+        "global_cache": false,
+        "version_id": 2000012,
+        "version_string": "2.0.0 Alpha 2",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
+    },
     "smodders_tgcore.authMethod_direct.txt": {
         "global_cache": true,
         "version_id": 2000011,
@@ -40,6 +64,12 @@
         "version_id": 2000011,
         "version_string": "2.0.0 Alpha 1",
         "hash": "e365be0d5c5d82b19311e6ee1c799e21"
+    },
+    "smodders_tgcore.invalid_token.txt": {
+        "global_cache": true,
+        "version_id": 2000012,
+        "version_string": "2.0.0 Alpha 2",
+        "hash": "78c3124fc7183fac595c1e6440c2a52a"
     },
     "smodders_tgcore.provider_blockMessage.txt": {
         "global_cache": true,

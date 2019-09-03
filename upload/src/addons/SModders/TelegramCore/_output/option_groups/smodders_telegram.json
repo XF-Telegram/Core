@@ -1,0 +1,5 @@
+{
+    "icon": "fa-telegram fab",
+    "display_order": 10000,
+    "debug_only": false
+}
