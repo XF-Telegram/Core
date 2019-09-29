@@ -1,0 +1,2 @@
+Use Webhook (requires HTTPS)<br />
+Telegram manually sends updates on your forum.

@@ -9,7 +9,6 @@
 
 namespace SModders\TelegramCore\SubContainer;
 
-
 use TelegramBot\Api\BotApi;
 use TelegramBot\Api\Client;
 use XF\ConnectedAccount\Provider\AbstractProvider;
@@ -28,6 +27,7 @@ class Telegram extends AbstractSubContainer
 
         $this->initializeAuthMethods($container);
         $this->initializeApi($container);
+        $this->initializeBotData($container);
     }
     
     /**
@@ -53,7 +53,7 @@ class Telegram extends AbstractSubContainer
                 throw new \InvalidArgumentException("Unknown auth method class '$class'");
             }
         
-            return new $class($params['provider']);
+            return new $class($this->app, $params['provider']);
         });
     
         $container['authMethods'] = function (Container $c)
@@ -83,8 +83,12 @@ class Telegram extends AbstractSubContainer
         {
             return function ($token) use ($c)
             {
+                // TODO: add extending vendor classes.
+                // $className = \XF::extendClass('TelegramBot\\Api\\BotApi');
                 $api = new BotApi($token);
                 $api->setProxy($c['proxy']);
+    
+                \XF::extension()->fire('smodders_tgcore__api_setup', [$api]);
                 return $api;
             };
         };
@@ -93,8 +97,12 @@ class Telegram extends AbstractSubContainer
         {
             return function ($token) use ($c)
             {
+                // TODO: add extending vendor classes.
+                // $className = \XF::extendClass('TelegramBot\\Api\\Client');
                 $client = new Client($token);
                 $client->setProxy($c['proxy']);
+    
+                \XF::extension()->fire('smodders_tgcore__client_setup', [$client]);
                 return $client;
             };
         };
@@ -131,6 +139,11 @@ class Telegram extends AbstractSubContainer
             return array_replace($telegramProvider->getDefaultOptions(), $telegramProviderEntity->options);
         };
 
+        $container['bot.isInstalled'] = function (Container $c)
+        {
+            return !empty($c['bot.token']);
+        };
+
         $container['bot.name'] = function (Container $c)
         {
             return $c['bot']['name'];
@@ -163,7 +176,7 @@ class Telegram extends AbstractSubContainer
         {
             $token = $container['bot.token'];
         }
-
+        
         return $container['api']($token);
     }
     
@@ -178,7 +191,15 @@ class Telegram extends AbstractSubContainer
         {
             $token = $container['bot.token'];
         }
-    
+        
         return $container['client']($token);
+    }
+    
+    /**
+     * @return bool
+     */
+    public function isInstalled()
+    {
+        return $this->container['bot.isInstalled'];
     }
 }

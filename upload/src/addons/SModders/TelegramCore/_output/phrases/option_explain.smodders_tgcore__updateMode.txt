@@ -1,0 +1,1 @@
+This compels plugin receiving all bot updates from Telegram, like messages from users.

@@ -1,0 +1,1 @@
+Input here corner radius. If 0, widget will use default value.

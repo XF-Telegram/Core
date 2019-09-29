@@ -9,11 +9,19 @@
 
 namespace SModders\TelegramCore;
 
+use TelegramBot\Api\Client;
+use TelegramBot\Api\Types\Message;
 use XF\App;
 use XF\Container;
+use XF\Util\Json;
 
 class Listener
 {
+    /**
+     * Called after the global \XF\App object has been setup.
+     *
+     * @param App $app
+     */
     public static function app_setup(App $app)
     {
         /** @var \XF\Container $container */
@@ -25,5 +33,56 @@ class Listener
             $class = $app->extendClass('SModders\TelegramCore\SubContainer\Telegram');
             return new $class($c, $app);
         };
+    }
+    
+    /**
+     * Called after the Telegram API Client \TelegramBot\Api\Client object is created.
+     *
+     * @param Client $client
+     */
+    public static function smodders_tgcore__client_setup(Client $client)
+    {
+        $client->command('start', function (Message $message) use ($client)
+        {
+            // \XF::dump($message); exit();
+            $chat = $message->getChat();
+            if ($chat->getType() != 'private')
+            {
+                return;
+            }
+            
+            if ($message->getText() != '/start smodders_tgcore__authenticate')
+            {
+                return;
+            }
+            
+            $options = \XF::options();
+            $client->call('sendMessage', [
+                'chat_id'       => $chat->getId(),
+                'parse_mode'    => 'HTML',
+                
+                'reply_markup'  => json_encode([
+                    'inline_keyboard'   => [
+                        [
+                            [
+                                'text'      => \XF::phraseDeferred('button.login'),
+                                'login_url' => [
+                                    'url'                   => $options->boardUrl . '/connected_account.php',
+                                    'request_write_access'  => true,
+                                ]
+                            ]
+                        ]
+                    ]
+                ]),
+    
+                'text'          => \XF::app()->templater()->renderTemplate('public:smodders_tgcore__directauth_message', [
+                    'message'   => $message,
+                    'board'     => [
+                        'url'   => $options->boardUrl,
+                        'title' => $options->boardTitle,
+                    ],
+                ]),
+            ]);
+        });
     }
 }

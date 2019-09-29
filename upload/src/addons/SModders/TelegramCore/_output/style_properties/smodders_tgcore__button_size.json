@@ -1,0 +1,13 @@
+{
+    "group_name": "smodders_tgcore__style_group",
+    "title": "Button size",
+    "description": "Select the size for login button.",
+    "property_type": "value",
+    "css_components": [],
+    "value_type": "select",
+    "value_parameters": "small={{ phrase('smodders_tgcore.button_size__small') }}\nmedium={{ phrase('smodders_tgcore.button_size__medium') }}\nlarge={{ phrase('smodders_tgcore.button_size__large') }}",
+    "depends_on": "",
+    "value_group": "loginWidget",
+    "property_value": "large",
+    "display_order": 120
+}

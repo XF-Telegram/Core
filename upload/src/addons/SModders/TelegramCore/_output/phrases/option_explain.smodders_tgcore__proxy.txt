@@ -1,1 +1,1 @@
-If your hosting provider blocks access to Telegram - you need proxy. Here you can put connection string to proxy. More details about "connection string" you can find <a href="https://curl.haxx.se/libcurl/c/CURLOPT_PROXY.html">here</a>.
+If your hosting provider blocks outcoming connections to Telegram - you need proxy. Here you can put connection string to proxy. More details about "connection string" you can find <a href="https://curl.haxx.se/libcurl/c/CURLOPT_PROXY.html">here</a>.

@@ -1,0 +1,13 @@
+{
+    "group_name": "smodders_tgcore__style_group",
+    "title": "Custom Corner Radius",
+    "description": "Input here corner radius. If 0, widget will use default value.",
+    "property_type": "value",
+    "css_components": [],
+    "value_type": "number",
+    "value_parameters": "",
+    "depends_on": "",
+    "value_group": "loginWidget",
+    "property_value": "0",
+    "display_order": 110
+}

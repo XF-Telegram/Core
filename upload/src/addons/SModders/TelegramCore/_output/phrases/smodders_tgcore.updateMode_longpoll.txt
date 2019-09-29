@@ -1,0 +1,2 @@
+Use Cron Job<br />
+Forum manually gets all updates when it's necessary and by Cron Job.

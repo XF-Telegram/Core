@@ -1,0 +1,1 @@
+All style options related with Telegram integration (such as login widget for OAuth)

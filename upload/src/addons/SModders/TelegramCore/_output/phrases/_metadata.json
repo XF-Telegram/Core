@@ -11,17 +11,47 @@
         "version_string": "2.0.0 Alpha 1",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
+    "cron_entry.smodders_tgcore__longpoll.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "cbc09a05a17dcd357f268fcd17813f65"
+    },
     "option.smodders_tgcore__proxy.txt": {
         "global_cache": false,
         "version_id": 2000012,
         "version_string": "2.0.0 Alpha 2",
         "hash": "1c63620d4f83a6e5a8d10885e7e27c29"
     },
+    "option.smodders_tgcore__updateMode.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "1bce86cbb51ec6822839813d5960a91a"
+    },
+    "option.smodders_tgcore__webHookProxy.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "78c70034556a54256afdc0436874fa4e"
+    },
     "option_explain.smodders_tgcore__proxy.txt": {
         "global_cache": false,
-        "version_id": 2000012,
-        "version_string": "2.0.0 Alpha 2",
-        "hash": "b10cd181d1888884b7b2afdae7f20c3b"
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "e537bfc66e21cd6faf21bcf31031c286"
+    },
+    "option_explain.smodders_tgcore__updateMode.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "67346c58824afd51777a52a1d1d8bd2c"
+    },
+    "option_explain.smodders_tgcore__webHookProxy.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "d5d86ef9d632859baad7e04aca1afb03"
     },
     "option_group.smodders_telegram.txt": {
         "global_cache": false,
@@ -47,6 +77,12 @@
         "version_string": "2.0.0 Alpha 1",
         "hash": "99e843a4ff193feebfc4de97bc7a32f1"
     },
+    "smodders_tgcore.authMethod_direct_text.txt": {
+        "global_cache": true,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "b7de740093483f24686ea02053443226"
+    },
     "smodders_tgcore.authMethod_oauth.txt": {
         "global_cache": true,
         "version_id": 2000011,
@@ -64,6 +100,30 @@
         "version_id": 2000011,
         "version_string": "2.0.0 Alpha 1",
         "hash": "e365be0d5c5d82b19311e6ee1c799e21"
+    },
+    "smodders_tgcore.button_size__large.txt": {
+        "global_cache": true,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "3a69b34ce86dacb205936a8094f6c743"
+    },
+    "smodders_tgcore.button_size__medium.txt": {
+        "global_cache": true,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "87f8a6ab85c9ced3702b4ea641ad4bb5"
+    },
+    "smodders_tgcore.button_size__small.txt": {
+        "global_cache": true,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "2660064e68655415da2628c2ae2f7592"
+    },
+    "smodders_tgcore.direct_message.txt": {
+        "global_cache": true,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "e952f99e46f09feb328d93047dffe238"
     },
     "smodders_tgcore.invalid_token.txt": {
         "global_cache": true,
@@ -88,5 +148,71 @@
         "version_id": 2000011,
         "version_string": "2.0.0 Alpha 1",
         "hash": "132022c0d1c088667c7e8f014e73dfdd"
+    },
+    "smodders_tgcore.updateMode_longpoll.txt": {
+        "global_cache": true,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "82ea86f4460690cf0c1db94c2cc21e5d"
+    },
+    "smodders_tgcore.updateMode_none.txt": {
+        "global_cache": true,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "a45a2a072cdd65c3da821f7df6f8eba6"
+    },
+    "smodders_tgcore.updateMode_webhook.txt": {
+        "global_cache": true,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "ac4f182a4f4b11f34483bfc1ddd5ff13"
+    },
+    "style_prop.smodders_tgcore__border_radius.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "1dd5539e0ca670854d3deffcbafb031c"
+    },
+    "style_prop.smodders_tgcore__button_size.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "31de1fd9efe72874b7e5da36e286b7b7"
+    },
+    "style_prop.smodders_tgcore__user_avatar.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "4a21a331e20575c66ae49030d348d82b"
+    },
+    "style_prop_desc.smodders_tgcore__border_radius.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "6a5e52882130cd2d8b2fbb5f3da57264"
+    },
+    "style_prop_desc.smodders_tgcore__button_size.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "74f87c282dc686a7f5b7d5e8d9ab8a6d"
+    },
+    "style_prop_desc.smodders_tgcore__user_avatar.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "c19885b40eb7574a5159733cc646ccdd"
+    },
+    "style_prop_group.smodders_tgcore__style_group.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "c915683f3ec888b8edcc7b06bd1428ec"
+    },
+    "style_prop_group_desc.smodders_tgcore__style_group.txt": {
+        "global_cache": false,
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "8766227f00fa89614a116fd253e1f8b0"
     }
 }

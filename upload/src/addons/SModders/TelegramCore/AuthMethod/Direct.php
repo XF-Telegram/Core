@@ -12,13 +12,8 @@ namespace SModders\TelegramCore\AuthMethod;
 
 class Direct extends AbstractAuthMethod
 {
-    protected function setup()
-    {
-        // TODO: Implement setup() method.
-    }
-    
     public function handle()
     {
-        // TODO: Implement handle() method.
+        return $this->controller->redirect("tg://resolve?domain={$this->getBotName()}&start=smodders_tgcore__authenticate");
     }
 }

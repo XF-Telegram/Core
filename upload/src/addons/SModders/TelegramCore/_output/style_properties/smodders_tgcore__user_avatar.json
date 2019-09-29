@@ -1,0 +1,13 @@
+{
+    "group_name": "smodders_tgcore__style_group",
+    "title": "User Avatar",
+    "description": "Show user avatar in login widget?",
+    "property_type": "value",
+    "css_components": [],
+    "value_type": "boolean",
+    "value_parameters": "",
+    "depends_on": "",
+    "value_group": "loginWidget",
+    "property_value": 1,
+    "display_order": 130
+}

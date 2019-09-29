@@ -1,0 +1,1 @@
+Since Telegram does not provide a direct API for authorization, it is necessary to click manually on the button below

@@ -1,0 +1,5 @@
+{
+    "title": "Telegram",
+    "description": "All style options related with Telegram integration (such as login widget for OAuth)",
+    "display_order": 15000
+}

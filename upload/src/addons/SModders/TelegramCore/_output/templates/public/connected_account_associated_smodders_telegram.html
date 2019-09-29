@@ -1,0 +1,14 @@
+<xf:set var="$hasUsername" value="{$providerData.get('username')} == null" />
+<xf:if is="$hasUsername">
+	<a href="{$providerData.getProfileUrl()}" target="_blank">
+		<img src="{$providerData.getAvatar()}" width="48" alt="" />
+	</a>
+</xf:if>
+
+<div>
+	{{ $providerData.get('first_name') }} {{ $providerData.get('last_name') }}
+
+	<xf:if is="$hasUsername">
+		(<a href="{$providerData.getProfileUrl()}">@{{ $providerData.get('username') }}</a>)
+	</xf:if>
+</div>

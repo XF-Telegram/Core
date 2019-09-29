@@ -3,5 +3,20 @@
         "version_id": 2000011,
         "version_string": "2.0.0 Alpha 1",
         "hash": "1dc6980006dcb793901f61fc92250178"
+    },
+    "public/connected_account_associated_smodders_telegram.html": {
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "f11d9b636d866fa1572a084d1389f42a"
+    },
+    "public/smodders_tgcore.authmethod_oauth": {
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "20732201404faee6767cb84ee789bdf4"
+    },
+    "public/smodders_tgcore__directauth_message.html": {
+        "version_id": 2000013,
+        "version_string": "2.0.0 Alpha 3",
+        "hash": "77d3f07eada251bb666f2940d0a505c8"
     }
 }

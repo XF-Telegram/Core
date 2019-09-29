@@ -1,0 +1,9 @@
+{
+    "event_id": "smodders_tgcore__client_setup",
+    "execute_order": 10,
+    "callback_class": "SModders\\TelegramCore\\Listener",
+    "callback_method": "smodders_tgcore__client_setup",
+    "active": true,
+    "hint": "",
+    "description": "Add message listener for Direct auth"
+}

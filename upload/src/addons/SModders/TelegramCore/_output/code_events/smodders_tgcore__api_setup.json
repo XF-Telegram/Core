@@ -1,0 +1,3 @@
+{
+    "description": "<p>Called after the Telegram API <code>\\TelegramBot\\Api\\BotApi</code> object is created.</p>\n\n<p>Callback signature:</p>\n<blockquote><code><em>\\TelegramBot\\Api\\BotApi</em> $api</code></blockquote>\n\n<p>Arguments:</p>\n<ol>\n\t<li><code><em>\\TelegramBot\\Api\\BotApi</em> $api</code> - Telegram Bot API.</li>\n</ol>"
+}
