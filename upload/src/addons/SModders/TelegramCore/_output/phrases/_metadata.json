@@ -121,9 +121,9 @@
     },
     "smodders_tgcore.direct_message.txt": {
         "global_cache": true,
-        "version_id": 2000013,
-        "version_string": "2.0.0 Alpha 3",
-        "hash": "e952f99e46f09feb328d93047dffe238"
+        "version_id": 2000051,
+        "version_string": "2.0.0 Release Candidate 1",
+        "hash": "091fb63e3c94fac23bd0192444dab414"
     },
     "smodders_tgcore.invalid_token.txt": {
         "global_cache": true,

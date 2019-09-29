@@ -1,3 +1,3 @@
 <b>{username}</b>, you invited to login on <a href="{url}">{title}</a> with Telegram.
 
-To continue, just press button below this message.
+To continue, just press button below this message and confirm log in on site.

@@ -1,0 +1,9 @@
+{
+    "template": "core.less",
+    "description": "Append styles for Telegram Login Button",
+    "execution_order": 10,
+    "enabled": true,
+    "action": "str_replace",
+    "find": "{{ include('core_button.less') }}",
+    "replace": "$0\n{{ include('smodders_tgcore__button.less') }}"
+}

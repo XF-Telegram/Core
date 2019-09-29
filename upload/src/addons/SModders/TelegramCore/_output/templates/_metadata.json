@@ -14,6 +14,11 @@
         "version_string": "2.0.0 Alpha 3",
         "hash": "20732201404faee6767cb84ee789bdf4"
     },
+    "public/smodders_tgcore__button.less": {
+        "version_id": 2000051,
+        "version_string": "2.0.0 Release Candidate 1",
+        "hash": "8b402799be9f40a462f5172e21244174"
+    },
     "public/smodders_tgcore__directauth_message.html": {
         "version_id": 2000013,
         "version_string": "2.0.0 Alpha 3",
