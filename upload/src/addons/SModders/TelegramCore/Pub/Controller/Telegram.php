@@ -15,23 +15,37 @@ use XF\Util\Hash;
 
 class Telegram extends AbstractController
 {
-    public function handleWebhookAction(ParameterBag $params)
+    public function checkCsrfIfNeeded($action, ParameterBag $params)
     {
-        $this->assertWebHookToken($params->token);
+        if (strtolower($action) == 'handlewebhook')
+        {
+            return;
+        }
+
+        return parent::checkCsrfIfNeeded($action, $params);
+    }
+    
+    public function actionHandleWebhook(ParameterBag $params)
+    {
+        $this->assertPostOnly();
+        $this->assertWebHookToken($this->request->get('token'));
 
         try {
             $this->getTelegramContainer()
                 ->client()->run();
         } catch (\Exception $e) {
+            \XF::logException($e);
             return $this->error($e->getMessage(), 500);
         }
+        
+        return $this->message('Ok');
     }
 
     protected function assertWebHookToken($token)
     {
-        if ($token != Hash::hashText($this->getTelegramContainer()['bot.token']))
+        if ($token != Hash::hashText($this->getTelegramContainer()->get('bot.token')))
         {
-            return $this->noPermission();
+            throw $this->exception($this->noPermission());
         }
     }
     

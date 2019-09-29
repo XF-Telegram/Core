@@ -11,6 +11,7 @@ namespace SModders\TelegramCore\Service;
 
 
 use XF\Service\AbstractService;
+use XF\Util\Hash;
 
 class WebHook extends AbstractService
 {
@@ -34,15 +35,14 @@ class WebHook extends AbstractService
         $app = \XF::app();
         $options = $app->options();
         
-        $link = $options->boardUrl . \XF::app()->router('public')->buildLink('smodders_tgcore/handle-webhook');
+        $link = $options->boardUrl . \XF::app()->router('public')->buildLink('smodders_telegram/handle-webhook', null, ['token' => Hash::hashText($app->get('smodders.telegram')->get('bot.token'))]);
         
         $webProxy = $options['smodders_tgcore__webHookProxy'];
         if (!empty($webProxy))
         {
             $link = str_replace('{webHook}', urlencode($link), $webProxy);
         }
-        
-        \XF::logError($link);
+
         return $link;
     }
     

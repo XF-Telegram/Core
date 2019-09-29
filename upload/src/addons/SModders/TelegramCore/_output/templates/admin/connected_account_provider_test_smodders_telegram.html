@@ -1,0 +1,15 @@
+<xf:if is="!$providerData">
+	<xf:inforow>
+		{{ phrase('this_will_test_x_connected_account_provider_explain', {'title': $provider.title}) }}
+	</xf:inforow>
+<xf:else />
+	<xf:inforow rowtype="confirm"><strong>{{ phrase('test_passed') }}</strong></xf:inforow>
+	<xf:formrow label="{{ phrase('name') }}">{{ $providerData.get('username') ?: phrase('n_a') }}</xf:formrow>
+	<xf:formrow label="{{ phrase('picture') }}">
+		<xf:if is="$providerData.get('username')">
+			<img src="{$providerData.getAvatar()}" width="48" />
+		<xf:else />
+			{{ phrase('n_a') }}
+		</xf:if>
+	</xf:formrow>
+</xf:if>

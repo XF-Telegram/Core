@@ -12,6 +12,11 @@ class LongPoll
     public static function process()
     {
         $app = \XF::app();
+        if ($app->options()->smodders_tgcore__updateMode != 'longpoll')
+        {
+            return;
+        }
+
         $registry = $app->registry();
 
         // Get offset.

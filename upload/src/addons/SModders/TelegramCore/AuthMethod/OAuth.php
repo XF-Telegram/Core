@@ -19,6 +19,6 @@ class OAuth extends AbstractAuthMethod
             'redirectUri'   => $this->provider->getRedirectUri($this->providerEntity),
         ];
         
-        return $this->controller->view('SModders\TelegramCore:AuthMethod\OAuth', 'smodders_tgcore.authmethod_oauth', $viewParams);
+        return $this->controller->view('SModders\TelegramCore:AuthMethod\OAuth', 'public:smodders_tgcore.authmethod_oauth', $viewParams);
     }
 }
