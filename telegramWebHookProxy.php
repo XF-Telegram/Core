@@ -26,6 +26,7 @@ curl_setopt_array($ch, [
     CURLOPT_POSTFIELDS      => $data,
     CURLOPT_HTTPHEADER      => ['Content-Type: application/json'],
     CURLOPT_RETURNTRANSFER  => true,
+	CURLOPT_USERAGENT       => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0',
 ]);
 $result = curl_exec($ch);
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
