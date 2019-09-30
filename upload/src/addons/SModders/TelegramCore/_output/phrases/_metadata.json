@@ -125,6 +125,12 @@
         "version_string": "2.0.0 Release Candidate 1",
         "hash": "091fb63e3c94fac23bd0192444dab414"
     },
+    "smodders_tgcore.invalid_hash.txt": {
+        "global_cache": false,
+        "version_id": 2000054,
+        "version_string": "2.0.0 Release Candidate 4",
+        "hash": "3e7882ab7b269753e22da044cde76ad3"
+    },
     "smodders_tgcore.invalid_token.txt": {
         "global_cache": true,
         "version_id": 2000012,

@@ -72,11 +72,12 @@ class Telegram extends AbstractProvider
         $data = [];
         foreach (['id', 'first_name', 'last_name', 'username', 'photo_url', 'auth_date', 'hash'] as $key)
         {
-            $data[$key] = $request->get($key, 'string');
+            $data[$key] = $request->filter($key, 'string', '');
         }
     
         if (!$this->isValidHash($data))
         {
+            $error = \XF::phraseDeferred('smodders_tgcore.invalid_hash');
             return false;
         }
         

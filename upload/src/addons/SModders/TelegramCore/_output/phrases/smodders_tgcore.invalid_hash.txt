@@ -1,0 +1,1 @@
+Telegram received invalid hash. Please, try again.
