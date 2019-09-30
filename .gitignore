@@ -8,5 +8,9 @@ upload/src/addons/*
 upload/src/addons/SModders/*
 !upload/src/addons/SModders/TelegramCore
 
+# Ignore data and releases directory.
+upload/src/addons/SModders/TelegramCore/_data
+upload/src/addons/SModders/TelegramCore/_releases
+
 # Ignore Vendor directory.
 upload/src/addons/SModders/TelegramCore/vendor
