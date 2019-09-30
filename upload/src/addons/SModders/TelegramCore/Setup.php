@@ -57,7 +57,7 @@ class Setup extends AbstractSetup
      */
     protected function uninstallStep1()
     {
-        $this->db()->delete('xf_connected_account_provider', 'provider_id = ?', $this->getProviderDetails('provider_id'));
+        $this->db()->delete('xf_user_connected_account', 'provider = ?', $this->getProviderDetails('provider_id'));
     }
 
     /**

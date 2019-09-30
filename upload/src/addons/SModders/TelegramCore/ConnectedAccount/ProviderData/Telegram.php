@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * This file is a part of [Telegram] Core.
+ * All rights reserved.
+ *
+ * Developed by SourceModders.
+ */
 
 namespace SModders\TelegramCore\ConnectedAccount\ProviderData;
 

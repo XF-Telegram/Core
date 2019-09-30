@@ -35,7 +35,9 @@ class WebHook extends AbstractService
         $app = \XF::app();
         $options = $app->options();
         
-        $link = $options->boardUrl . \XF::app()->router('public')->buildLink('smodders_telegram/handle-webhook', null, ['token' => Hash::hashText($app->get('smodders.telegram')->get('bot.token'))]);
+        $link = \XF::app()->router('public')->buildLink('canonical:smodders_telegram/handle-webhook', null, [
+            'token' => Hash::hashText($app->get('smodders.telegram')->get('bot.token'))
+        ]);
         
         $webProxy = $options['smodders_tgcore__webHookProxy'];
         if (!empty($webProxy))
