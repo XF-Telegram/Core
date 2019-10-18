@@ -1,0 +1,1 @@
+Previous installation [Telegram] Core cannot be found in database.

@@ -1,0 +1,9 @@
+{
+    "event_id": "import_importer_classes",
+    "execute_order": 10,
+    "callback_class": "SModders\\TelegramCore\\Listener",
+    "callback_method": "import_importer_classes",
+    "active": true,
+    "hint": "",
+    "description": "Add a importer from old Add-On version"
+}

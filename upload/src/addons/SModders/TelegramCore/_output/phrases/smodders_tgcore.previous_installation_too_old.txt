@@ -1,0 +1,1 @@
+Previous installation of [Telegram] Core found, but too old. Minimal required version for importing - {required}.

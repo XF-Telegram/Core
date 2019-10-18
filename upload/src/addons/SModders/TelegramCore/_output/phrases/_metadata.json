@@ -65,6 +65,12 @@
         "version_string": "2.0.0 Alpha 2",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
+    "smodders_tgcore.accounts.txt": {
+        "global_cache": false,
+        "version_id": 2000055,
+        "version_string": "2.0.0 Release Candidate 5",
+        "hash": "ad00b19d9ac3fe7a54665dbd32d950a0"
+    },
     "smodders_tgcore.authMethod_direct.txt": {
         "global_cache": true,
         "version_id": 2000011,
@@ -136,6 +142,18 @@
         "version_id": 2000012,
         "version_string": "2.0.0 Alpha 2",
         "hash": "78c3124fc7183fac595c1e6440c2a52a"
+    },
+    "smodders_tgcore.previous_installation_not_found.txt": {
+        "global_cache": true,
+        "version_id": 2000055,
+        "version_string": "2.0.0 Release Candidate 5",
+        "hash": "9d260c0fddbdec078d0661f3fc083f53"
+    },
+    "smodders_tgcore.previous_installation_too_old.txt": {
+        "global_cache": true,
+        "version_id": 2000055,
+        "version_string": "2.0.0 Release Candidate 5",
+        "hash": "bb918667a2327c85f9eb2888f71d50c8"
     },
     "smodders_tgcore.provider_blockMessage.txt": {
         "global_cache": true,
