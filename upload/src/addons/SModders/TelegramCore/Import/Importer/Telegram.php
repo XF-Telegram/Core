@@ -35,7 +35,6 @@ class Telegram extends AbstractImporter
     
     public function renderBaseConfigOptions(array $vars)
     {
-        // return '';
     }
     
     public function validateBaseConfig(array &$baseConfig, array &$errors)

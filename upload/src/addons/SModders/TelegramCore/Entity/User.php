@@ -14,6 +14,14 @@ use TelegramBot\Api\InvalidArgumentException;
 use XF\Mvc\Entity\Entity;
 use XF\Mvc\Entity\Structure;
 
+/**
+ * FIELDS
+ * @property int $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $username
+ * @property int $updated_at
+ */
 class User extends Entity
 {
     public static function getStructure(Structure $structure)

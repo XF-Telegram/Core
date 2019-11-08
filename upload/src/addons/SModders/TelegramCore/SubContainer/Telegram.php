@@ -9,6 +9,7 @@
 
 namespace SModders\TelegramCore\SubContainer;
 
+use SModders\TelegramCore\Entity\User;
 use TelegramBot\Api\BotApi;
 use TelegramBot\Api\Client;
 use XF\ConnectedAccount\Provider\AbstractProvider;
@@ -201,5 +202,51 @@ class Telegram extends AbstractSubContainer
     public function isInstalled()
     {
         return $this->container['bot.isInstalled'];
+    }
+    
+    public function asTelegramVisitorById($userId, \Closure $action, $setLanguage = true)
+    {
+        /** @var \SModders\TelegramCore\Entity\User|null $user */
+        $user = \XF::em()->find('SModders\\TelegramCore:User', $userId);
+        if (!$user)
+        {
+            return $action(false);
+        }
+
+        return $this->asTelegramVisitor($user, $action, $setLanguage);
+    }
+    
+    public function asTelegramVisitor(User $user, \Closure $action, $setLanguage = true)
+    {
+        /** @var \XF\Entity\UserConnectedAccount|null $xfUserConnectedAccount */
+        $xfUserConnectedAccount = \XF::em()->findOne('XF:UserConnectedAccount', [
+            'provider'      => 'smodders_telegram',
+            'provider_key'  => $user->id,
+        ], 'User');
+        if (!$xfUserConnectedAccount)
+        {
+            return $action(false);
+        }
+
+        $xfUser = $xfUserConnectedAccount->User;
+        
+        $oldLanguage = \XF::language();
+        if ($setLanguage)
+        {
+            $language = \XF::app()->language($xfUser->language_id);
+            \XF::setLanguage($language);
+        }
+        
+        try
+        {
+            return \XF::asVisitor($xfUser, $action);
+        }
+        finally
+        {
+            if ($setLanguage)
+            {
+                \XF::setLanguage($oldLanguage);
+            }
+        }
     }
 }
