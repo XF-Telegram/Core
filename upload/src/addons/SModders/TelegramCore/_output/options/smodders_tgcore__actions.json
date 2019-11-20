@@ -1,0 +1,12 @@
+{
+    "edit_format": "template",
+    "edit_format_params": "smodders_tgcore_option_template__actions",
+    "data_type": "string",
+    "sub_options": [],
+    "validation_class": "",
+    "validation_method": "",
+    "default_value": "",
+    "relations": {
+        "smodders_telegram": 5
+    }
+}

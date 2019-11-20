@@ -1,0 +1,1 @@
+If URL is not matching with your current board address or webhook proxy - you need update webhook details in options.

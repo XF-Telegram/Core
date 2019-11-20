@@ -10,6 +10,7 @@
 namespace SModders\TelegramCore\Service;
 
 
+use XF\PrintableException;
 use XF\Service\AbstractService;
 use XF\Util\Hash;
 
@@ -17,9 +18,9 @@ class WebHook extends AbstractService
 {
     public static function update($setup)
     {
+        $url = $setup ? self::getWebhookUrl() : '';
+        
         try {
-            $url = $setup ? self::getWebhookUrl() : '';
-
             self::telegram()->api()
                 ->setWebhook($url);
         } catch (\Exception $e) {
@@ -44,7 +45,25 @@ class WebHook extends AbstractService
         {
             $link = str_replace('{webHook}', urlencode($link), $webProxy);
         }
-
+        
+        return self::assertWebHookIsHttps($link);
+    }
+    
+    /**
+     * Triggers internal link checking.
+     * Checking is just verifies URL protocol.
+     *
+     * @param string $link
+     * @return string
+     * @throws PrintableException
+     */
+    protected static function assertWebHookIsHttps($link)
+    {
+        if (strncmp($link, 'https', 5) != 0)
+        {
+            throw new PrintableException(\XF::phrase("smodders_tgcore.invalid_webhook_url"));
+        }
+        
         return $link;
     }
     

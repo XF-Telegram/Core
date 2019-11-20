@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "smodders_telegram",
+    "sub_name": "",
+    "format": "",
+    "build_class": "",
+    "build_method": "",
+    "controller": "SModders\\TelegramCore:Telegram",
+    "context": "",
+    "action_prefix": ""
+}

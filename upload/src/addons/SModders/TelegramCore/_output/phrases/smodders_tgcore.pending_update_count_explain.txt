@@ -1,0 +1,1 @@
+If Telegram has any data for handling by bot (in this case, by add-on), this number not be equal 0.

@@ -17,6 +17,12 @@
         "version_string": "2.0.0 Alpha 3",
         "hash": "cbc09a05a17dcd357f268fcd17813f65"
     },
+    "option.smodders_tgcore__actions.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "06df33001c1d7187fdd81ea1f5b277aa"
+    },
     "option.smodders_tgcore__proxy.txt": {
         "global_cache": false,
         "version_id": 2000012,
@@ -34,6 +40,12 @@
         "version_id": 2000013,
         "version_string": "2.0.0 Alpha 3",
         "hash": "78c70034556a54256afdc0436874fa4e"
+    },
+    "option_explain.smodders_tgcore__actions.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
     "option_explain.smodders_tgcore__proxy.txt": {
         "global_cache": false,
@@ -131,6 +143,36 @@
         "version_string": "2.0.0 Release Candidate 1",
         "hash": "091fb63e3c94fac23bd0192444dab414"
     },
+    "smodders_tgcore.failure_connection.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "8bf8fed71573936d8a38722ee97b3500"
+    },
+    "smodders_tgcore.get_webhook_info.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "16b34d7f2a2a766a8b47e6d52218d799"
+    },
+    "smodders_tgcore.has_custom_certificate.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "d8fde180aba17619713cea85385f9e41"
+    },
+    "smodders_tgcore.has_custom_certificate_explain.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "438d2859b678d7f7447cddf549ff1e07"
+    },
+    "smodders_tgcore.if_url_is_not_match.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "616bee2e1f52a84a7c4051d0b677d152"
+    },
     "smodders_tgcore.invalid_hash.txt": {
         "global_cache": false,
         "version_id": 2000054,
@@ -142,6 +184,42 @@
         "version_id": 2000012,
         "version_string": "2.0.0 Alpha 2",
         "hash": "78c3124fc7183fac595c1e6440c2a52a"
+    },
+    "smodders_tgcore.invalid_webhook_url.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "971ddc43f27f28d51d2acb2df1ba728d"
+    },
+    "smodders_tgcore.max_connections.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "aadbbf32ce7fccc3d259b6224a11f382"
+    },
+    "smodders_tgcore.max_connections_explain.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "ac8851edf2eedd1fe8ec89114445c320"
+    },
+    "smodders_tgcore.no_token.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "9a7dd79e8502c46c9605ceb3417f7fd0"
+    },
+    "smodders_tgcore.pending_update_count.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "d45c49959244ae52445b4d7fffa92e94"
+    },
+    "smodders_tgcore.pending_update_count_explain.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "0c7c1c3c2df2b5b6b8b2d15c73c49e8c"
     },
     "smodders_tgcore.previous_installation_not_found.txt": {
         "global_cache": true,
@@ -160,6 +238,12 @@
         "version_id": 2000011,
         "version_string": "2.0.0 Alpha 1",
         "hash": "69b1d7fd21874f1eb9387f79267d6648"
+    },
+    "smodders_tgcore.proxy_message.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "f6f5908f509d8491f0ef47195ce40d06"
     },
     "smodders_tgcore.token.txt": {
         "global_cache": true,
@@ -190,6 +274,36 @@
         "version_id": 2000013,
         "version_string": "2.0.0 Alpha 3",
         "hash": "ac4f182a4f4b11f34483bfc1ddd5ff13"
+    },
+    "smodders_tgcore.update_webhook_details.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "1377b27fa30da4754e86eee20b127adf"
+    },
+    "smodders_tgcore.verify_connection.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "022582f950368233019b3dd8aad70645"
+    },
+    "smodders_tgcore.webhook_error_expires.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "ae9ceab4a0032fc0e8dd36a822cc0829"
+    },
+    "smodders_tgcore.webhook_error_message.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "d51687aa8f5015054d0c1b2b9828aaf5"
+    },
+    "smodders_tgcore.webhook_error_time.txt": {
+        "global_cache": false,
+        "version_id": 2001070,
+        "version_string": "2.0.1",
+        "hash": "a99227aff7589268860e2eff1015fe7d"
     },
     "style_prop.smodders_tgcore__border_radius.txt": {
         "global_cache": false,

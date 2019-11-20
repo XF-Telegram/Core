@@ -1,0 +1,1 @@
+Maximum connection count used by Telegram for delivering updates to add-on.

@@ -1,0 +1,38 @@
+<xf:title>{{ phrase('smodders_tgcore.get_webhook_info') }}</xf:title>
+
+<div class="block-container">
+	<div class="block-body">
+		<xf:form>
+			<!-- [ SModders/TelegramCore:Error/BeforeWebhookError ] -->
+			<xf:if is="$info.last_error_date > ($xf.time - 86400)">
+				<div class="blockMessage blockMessage--error blockMessage--iconic" style="margin-bottom: 0;">
+					<xf:set var="$time"><xf:date time="$info.last_error_date" /></xf:set>
+
+					<p>{{ phrase('smodders_tgcore.webhook_error_message', {'message': $info.last_error_message}) }}</p>
+					<p>{{ phrase('smodders_tgcore.webhook_error_time', {'time': $time}) }}</p>
+					<p>{{ phrase('smodders_tgcore.webhook_error_expires') }}</p>
+				</div>
+			</xf:if>
+			<!-- [ SModders/TelegramCore:Error/AfterWebhookError ] -->
+			
+			<!-- [ SModders/TelegramCore:Misc/WebhookUrl ] -->
+			<xf:textboxrow name="url" label="{{ phrase('url') }}"
+				value="{$info.url}" disabled="true" hint="{{ phrase('smodders_tgcore.if_url_is_not_match') }}" />
+
+			<!-- [ SModders/TelegramCore:Misc/WebhookCustomCertificate ] -->
+			<xf:checkboxrow label="{{ phrase('smodders_tgcore.has_custom_certificate') }}" hint="{{ phrase('smodders_tgcore.has_custom_certificate_explain') }}">
+				<xf:option name="has_custom_certificate" selected="{$info.has_custom_certificate}" disabled="true">{{ phrase('enabled') }}</xf:option>
+			</xf:checkboxrow>
+
+			<!-- [ SModders/TelegramCore:Misc/WebhookPendingUpdateCount ] -->
+			<xf:numberboxrow name="pending_update_count" value="{$info.pending_update_count}" readonly="true"
+				hint="{{ phrase('smodders_tgcore.pending_update_count_explain') }}"
+				label="{{ phrase('smodders_tgcore.pending_update_count') }}" />
+
+			<!-- [ SModders/TelegramCore:Misc/WebhookMaxConnections ] -->
+			<xf:numberboxrow name="pending_update_count" value="{$info.max_connections}" readonly="true"
+				hint="{{ phrase('smodders_tgcore.max_connections_explain') }}"
+				label="{{ phrase('smodders_tgcore.max_connections') }}" />
+		</xf:form>
+	</div>
+</div>

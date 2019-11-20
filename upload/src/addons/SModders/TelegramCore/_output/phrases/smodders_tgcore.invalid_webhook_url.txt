@@ -1,0 +1,1 @@
+Invalid WebHook URL. Telegram requires WebHook with HTTPS encryption (TLS1.0+; SSLV2/3 is not supported).

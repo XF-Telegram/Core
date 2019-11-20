@@ -1,0 +1,15 @@
+<xf:macro name="actions" arg-context="!">
+	<!-- [ SModders/TelegramCore:BeforeFirstButton ] -->
+	<xf:button href="{{ link('smodders_telegram/verify-connection') }}" overlay="true">
+		{{ phrase('smodders_tgcore.verify_connection') }}
+	</xf:button>
+
+	<xf:button href="{{ link('smodders_telegram/get-webhook-info') }}" overlay="true">
+		{{ phrase('smodders_tgcore.get_webhook_info') }}
+	</xf:button>
+	
+	<xf:button href="{{ link('smodders_telegram/update-webhook-details') }}" overlay="true">
+		{{ phrase('smodders_tgcore.update_webhook_details') }}
+	</xf:button>
+	<!-- [ SModders/TelegramCore:AfterAllButtons ] -->
+</xf:macro>

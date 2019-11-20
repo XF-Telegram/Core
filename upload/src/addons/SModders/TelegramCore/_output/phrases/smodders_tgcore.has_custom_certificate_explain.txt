@@ -1,0 +1,1 @@
+If web-server uses custom TLS certificate (confirmed by untrusted CA), Telegram requires send certificate. If certificate sended when webhook url set - this checkbox will be activated.

@@ -1,0 +1,1 @@
+Connection to Telegram API is failed. {message}
