@@ -14,14 +14,3 @@
 	label="{{ phrase('smodders_tgcore.token') }}" hint="{{ phrase('required') }}"
 	explain="{{ phrase('smodders_tgcore.token_explain') }}" />
 <!-- /[SModders\Telegram:BotToken] -->
-
-<!-- [SModders\Telegram:AuthMethods] -->
-<xf:radiorow name="options[method]" value="{$options.method}"
-			 label="{{ phrase('smodders_tgcore.auth_method') }}">
-	<xf:foreach loop="{$authMethods}" key="{$id}" value="{$details}">
-		<xf:option value="{$id}"
-				   label="{$details.name}"
-				   hint="{$details.explain}" />
-	</xf:foreach>
-</xf:radiorow>
-<!-- /[SModders\Telegram:AuthMethods] -->

@@ -83,41 +83,11 @@
         "version_string": "2.0.0 Release Candidate 5",
         "hash": "ad00b19d9ac3fe7a54665dbd32d950a0"
     },
-    "smodders_tgcore.authMethod_direct.txt": {
-        "global_cache": true,
-        "version_id": 2000011,
-        "version_string": "2.0.0 Alpha 1",
-        "hash": "57a1febfa7a91aebcf5cc088fe3c61f4"
-    },
-    "smodders_tgcore.authMethod_direct_explain.txt": {
-        "global_cache": true,
-        "version_id": 2000011,
-        "version_string": "2.0.0 Alpha 1",
-        "hash": "99e843a4ff193feebfc4de97bc7a32f1"
-    },
     "smodders_tgcore.authMethod_direct_text.txt": {
-        "global_cache": true,
-        "version_id": 2000013,
-        "version_string": "2.0.0 Alpha 3",
-        "hash": "b7de740093483f24686ea02053443226"
-    },
-    "smodders_tgcore.authMethod_oauth.txt": {
-        "global_cache": true,
-        "version_id": 2000011,
-        "version_string": "2.0.0 Alpha 1",
-        "hash": "54699d9a7e6df4edbca4053281b2458e"
-    },
-    "smodders_tgcore.authMethod_oauth_explain.txt": {
-        "global_cache": true,
-        "version_id": 2000011,
-        "version_string": "2.0.0 Alpha 1",
-        "hash": "ee7840aabdec45ffef2dc79037c64770"
-    },
-    "smodders_tgcore.auth_method.txt": {
         "global_cache": false,
-        "version_id": 2000011,
-        "version_string": "2.0.0 Alpha 1",
-        "hash": "e365be0d5c5d82b19311e6ee1c799e21"
+        "version_id": 2002070,
+        "version_string": "2.0.2",
+        "hash": "60886d78410ae40e3493f43233b3e4ad"
     },
     "smodders_tgcore.button_size__large.txt": {
         "global_cache": true,
@@ -190,6 +160,12 @@
         "version_id": 2001070,
         "version_string": "2.0.1",
         "hash": "971ddc43f27f28d51d2acb2df1ba728d"
+    },
+    "smodders_tgcore.login_with_bot.txt": {
+        "global_cache": false,
+        "version_id": 2002070,
+        "version_string": "2.0.2",
+        "hash": "0188780a84a51cf4b8e62fc08926667a"
     },
     "smodders_tgcore.max_connections.txt": {
         "global_cache": false,

@@ -26,51 +26,8 @@ class Telegram extends AbstractSubContainer
     {
         $container = $this->container;
 
-        $this->initializeAuthMethods($container);
         $this->initializeApi($container);
         $this->initializeBotData($container);
-    }
-    
-    /**
-     * Initializes a factory for auth methods and map.
-     * @param Container $container
-     */
-    protected function initializeAuthMethods(Container $container)
-    {
-        $container->factory('authMethod', function($type, array $params, Container $c)
-        {
-            /** @var array $map */
-            $map = $c['authMethods'];
-            if (isset($map[$type]))
-            {
-                $type = $map[$type]['provider'];
-            }
-        
-            $class = \XF::stringToClass($type, '%s\AuthMethod\%s');
-            $class = $this->extendClass($class);
-        
-            if (!class_exists($class))
-            {
-                throw new \InvalidArgumentException("Unknown auth method class '$class'");
-            }
-        
-            return new $class($this->app, $params['provider']);
-        });
-    
-        $container['authMethods'] = function (Container $c)
-        {
-            return [
-                'direct'    => [
-                    'provider'  => 'SModders\TelegramCore:Direct',
-                    'phrase'    => 'smodders_tgcore.authMethod_direct',
-                ],
-
-                'oauth'     => [
-                    'provider'  => 'SModders\TelegramCore:OAuth',
-                    'phrase'    => 'smodders_tgcore.authMethod_oauth'
-                ],
-            ];
-        };
     }
     
     /**
@@ -154,16 +111,6 @@ class Telegram extends AbstractSubContainer
         {
             return $c['bot']['token'];
         };
-    }
-
-    /**
-     * @param $type
-     * @param AbstractProvider $provider
-     * @return \SModders\TelegramCore\AuthMethod\AbstractAuthMethod
-     */
-    public function authMethod($type, AbstractProvider $provider)
-    {
-        return $this->container->create('authMethod', $type, ['provider' => $provider]);
     }
     
     /**

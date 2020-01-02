@@ -1,0 +1,1 @@
+If you don't see button, you may authorize from Telegram client. Just <a href="{botUrl}">open dialog with bot</a> and send <code>/auth</code> command, or <a href="{loginUrl}">click this link</a>.

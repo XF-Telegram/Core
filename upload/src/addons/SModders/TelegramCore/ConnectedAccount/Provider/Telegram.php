@@ -60,11 +60,13 @@ class Telegram extends AbstractProvider
 
         /** @var \SModders\TelegramCore\SubContainer\Telegram $telegram */
         $telegram = $app['smodders.telegram'];
-        $authMethod = $telegram->authMethod($provider->options['method'], $this);
-
-        return $authMethod->setController($controller)
-            ->setProviderEntity($provider)
-            ->handle();
+    
+        $viewParams = [
+            'botName'       => $provider->options['name'],
+            'redirectUri'   => $this->getRedirectUri($provider),
+        ];
+    
+        return $controller->view('SModders\TelegramCore:AuthMethod\OAuth', 'public:smodders_tgcore__auth_page', $viewParams);
     }
     
     public function requestProviderToken(StorageState $storageState, Request $request, &$error = null, $skipStoredToken = false)
@@ -126,29 +128,6 @@ class Telegram extends AbstractProvider
         }
 
         return true;
-    }
-
-    public function renderConfig(ConnectedAccountProvider $provider)
-    {
-        $app = \XF::app();
-        $authMethods = [];
-
-        /**
-         * @var string $authMethodId
-         * @var array $data
-         */
-        foreach ($app['smodders.telegram']['authMethods'] as $authMethodId => $data)
-        {
-            $authMethods[$authMethodId] = [
-                'name'      => \XF::phraseDeferred($data['phrase']),
-                'explain'   => \XF::phraseDeferred($data['phrase'] . '_explain'),
-            ];
-        }
-
-        return $app->templater()->renderTemplate('admin:connected_account_provider_' . $provider->provider_id, [
-            'options'       => $this->getEffectiveOptions($provider->options),
-            'authMethods'   => $authMethods,
-        ]);
     }
     
     protected function isValidHash(array $data)

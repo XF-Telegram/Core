@@ -1,8 +1,8 @@
 {
     "admin/connected_account_provider_smodders_telegram.html": {
-        "version_id": 2001070,
-        "version_string": "2.0.1",
-        "hash": "b5f72aee93326200e3e6ee8890d70c13"
+        "version_id": 2002070,
+        "version_string": "2.0.2",
+        "hash": "cea33fcf97939a45fa0225294ae5717d"
     },
     "admin/connected_account_provider_test_smodders_telegram.html": {
         "version_id": 2000052,
@@ -29,10 +29,10 @@
         "version_string": "2.0.0 Alpha 3",
         "hash": "f11d9b636d866fa1572a084d1389f42a"
     },
-    "public/smodders_tgcore.authmethod_oauth": {
-        "version_id": 2000013,
-        "version_string": "2.0.0 Alpha 3",
-        "hash": "20732201404faee6767cb84ee789bdf4"
+    "public/smodders_tgcore__auth_page.html": {
+        "version_id": 2002070,
+        "version_string": "2.0.2",
+        "hash": "d6092011f0337c2babe17f2c8b993517"
     },
     "public/smodders_tgcore__button.less": {
         "version_id": 2000051,

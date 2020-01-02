@@ -13,7 +13,6 @@ use TelegramBot\Api\Client;
 use TelegramBot\Api\Types\Message;
 use XF\App;
 use XF\Container;
-use XF\Import\Manager;
 use XF\SubContainer\Import;
 
 class Listener
@@ -43,25 +42,19 @@ class Listener
      */
     public static function smodders_tgcore__client_setup(Client $client)
     {
-        $client->command('start', function (Message $message) use ($client)
+        $options = \XF::options();
+        $templater = \XF::app()->templater();
+        
+        // Define function for sending authentication messages.
+        $sendAuthMessage = function(Message $message)
+            use ($client, $options, $templater)
         {
-            // \XF::dump($message); exit();
             $chat = $message->getChat();
-            if ($chat->getType() != 'private')
-            {
-                return;
-            }
-            
-            if ($message->getText() != '/start smodders_tgcore__authenticate')
-            {
-                return;
-            }
-            
-            $options = \XF::options();
+
             $client->call('sendMessage', [
                 'chat_id'       => $chat->getId(),
                 'parse_mode'    => 'HTML',
-                
+        
                 'reply_markup'  => json_encode([
                     'inline_keyboard'   => [
                         [
@@ -75,8 +68,8 @@ class Listener
                         ]
                     ]
                 ]),
-    
-                'text'          => \XF::app()->templater()->renderTemplate('public:smodders_tgcore__directauth_message', [
+        
+                'text'          => $templater->renderTemplate('public:smodders_tgcore__directauth_message', [
                     'message'   => $message,
                     'board'     => [
                         'url'   => $options->boardUrl,
@@ -84,6 +77,30 @@ class Listener
                     ],
                 ]),
             ]);
+        };
+        
+        // Register our command listeners.
+        $client->command('auth', function (Message $message)
+            use ($sendAuthMessage)
+        {
+            $sendAuthMessage($message);
+        });
+
+        $client->command('start', function (Message $message)
+            use ($sendAuthMessage)
+        {
+            $chat = $message->getChat();
+            if ($chat->getType() != 'private')
+            {
+                return;
+            }
+            
+            if ($message->getText() != '/start smodders_tgcore__authenticate')
+            {
+                return;
+            }
+            
+            $sendAuthMessage($message);
         });
     }
     
