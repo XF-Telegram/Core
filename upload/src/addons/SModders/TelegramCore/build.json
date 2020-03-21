@@ -1,0 +1,10 @@
+{
+  "exclude_files": [
+    "composer.json",
+    "composer.lock"
+  ],
+
+  "exec": [
+    "composer install --no-interaction --working-dir=_build/upload/src/addons/{addon_id}/ --no-dev --no-suggest --optimize-autoloader --ignore-platform-reqs"
+  ]
+}

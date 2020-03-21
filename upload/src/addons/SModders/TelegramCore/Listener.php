@@ -49,47 +49,53 @@ class Listener
         $sendAuthMessage = function(Message $message)
             use ($client, $options, $templater)
         {
-            $chat = $message->getChat();
-            
-            try {
-                $client->call('sendMessage', [
-                    'chat_id' => $chat->getId(),
-                    'parse_mode' => 'HTML',
-        
-                    'reply_markup' => json_encode([
-                        'inline_keyboard' => [
-                            [
+            /** @var \SModders\TelegramCore\SubContainer\Telegram $telegramContainer */
+            $telegramContainer = \XF::app()->container('smodders.telegram');
+            $userId = $message->getChat()->getId();
+
+            $telegramContainer->asTelegramVisitorById($userId, function()
+                use ($client, $options, $templater, $userId, $message)
+            {
+                try {
+                    $client->call('sendMessage', [
+                        'chat_id' => $userId,
+                        'parse_mode' => 'HTML',
+
+                        'reply_markup' => json_encode([
+                            'inline_keyboard' => [
                                 [
-                                    'text' => \XF::phraseDeferred('button.login'),
-                                    'login_url' => [
-                                        'url' => $options->boardUrl . '/connected_account.php',
-                                        'request_write_access' => true,
+                                    [
+                                        'text' => \XF::phraseDeferred('button.login'),
+                                        'login_url' => [
+                                            'url' => $options->boardUrl . '/connected_account.php',
+                                            'request_write_access' => true,
+                                        ]
                                     ]
                                 ]
                             ]
-                        ]
-                    ]),
-        
-                    'text' => $templater->renderTemplate('public:smodders_tgcore__directauth_message', [
-                        'message' => $message,
-                        'board' => [
-                            'url' => $options->boardUrl,
-                            'title' => $options->boardTitle,
-                        ],
-                    ]),
-                ]);
-            }
-            catch (\Exception $e)
-            {
-                $exceptionText = $e->getMessage();
-                if (strpos($exceptionText, "bot was blocked by user") !== FALSE)
-                {
-                    // block message logging.
-                    return;
-                }
+                        ]),
 
-                \XF::logException($e);
-            }
+                        'text' => $templater->renderTemplate('public:smodders_tgcore__directauth_message', [
+                            'message' => $message,
+                            'board' => [
+                                'url' => $options->boardUrl,
+                                'title' => $options->boardTitle,
+                            ],
+                        ]),
+                    ]);
+                }
+                catch (\Exception $e)
+                {
+                    $exceptionText = $e->getMessage();
+                    if (strpos($exceptionText, "bot was blocked by user") !== FALSE)
+                    {
+                        // block message logging.
+                        return;
+                    }
+
+                    \XF::logException($e);
+                }
+            });
         };
         
         // Register our command listeners.

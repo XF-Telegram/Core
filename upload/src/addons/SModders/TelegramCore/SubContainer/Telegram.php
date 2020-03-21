@@ -12,7 +12,6 @@ namespace SModders\TelegramCore\SubContainer;
 use SModders\TelegramCore\Entity\User;
 use TelegramBot\Api\BotApi;
 use TelegramBot\Api\Client;
-use XF\ConnectedAccount\Provider\AbstractProvider;
 use XF\Container;
 use XF\SubContainer\AbstractSubContainer;
 
@@ -150,20 +149,36 @@ class Telegram extends AbstractSubContainer
     {
         return $this->container['bot.isInstalled'];
     }
-    
-    public function asTelegramVisitorById($userId, \Closure $action, $setLanguage = true)
+
+    /**
+     * @param $userId
+     * @param \Closure $action
+     * @param bool $setLanguage
+     * @param bool $setStyle
+     * @return mixed
+     * @throws \Exception
+     */
+    public function asTelegramVisitorById($userId, \Closure $action, $setLanguage = true, $setStyle = true)
     {
         /** @var \SModders\TelegramCore\Entity\User|null $user */
         $user = \XF::em()->find('SModders\\TelegramCore:User', $userId);
         if (!$user)
         {
-            return $action(false);
+            return $action(false, false);
         }
 
         return $this->asTelegramVisitor($user, $action, $setLanguage);
     }
-    
-    public function asTelegramVisitor(User $user, \Closure $action, $setLanguage = true)
+
+    /**
+     * @param User $user
+     * @param \Closure $action
+     * @param bool $setLanguage
+     * @param bool $setStyle
+     * @return mixed
+     * @throws \Exception
+     */
+    public function asTelegramVisitor(User $user, \Closure $action, $setLanguage = true, $setStyle = true)
     {
         /** @var \XF\Entity\UserConnectedAccount|null $xfUserConnectedAccount */
         $xfUserConnectedAccount = \XF::em()->findOne('XF:UserConnectedAccount', [
@@ -172,28 +187,93 @@ class Telegram extends AbstractSubContainer
         ], 'User');
         if (!$xfUserConnectedAccount)
         {
-            return $action(false);
+            return $action(null);
         }
 
         $xfUser = $xfUserConnectedAccount->User;
-        
-        $oldLanguage = \XF::language();
+
+        // Additional wrapper. We're want add user entity from argument start.
+        $originalAction = $action;
+        $action = function() use ($originalAction, $user)
+        {
+            $arguments = [$user] + func_get_args();
+
+            return call_user_func_array($originalAction, $arguments);
+        };
+
+        // Finally - call the function chain.
+        return $this->asVisitor($xfUser, $action, $setLanguage, $setStyle);
+    }
+
+    /**
+     * Temporarily take an action with the given user considered to be the visitor.
+     * Also changes the language.
+     *
+     * @param \XF\Entity\User $user
+     * @param \Closure $action
+     * @param boolean $setLanguage
+     * @param boolean $setStyle
+     * @return mixed
+     * @throws \Exception
+     */
+    public function asVisitor(\XF\Entity\User $user, $action, $setLanguage = true, $setStyle = true)
+    {
         if ($setLanguage)
         {
-            $language = \XF::app()->language($xfUser->language_id);
-            \XF::setLanguage($language);
-        }
-        
-        try
-        {
-            return \XF::asVisitor($xfUser, $action);
-        }
-        finally
-        {
-            if ($setLanguage)
+            $originalAction = $action;
+            $action = function() use ($originalAction, $user)
             {
-                \XF::setLanguage($oldLanguage);
-            }
+                $app = \XF::app();
+                $templater = $app->templater();
+
+                $newLanguage = $app->language($user->language_id);
+                $oldLanguage = \XF::language();
+                $oldTemplaterLanguage = $templater->getLanguage();
+
+                \XF::setLanguage($newLanguage);
+                $templater->setLanguage($newLanguage);
+
+                try
+                {
+                    return call_user_func_array($originalAction, func_get_args());
+                }
+                finally
+                {
+                    if ($oldLanguage != null)
+                    {
+                        \XF::setLanguage($oldLanguage);
+                        $templater->setLanguage($oldTemplaterLanguage);
+                    }
+                }
+            };
         }
+        if ($setStyle)
+        {
+            $originalAction = $action;
+            $action = function() use ($originalAction, $user)
+            {
+                $app = \XF::app();
+                $templater = $app->templater();
+
+                $newStyle = $app->style($user->style_id);
+                $oldStyle = $templater->getStyle();
+
+                $templater->setStyle($newStyle);
+
+                try
+                {
+                    return call_user_func_array($originalAction, func_get_args());
+                }
+                finally
+                {
+                    if ($oldStyle != null)
+                    {
+                        $templater->setStyle($oldStyle);
+                    }
+                }
+            };
+        }
+
+        return \XF::asVisitor($user, $action);
     }
 }
