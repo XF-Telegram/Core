@@ -11,7 +11,6 @@ namespace SModders\TelegramCore\Entity;
 
 
 use TelegramBot\Api\InvalidArgumentException;
-use XF\Mvc\Entity\Entity;
 use XF\Mvc\Entity\Structure;
 
 /**
@@ -26,8 +25,9 @@ class User extends Entity
 {
     public static function getStructure(Structure $structure)
     {
-        $structure->table = 'xf_smodders_tgcore_user';
-        $structure->shortName  = 'SModders\TelegramCore:User';
+        $structure = parent::getStructure($structure);
+        $structure->table .= 'user';
+        $structure->shortName .= 'User';
         $structure->primaryKey = 'id';
 
         $structure->columns = [

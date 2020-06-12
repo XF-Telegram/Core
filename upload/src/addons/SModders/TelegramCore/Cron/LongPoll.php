@@ -32,14 +32,16 @@ class LongPoll
             $offset = 0;
         }
 
-        /** @var \TelegramBot\Api\Client $telegramApi */
-        $telegramClient = $app->get('smodders.telegram')->client();
+        /** @var \SModders\TelegramCore\SubContainer\Telegram $telegram */
+        $telegram = $app->get('smodders.telegram');
+        $client = $telegram->client();
+        $dispatcher = $telegram->dispatcher();
         
         // Handle updates.
-        $updates = $telegramClient->getUpdates($offset, 55, 1);
+        $updates = $client->getUpdates($offset, 55, 1);
         foreach ($updates as $update)
         {
-            $telegramClient->handle([$update]);
+            $dispatcher->run([$update]);
             $offset = $update->getUpdateId() + 1;
         }
 

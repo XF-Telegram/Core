@@ -52,6 +52,15 @@ class Setup extends AbstractSetup
     }
 
     /**
+     * Inserts the default command handlers.
+     * @return void
+     */
+    protected function installStep3()
+    {
+        $this->upgrade2005010Step2();
+    }
+
+    /**
      * Deletes all connections with Telegram.
      * @return void
      */
@@ -89,6 +98,38 @@ class Setup extends AbstractSetup
     }
 
     /**
+     * Creates a internal table for command handlers storing.
+     */
+    public function upgrade2005010Step1()
+    {
+        $this->createTableFromInternalArr('xf_smodders_tgcore_command');
+    }
+
+    /**
+     * Inserts the default command handlers.
+     */
+    public function upgrade2005010Step2()
+    {
+        $this->db()->insertBulk('xf_smodders_tgcore_command', [
+            [
+                'name'              => 'start',
+                'provider_class'    => 'SModders\TelegramCore:StartAuthenticate'
+            ],
+            [
+                'name'              => 'auth',
+                'provider_class'    => 'SModders\TelegramCore:Authenticate',
+                'execution_order'   => 50
+            ]
+        ]);
+    }
+
+    protected function createTableFromInternalArr($name)
+    {
+        $tables = $this->getTables();
+        $this->createTable($name, $tables[$name]);
+    }
+
+    /**
      * @return array
      */
     protected function getTables()
@@ -104,6 +145,14 @@ class Setup extends AbstractSetup
             $table->addColumn('username',   'varchar', 32)->nullable();
 
             $table->addColumn('updated_at', 'int');
+        };
+        $tables[$prefix . 'command'] = function (Create $table)
+        {
+            $table->addColumn('command_id', 'int')->unsigned()
+                ->primaryKey()->autoIncrement();
+            $table->addColumn('name', 'varchar', 32);
+            $table->addColumn('provider_class', 'varchar', 100);
+            $table->addColumn('execution_order', 'int')->setDefault(10);
         };
 
         return $tables;

@@ -34,95 +34,7 @@ class Listener
             return new $class($c, $app);
         };
     }
-    
-    /**
-     * Called after the Telegram API Client \TelegramBot\Api\Client object is created.
-     *
-     * @param Client $client
-     */
-    public static function smodders_tgcore__client_setup(Client $client)
-    {
-        $options = \XF::options();
-        $templater = \XF::app()->templater();
-        
-        // Define function for sending authentication messages.
-        $sendAuthMessage = function(Message $message)
-            use ($client, $options, $templater)
-        {
-            /** @var \SModders\TelegramCore\SubContainer\Telegram $telegramContainer */
-            $telegramContainer = \XF::app()->container('smodders.telegram');
-            $userId = $message->getChat()->getId();
 
-            $telegramContainer->asTelegramVisitorById($userId, function()
-                use ($client, $options, $templater, $userId, $message)
-            {
-                try {
-                    $client->call('sendMessage', [
-                        'chat_id' => $userId,
-                        'parse_mode' => 'HTML',
-
-                        'reply_markup' => json_encode([
-                            'inline_keyboard' => [
-                                [
-                                    [
-                                        'text' => \XF::phraseDeferred('button.login'),
-                                        'login_url' => [
-                                            'url' => $options->boardUrl . '/connected_account.php',
-                                            'request_write_access' => true,
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]),
-
-                        'text' => $templater->renderTemplate('public:smodders_tgcore__directauth_message', [
-                            'message' => $message,
-                            'board' => [
-                                'url' => $options->boardUrl,
-                                'title' => $options->boardTitle,
-                            ],
-                        ]),
-                    ]);
-                }
-                catch (\Exception $e)
-                {
-                    $exceptionText = $e->getMessage();
-                    if (strpos($exceptionText, "bot was blocked by user") !== FALSE)
-                    {
-                        // block message logging.
-                        return;
-                    }
-
-                    \XF::logException($e);
-                }
-            });
-        };
-        
-        // Register our command listeners.
-        $client->command('auth', function (Message $message)
-            use ($sendAuthMessage)
-        {
-            $sendAuthMessage($message);
-        });
-
-        $client->command('start', function (Message $message)
-            use ($sendAuthMessage)
-        {
-            $chat = $message->getChat();
-            if ($chat->getType() != 'private')
-            {
-                return;
-            }
-            
-            if ($message->getText() != '/start smodders_tgcore__authenticate')
-            {
-                return;
-            }
-            
-            $sendAuthMessage($message);
-        });
-    }
-    
     /**
      * Fired inside the importers container in the Import sub-container.
      *
@@ -132,6 +44,6 @@ class Listener
      */
     public static function import_importer_classes(Import $container, Container $parentContainer, array &$importers)
     {
-        $importers[] = 'SModders\\TelegramCore:Telegram';
+        $importers[] = 'SModders\TelegramCore:Telegram';
     }
 }

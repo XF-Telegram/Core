@@ -9,6 +9,8 @@
 
 namespace SModders\TelegramCore\Pub\Controller;
 
+use TelegramBot\Api\BotApi;
+use TelegramBot\Api\Types\Update;
 use XF\Mvc\ParameterBag;
 use XF\Pub\Controller\AbstractController;
 use XF\Util\Hash;
@@ -31,8 +33,11 @@ class Telegram extends AbstractController
         $this->assertWebHookToken($this->request->get('token'));
 
         try {
-            $this->getTelegramContainer()
-                ->client()->run();
+            $dispatcher = $this->getTelegramContainer()->dispatcher();
+
+            if ($data = BotApi::jsonValidate($this->request()->getInputRaw(), true)) {
+                $dispatcher->run([Update::fromResponse($data)]);
+            }
         } catch (\Exception $e) {
             \XF::logException($e);
             return $this->error($e->getMessage(), 500);

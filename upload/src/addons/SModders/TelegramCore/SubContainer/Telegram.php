@@ -9,9 +9,11 @@
 
 namespace SModders\TelegramCore\SubContainer;
 
+use SModders\TelegramCore\ChatCommand\AbstractHandler;
 use SModders\TelegramCore\Entity\User;
 use TelegramBot\Api\BotApi;
 use TelegramBot\Api\Client;
+use TelegramBot\Api\Types\Message;
 use XF\Container;
 use XF\SubContainer\AbstractSubContainer;
 
@@ -27,6 +29,7 @@ class Telegram extends AbstractSubContainer
 
         $this->initializeApi($container);
         $this->initializeBotData($container);
+        $this->initializeCommandDispatcher($container);
     }
     
     /**
@@ -58,6 +61,9 @@ class Telegram extends AbstractSubContainer
                 // $className = \XF::extendClass('TelegramBot\\Api\\Client');
                 $client = new Client($token);
                 $client->setProxy($c['proxy']);
+
+                // Scratch for fixing internal EventCollection from third-party library
+                $client->on(function() { return true; });
     
                 \XF::extension()->fire('smodders_tgcore__client_setup', [$client]);
                 return $client;
@@ -111,7 +117,65 @@ class Telegram extends AbstractSubContainer
             return $c['bot']['token'];
         };
     }
-    
+
+    /**
+     * Initializes a items in container for command processing from Telegram
+     * users.
+     *
+     * @param Container $container
+     */
+    protected function initializeCommandDispatcher(Container $container)
+    {
+        $telegram = $this;
+        $app = $this->app;
+
+        $container['commands.addOns'] = function (Container $c) use ($app)
+        {
+            // TODO: add own caching in DataRegistry.
+            // I'm too lazy for implementing now.
+            // 05.06.2020, Kruzya
+
+            return $app->finder('SModders\TelegramCore:Command')
+                ->order('execution_order')->fetch();
+        };
+        $container['commands.user'] = function (Container $c) use ($app)
+        {
+            // You don't see here nothing...
+            // This is will be implemented in next version...
+            // Please, don't tell nobody!
+            return [];
+        };
+
+        $container['commandDispatcher'] = function (Container $c) use ($telegram, $app)
+        {
+            /** @var \SModders\TelegramCore\CommandDispatcher $dispatcher */
+            $className = \XF::extendClass('SModders\TelegramCore\CommandDispatcher');
+            $dispatcher = new $className($app, $telegram);
+
+            foreach ($c['commands.addOns'] as $command)
+            {
+                $dispatcher->addCommandListener($command['name'], function (Message $message, array $parameters, \Closure $nextCall)
+                    use ($command, $app, $dispatcher)
+                {
+                    /** @var AbstractHandler $handler */
+                    $className = \XF::extendClass(\XF::stringToClass($command['provider_class'], '%s\ChatCommand\%s'));
+                    $handler = new $className($app, $dispatcher);
+                    $handler->setNextCall($nextCall);
+
+                    return $handler->run($message, $parameters);
+                }, $command['execution_order']);
+            }
+            foreach ($c['commands.user'] as $command)
+            {
+                // TODO.
+                break;
+            }
+
+            \XF::extension()->fire('smodders_tgcore__dispatcher_setup', [&$dispatcher]);
+            return $dispatcher;
+        };
+    }
+
     /**
      * @param null|string $token
      * @return \TelegramBot\Api\BotApi
@@ -180,17 +244,22 @@ class Telegram extends AbstractSubContainer
      */
     public function asTelegramVisitor(User $user, \Closure $action, $setLanguage = true, $setStyle = true)
     {
-        /** @var \XF\Entity\UserConnectedAccount|null $xfUserConnectedAccount */
-        $xfUserConnectedAccount = \XF::em()->findOne('XF:UserConnectedAccount', [
+        /** @var \XF\Entity\UserConnectedAccount|null $xenConnectedAccount */
+        $xenConnectedAccount = \XF::em()->findOne('XF:UserConnectedAccount', [
             'provider'      => 'smodders_telegram',
             'provider_key'  => $user->id,
-        ], 'User');
-        if (!$xfUserConnectedAccount)
-        {
-            return $action(null);
-        }
+        ]);
 
-        $xfUser = $xfUserConnectedAccount->User;
+        /** @var \XF\Entity\User $xenUser */
+        $xenUser = null;
+        if (!$xenConnectedAccount)
+        {
+            /** @var \XF\Repository\User $userRepo */
+            $userRepo = $this->app->repository('XF:User');
+            $xenUser = $userRepo->getGuestUser();
+        } else {
+            $xenUser = $xenConnectedAccount->User;
+        }
 
         // Additional wrapper. We're want add user entity from argument start.
         $originalAction = $action;
@@ -202,7 +271,7 @@ class Telegram extends AbstractSubContainer
         };
 
         // Finally - call the function chain.
-        return $this->asVisitor($xfUser, $action, $setLanguage, $setStyle);
+        return $this->asVisitor($xenUser, $action, $setLanguage, $setStyle);
     }
 
     /**
@@ -275,5 +344,13 @@ class Telegram extends AbstractSubContainer
         }
 
         return \XF::asVisitor($user, $action);
+    }
+
+    /**
+     * @return \SModders\TelegramCore\CommandDispatcher
+     */
+    public function dispatcher()
+    {
+        return $this->container['commandDispatcher'];
     }
 }
