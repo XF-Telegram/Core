@@ -29,12 +29,42 @@ class CommandDispatcher
     /** @var array */
     protected $commands = [];
 
+    /** @var string|null */
+    protected $_runningCommand = null;
+
+    /** @var array */
+    protected $_arguments = [];
+
     public function __construct(App $app, Telegram $container)
     {
         $this->app = $app;
         $this->container = $container;
 
         $this->client = $container->client();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCurrentCommandName()
+    {
+        return $this->_runningCommand;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCurrentCommandParameters()
+    {
+        return $this->_arguments;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHandlingCommand()
+    {
+        return $this->_runningCommand !== null;
     }
 
     /**
@@ -90,8 +120,16 @@ class CommandDispatcher
      */
     public function runCommand($name, Message $message, array $parameters = [])
     {
+        $this->_runningCommand = $name;
+        $this->_arguments = $parameters;
+
         $commandChain = $this->buildCommandChain($name);
-        return $commandChain($message, $parameters);
+        $result = $commandChain($message, $parameters);
+
+        $this->_runningCommand = null;
+        $this->_arguments = [];
+
+        return $result;
     }
 
     public function buildCommandChain($name)

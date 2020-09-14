@@ -38,4 +38,13 @@ class Command extends Entity
 
         return $structure;
     }
+
+    protected function _postSave()
+    {
+        if ($this->isChanged(['name', 'provider_class', 'execution_order']))
+        {
+            $this->repository('SModders\TelegramCore:Command')
+                ->rebuildAddOnCommandsCache();
+        }
+    }
 }

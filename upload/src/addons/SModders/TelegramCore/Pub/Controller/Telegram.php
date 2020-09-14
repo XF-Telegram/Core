@@ -17,9 +17,14 @@ use XF\Util\Hash;
 
 class Telegram extends AbstractController
 {
+    protected function csrfExceptions()
+    {
+        return ['handlewebhook'];
+    }
+
     public function checkCsrfIfNeeded($action, ParameterBag $params)
     {
-        if (strtolower($action) == 'handlewebhook')
+        if (in_array(strtolower($action), $this->csrfExceptions()))
         {
             return;
         }
@@ -31,18 +36,22 @@ class Telegram extends AbstractController
     {
         $this->assertPostOnly();
         $this->assertWebHookToken($this->request->get('token'));
+        $this->setResponseType('json');
 
-        try {
-            $dispatcher = $this->getTelegramContainer()->dispatcher();
-
-            if ($data = BotApi::jsonValidate($this->request()->getInputRaw(), true)) {
-                $dispatcher->run([Update::fromResponse($data)]);
+        try
+        {
+            if ($data = BotApi::jsonValidate($this->request()->getInputRaw(), true))
+            {
+                $this->getTelegramContainer()->dispatcher()
+                    ->run([Update::fromResponse($data)]);
             }
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e)
+        {
             \XF::logException($e);
             return $this->error($e->getMessage(), 500);
         }
-        
+
         return $this->message('Ok');
     }
 

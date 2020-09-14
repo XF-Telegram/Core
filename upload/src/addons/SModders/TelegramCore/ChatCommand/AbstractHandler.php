@@ -30,6 +30,9 @@ abstract class AbstractHandler
     /** @var \SModders\TelegramCore\SubContainer\Telegram */
     protected $telegramContainer;
 
+    /** @var \XF\Template\Templater */
+    protected $templater;
+
     /** @var \Closure|null */
     protected $nextCall;
 
@@ -39,6 +42,7 @@ abstract class AbstractHandler
         $this->dispatcher = $dispatcher;
         $this->telegramClient = $dispatcher->client();
         $this->telegramContainer = $dispatcher->container();
+        $this->templater = $app->templater();
 
         $this->setup();
     }
@@ -80,5 +84,38 @@ abstract class AbstractHandler
     protected function redirect($command, Message $message = null, array $parameters = [])
     {
         return $this->dispatcher->runCommand($command, $message, $parameters);
+    }
+
+    protected function renderMessageTemplate($templateName, array $parameters = [], $addDefaultParams = true)
+    {
+        if (strpos($templateName, ':') === FALSE)
+        {
+            // "email" group is looks like more correct for messages then "public",
+            // because in my understanding, template group "public" should be used
+            // only for rendering in user interface. "email" should be used when
+            // it contains any markup for any messages for user in third-party
+            // services (like e-mails or Telegram).
+            //
+            // Some time ago i experimented with creating own template group, and i
+            // did it, but dismissed, because when XF performs add-on installation,
+            // he can't import template for direct authentications (when user
+            // interact with bot). Listener is not enabled on this moment.
+            //
+            // R.I.P. own template group.
+
+            $templateName = 'email:' . $templateName;
+        }
+
+        if ($addDefaultParams)
+        {
+            // We don't have "xf" in this context because we're running too early.
+            // So we create him manually!
+            //
+            // Note: this triggers event "templater_global_data".
+            $parameters['xf'] = $this->app->getGlobalTemplateData();
+        }
+
+        $messageText = $this->templater->renderTemplate($templateName, $parameters, $addDefaultParams);
+        return trim($messageText);
     }
 }

@@ -1,6 +1,9 @@
 {
     "admin_smodders_telegram_.json": {
-        "hash": "974063c5963773d931466835fb81babd"
+        "hash": "2aeea9c5780cdae568580a15fe275e21"
+    },
+    "admin_smodders_telegram_command-handlers.json": {
+        "hash": "8d8a18a37298baad5b8b980adb9c71f8"
     },
     "public_smodders_telegram_.json": {
         "hash": "4e92263d0c9821fe9a9ad8e9b79b8ee8"

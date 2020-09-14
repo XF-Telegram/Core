@@ -1,0 +1,11 @@
+{
+    "route_type": "admin",
+    "route_prefix": "smodders_telegram",
+    "sub_name": "command-handlers",
+    "format": "command-handlers/:str<title>/",
+    "build_class": "",
+    "build_method": "",
+    "controller": "SModders\\TelegramCore:CommandHandlers",
+    "context": "smodders_tgcore__command_handlers",
+    "action_prefix": ""
+}

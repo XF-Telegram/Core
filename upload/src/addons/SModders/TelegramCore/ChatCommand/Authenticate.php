@@ -17,13 +17,9 @@ class Authenticate extends AbstractHandler
     /** @var \ArrayObject */
     protected $options;
 
-    /** @var \XF\Template\Templater */
-    protected $templater;
-
     protected function setup()
     {
         $this->options = $this->app->options();
-        $this->templater = $this->app->templater();
     }
 
     /**
@@ -54,7 +50,7 @@ class Authenticate extends AbstractHandler
      */
     protected function getMessageText(Message $message)
     {
-        return $this->templater->renderTemplate('public:smodders_tgcore__directauth_message', [
+        return $this->renderMessageTemplate('smodders_tgcore__directauth_message', [
             'message' => $message,
             'board' => [
                 'url' => $this->options->boardUrl,

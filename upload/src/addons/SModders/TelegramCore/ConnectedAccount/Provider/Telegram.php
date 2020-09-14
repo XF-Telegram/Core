@@ -110,12 +110,10 @@ class Telegram extends AbstractProvider
         }
         
         $app = \XF::app();
-        
         try {
             /** @var \TelegramBot\Api\BotApi $api */
             $api = $app['smodders.telegram']->api($options['token']);
-            $bot = $api->getMe();
-            $options['name'] = $bot->getUsername();
+            $options['name'] = $api->getMe()->getUsername();
         } catch (\Exception $e) {
             $message = $e->getMessage();
             if ($message == 'Not Found')

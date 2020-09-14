@@ -1,0 +1,26 @@
+<xf:if is="$entity.isInsert()">
+	<xf:title>{{ phrase('smodders_tgcore.add_command_handler') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('smodders_tgcore.edit_command_handler:') }} {$entity.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$entity.isUpdate()">
+	<xf:button href="{{ link('smodders_telegram/command-handlers/delete', $entity) }}" icon="delete" overlay="true" />
+</xf:pageaction>
+
+<xf:form action="{$saveUrl}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:textboxrow name="title" value="{$entity.title}"
+				maxlength="{{ max_length($entity, 'title') }}"
+				label="{{ phrase('smodders_tgcore.command') }}"
+				dir="ltr" />
+
+			<xf:codeeditorrow name="template" value="{$entity.MasterTemplate.template}" mode="html"
+				class="codeEditor--short"
+				label="{{ phrase('smodders_tgcore.bot_response_text') }}" />
+		</div>
+
+		<xf:submitrow sticky="true" icon="save" />
+	</div>
+</xf:form>

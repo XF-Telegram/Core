@@ -6,6 +6,6 @@
     "build_class": "",
     "build_method": "",
     "controller": "SModders\\TelegramCore:Telegram",
-    "context": "",
+    "context": "smodders_tgcore__root",
     "action_prefix": ""
 }

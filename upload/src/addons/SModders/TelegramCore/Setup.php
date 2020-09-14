@@ -98,6 +98,15 @@ class Setup extends AbstractSetup
     }
 
     /**
+     * Drops the internal cache.
+     * @return void
+     */
+    protected function uninstallStep4()
+    {
+        $this->app->registry()->delete('smTgCore.cmds_addOns');
+    }
+
+    /**
      * Creates a internal table for command handlers storing.
      */
     public function upgrade2005010Step1()
@@ -121,6 +130,11 @@ class Setup extends AbstractSetup
                 'execution_order'   => 50
             ]
         ]);
+    }
+
+    public function upgrade2005010Step3()
+    {
+        $this->createTableFromInternalArr('xf_smodders_tgcore_user_command');
     }
 
     protected function createTableFromInternalArr($name)
@@ -153,6 +167,11 @@ class Setup extends AbstractSetup
             $table->addColumn('name', 'varchar', 32);
             $table->addColumn('provider_class', 'varchar', 100);
             $table->addColumn('execution_order', 'int')->setDefault(10);
+        };
+        $tables[$prefix . 'user_command'] = function (Create $table)
+        {
+            $table->addColumn('title', 'varchar', 50)->primaryKey();
+            $table->addColumn('command_id', 'int')->unsigned();
         };
 
         return $tables;

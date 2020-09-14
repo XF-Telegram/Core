@@ -13,6 +13,8 @@ use TelegramBot\Api\Client;
 use TelegramBot\Api\Types\Message;
 use XF\App;
 use XF\Container;
+use XF\Mvc\Entity\Manager;
+use XF\Mvc\Entity\Structure;
 use XF\SubContainer\Import;
 
 class Listener
@@ -33,17 +35,5 @@ class Listener
             $class = $app->extendClass('SModders\TelegramCore\SubContainer\Telegram');
             return new $class($c, $app);
         };
-    }
-
-    /**
-     * Fired inside the importers container in the Import sub-container.
-     *
-     * @param Import $container
-     * @param Container $parentContainer
-     * @param array $importers
-     */
-    public static function import_importer_classes(Import $container, Container $parentContainer, array &$importers)
-    {
-        $importers[] = 'SModders\TelegramCore:Telegram';
     }
 }

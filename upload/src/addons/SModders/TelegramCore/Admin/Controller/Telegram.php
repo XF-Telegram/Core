@@ -18,6 +18,14 @@ use XF\PrintableException;
 class Telegram extends \XF\Admin\Controller\AbstractController
 {
     /**
+     * @return \XF\Mvc\Reply\View
+     */
+    public function actionIndex()
+    {
+        return $this->view('SModders\TelegramCore:Navigation', 'smodders_tgcore__index');
+    }
+
+    /**
      * @return \XF\Mvc\Reply\Message
      */
     public function actionVerifyConnection()
@@ -29,7 +37,7 @@ class Telegram extends \XF\Admin\Controller\AbstractController
     
         return $this->message(\XF::phrase('smodders_tgcore.failure_connection', ['message' => $error]));
     }
-    
+
     public function actionGetWebhookInfo()
     {
         $this->assertTokenExists();
@@ -46,7 +54,7 @@ class Telegram extends \XF\Admin\Controller\AbstractController
         
         return $this->view('SModders\TelegramCore:Misc\ViewWebhookInfo', 'smodders_tgcore__webhook_info', ['info' => $apiResult]);
     }
-    
+
     public function actionUpdateWebhookDetails()
     {
         $this->assertTokenExists();
@@ -55,7 +63,7 @@ class Telegram extends \XF\Admin\Controller\AbstractController
     
         return $this->message(\XF::phrase('action_completed_successfully'));
     }
-    
+
     /**
      * @param null|string $message
      * @param null|int $code
@@ -81,7 +89,7 @@ class Telegram extends \XF\Admin\Controller\AbstractController
             return false;
         }
     }
-    
+
     /**
      * @param Exception $exception
      * @param null|string $message
@@ -100,8 +108,7 @@ class Telegram extends \XF\Admin\Controller\AbstractController
         
         return false;
     }
-    
-    
+
     /**
      * @param \Closure $call
      * @param null|string $token
@@ -129,7 +136,7 @@ class Telegram extends \XF\Admin\Controller\AbstractController
             throw $onlyPrintable ? new PrintableException($e->getMessage(), 500) : $e;
         }
     }
-    
+
     protected function assertTokenExists()
     {
         $token = $this->telegram()->get('bot.token');
@@ -138,7 +145,7 @@ class Telegram extends \XF\Admin\Controller\AbstractController
             throw $this->exception($this->message(\XF::phrase('smodders_tgcore.no_token')));
         }
     }
-    
+
     /**
      * @return \SModders\TelegramCore\SubContainer\Telegram
      */

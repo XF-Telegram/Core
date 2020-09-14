@@ -1,4 +1,22 @@
 {
+    "admin_navigation.smodders_tgcore__command_handlers.txt": {
+        "global_cache": false,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "e1790971ea36742683942ab68e59e9ee"
+    },
+    "admin_navigation.smodders_tgcore__root.txt": {
+        "global_cache": false,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "c915683f3ec888b8edcc7b06bd1428ec"
+    },
+    "admin_permission.smodders_tgcore.txt": {
+        "global_cache": false,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "e7ad953ca1df0ff2a06326d1603c297f"
+    },
     "con_acc.smodders_telegram.txt": {
         "global_cache": true,
         "version_id": 2000011,
@@ -77,17 +95,23 @@
         "version_string": "2.0.0 Alpha 2",
         "hash": "d41d8cd98f00b204e9800998ecf8427e"
     },
-    "smodders_tgcore.accounts.txt": {
-        "global_cache": false,
-        "version_id": 2000055,
-        "version_string": "2.0.0 Release Candidate 5",
-        "hash": "ad00b19d9ac3fe7a54665dbd32d950a0"
+    "smodders_tgcore.add_command_handler.txt": {
+        "global_cache": true,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "d334a0333a9f5e5e14e6ef58fc0a7cf9"
     },
     "smodders_tgcore.authMethod_direct_text.txt": {
         "global_cache": false,
         "version_id": 2002070,
         "version_string": "2.0.2",
         "hash": "60886d78410ae40e3493f43233b3e4ad"
+    },
+    "smodders_tgcore.bot_response_text.txt": {
+        "global_cache": true,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "43e2427c144501ca0f761ac07b81edb1"
     },
     "smodders_tgcore.button_size__large.txt": {
         "global_cache": true,
@@ -107,11 +131,23 @@
         "version_string": "2.0.0 Alpha 3",
         "hash": "2660064e68655415da2628c2ae2f7592"
     },
+    "smodders_tgcore.command.txt": {
+        "global_cache": true,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "ee97be03cb04119af45014d815621ce1"
+    },
     "smodders_tgcore.direct_message.txt": {
         "global_cache": true,
         "version_id": 2000051,
         "version_string": "2.0.0 Release Candidate 1",
         "hash": "091fb63e3c94fac23bd0192444dab414"
+    },
+    "smodders_tgcore.edit_command_handler.txt": {
+        "global_cache": true,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "269ebb371950bc3efe45239b134dbc20"
     },
     "smodders_tgcore.failure_connection.txt": {
         "global_cache": false,
@@ -197,18 +233,6 @@
         "version_string": "2.0.1",
         "hash": "0c7c1c3c2df2b5b6b8b2d15c73c49e8c"
     },
-    "smodders_tgcore.previous_installation_not_found.txt": {
-        "global_cache": true,
-        "version_id": 2000055,
-        "version_string": "2.0.0 Release Candidate 5",
-        "hash": "9d260c0fddbdec078d0661f3fc083f53"
-    },
-    "smodders_tgcore.previous_installation_too_old.txt": {
-        "global_cache": true,
-        "version_id": 2000055,
-        "version_string": "2.0.0 Release Candidate 5",
-        "hash": "bb918667a2327c85f9eb2888f71d50c8"
-    },
     "smodders_tgcore.provider_blockMessage.txt": {
         "global_cache": true,
         "version_id": 2000011,
@@ -280,6 +304,18 @@
         "version_id": 2001070,
         "version_string": "2.0.1",
         "hash": "a99227aff7589268860e2eff1015fe7d"
+    },
+    "smodders_tgcore__command_name_must_be_unique.txt": {
+        "global_cache": false,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "a0beb3dad0e7e4b73a6033401f171bac"
+    },
+    "smodders_tgcore__please_enter_valid_command_name.txt": {
+        "global_cache": false,
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "e805f61b71549508f27cddc791cdba3f"
     },
     "style_prop.smodders_tgcore__border_radius.txt": {
         "global_cache": false,

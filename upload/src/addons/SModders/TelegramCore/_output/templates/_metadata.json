@@ -14,6 +14,21 @@
         "version_string": "2.0.1",
         "hash": "cccb4417cbd16f6f8582e4ae35739606"
     },
+    "admin/smodders_tgcore__command_handlers_edit.html": {
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "84d66a5503d93dd4689f87d36338f09b"
+    },
+    "admin/smodders_tgcore__command_handlers_index.html": {
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "f9a42fb0be8b9961e0a5f50ee5e71c19"
+    },
+    "admin/smodders_tgcore__index.html": {
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "c3cf0ea62bc5f656cc40d47a505595ef"
+    },
     "admin/smodders_tgcore__webhook_info.html": {
         "version_id": 2001070,
         "version_string": "2.0.1",
@@ -39,9 +54,9 @@
         "version_string": "2.0.0 Release Candidate 1",
         "hash": "8b402799be9f40a462f5172e21244174"
     },
-    "public/smodders_tgcore__directauth_message.html": {
-        "version_id": 2000013,
-        "version_string": "2.0.0 Alpha 3",
+    "email/smodders_tgcore__directauth_message.html": {
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
         "hash": "77d3f07eada251bb666f2940d0a505c8"
     }
 }

@@ -129,22 +129,9 @@ class Telegram extends AbstractSubContainer
         $telegram = $this;
         $app = $this->app;
 
-        $container['commands.addOns'] = function (Container $c) use ($app)
-        {
-            // TODO: add own caching in DataRegistry.
-            // I'm too lazy for implementing now.
-            // 05.06.2020, Kruzya
-
-            return $app->finder('SModders\TelegramCore:Command')
-                ->order('execution_order')->fetch();
-        };
-        $container['commands.user'] = function (Container $c) use ($app)
-        {
-            // You don't see here nothing...
-            // This is will be implemented in next version...
-            // Please, don't tell nobody!
-            return [];
-        };
+        $container['commands.addOns'] = $app->fromRegistry('smTgCore.cmds_addOns', function (Container $c) {
+            return $c['em']->getRepository('SModders\TelegramCore:Command')->rebuildAddOnCommandsCache();
+        });
 
         $container['commandDispatcher'] = function (Container $c) use ($telegram, $app)
         {
@@ -152,26 +139,24 @@ class Telegram extends AbstractSubContainer
             $className = \XF::extendClass('SModders\TelegramCore\CommandDispatcher');
             $dispatcher = new $className($app, $telegram);
 
-            foreach ($c['commands.addOns'] as $command)
+            foreach ($c['commands.addOns'] as $name => $handlers)
             {
-                $dispatcher->addCommandListener($command['name'], function (Message $message, array $parameters, \Closure $nextCall)
-                    use ($command, $app, $dispatcher)
+                foreach ($handlers as $commandHandler)
                 {
-                    /** @var AbstractHandler $handler */
-                    $className = \XF::extendClass(\XF::stringToClass($command['provider_class'], '%s\ChatCommand\%s'));
-                    $handler = new $className($app, $dispatcher);
-                    $handler->setNextCall($nextCall);
+                    $dispatcher->addCommandListener($name, function (Message $message, array $parameters, \Closure $nextCall)
+                        use ($commandHandler, $app, $dispatcher)
+                    {
+                        /** @var AbstractHandler $handler */
+                        $className = \XF::extendClass($commandHandler['provider']);
+                        $handler = new $className($app, $dispatcher);
+                        $handler->setNextCall($nextCall);
 
-                    return $handler->run($message, $parameters);
-                }, $command['execution_order']);
-            }
-            foreach ($c['commands.user'] as $command)
-            {
-                // TODO.
-                break;
+                        return $handler->run($message, $parameters);
+                    }, $commandHandler['execution_order']);
+                }
             }
 
-            \XF::extension()->fire('smodders_tgcore__dispatcher_setup', [&$dispatcher]);
+            $app->fire('smodders_tgcore__dispatcher_setup', [&$dispatcher]);
             return $dispatcher;
         };
     }

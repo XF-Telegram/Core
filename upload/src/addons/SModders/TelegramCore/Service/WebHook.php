@@ -16,12 +16,12 @@ use XF\Util\Hash;
 
 class WebHook extends AbstractService
 {
-    public static function update($setup)
+    public function update($setup)
     {
-        $url = $setup ? self::getWebhookUrl() : '';
-        
+        $url = $setup ? $this->getWebhookUrl() : '';
+
         try {
-            self::telegram()->api()
+            $this->telegram()->api()
                 ->setWebhook($url);
         } catch (\Exception $e) {
             \XF::logException($e); // :thinking:
@@ -31,12 +31,12 @@ class WebHook extends AbstractService
         return true;
     }
     
-    protected static function getWebhookUrl()
+    protected function getWebhookUrl()
     {
-        $app = \XF::app();
+        $app = $this->app;
         $options = $app->options();
         
-        $link = \XF::app()->router('public')->buildLink('canonical:smodders_telegram/handle-webhook', null, [
+        $link = $app->router('public')->buildLink('canonical:smodders_telegram/handle-webhook', null, [
             'token' => Hash::hashText($app->get('smodders.telegram')->get('bot.token'))
         ]);
         
@@ -46,7 +46,8 @@ class WebHook extends AbstractService
             $link = str_replace('{webHook}', urlencode($link), $webProxy);
         }
         
-        return self::assertWebHookIsHttps($link);
+        $this->assertWebHookIsHttps($link);
+        return $link;
     }
     
     /**
@@ -54,24 +55,21 @@ class WebHook extends AbstractService
      * Checking is just verifies URL protocol.
      *
      * @param string $link
-     * @return string
      * @throws PrintableException
      */
-    protected static function assertWebHookIsHttps($link)
+    protected function assertWebHookIsHttps(&$link)
     {
         if (strncmp($link, 'https', 5) != 0)
         {
             throw new PrintableException(\XF::phrase("smodders_tgcore.invalid_webhook_url"));
         }
-        
-        return $link;
     }
     
     /**
      * @return \SModders\TelegramCore\SubContainer\Telegram
      */
-    protected static function telegram()
+    protected function telegram()
     {
-        return \XF::app()->get('smodders.telegram');
+        return $this->app->get('smodders.telegram');
     }
 }

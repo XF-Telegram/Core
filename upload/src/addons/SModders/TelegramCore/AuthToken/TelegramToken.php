@@ -14,5 +14,4 @@ use OAuth\Common\Token\TokenInterface;
 
 class TelegramToken extends AbstractToken implements TokenInterface
 {
-
 }
