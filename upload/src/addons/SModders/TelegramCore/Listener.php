@@ -36,4 +36,14 @@ class Listener
             return new $class($c, $app);
         };
     }
+
+    /**
+     * Called when the BB code renderer map is accessed.
+     *
+     * @param array $rendererMap The current renderer map.
+     */
+    public static function bb_code_renderer_map(array &$rendererMap)
+    {
+        $rendererMap['smTgCoreMarkdown'] = 'SModders\TelegramCore:Markdown';
+    }
 }

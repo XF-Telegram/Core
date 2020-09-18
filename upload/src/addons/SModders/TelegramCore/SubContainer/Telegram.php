@@ -129,8 +129,8 @@ class Telegram extends AbstractSubContainer
         $telegram = $this;
         $app = $this->app;
 
-        $container['commands.addOns'] = $app->fromRegistry('smTgCore.cmds_addOns', function (Container $c) {
-            return $c['em']->getRepository('SModders\TelegramCore:Command')->rebuildAddOnCommandsCache();
+        $container['commands.addOns'] = $app->fromRegistry('smTgCore.cmds_addOns', function (Container $c) use($app) {
+            return $app['em']->getRepository('SModders\TelegramCore:Command')->rebuildAddOnCommandsCache();
         });
 
         $container['commandDispatcher'] = function (Container $c) use ($telegram, $app)

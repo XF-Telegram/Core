@@ -197,4 +197,22 @@ class Setup extends AbstractSetup
 
         return $details[$field];
     }
+
+    public function postInstall(array &$stateChanges)
+    {
+        $this->rebuildInternalCaches();
+    }
+
+    public function postUpgrade($previousVersion, array &$stateChanges)
+    {
+        $this->rebuildInternalCaches();
+    }
+
+    protected function rebuildInternalCaches()
+    {
+        /** @var \SModders\TelegramCore\Repository\Command $commandRepo */
+        $commandRepo = $this->app->repository('SModders\TelegramCore:Command');
+
+        $commandRepo->rebuildAddOnCommandsCache();
+    }
 }

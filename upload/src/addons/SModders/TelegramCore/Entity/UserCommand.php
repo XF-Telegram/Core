@@ -83,13 +83,15 @@ class UserCommand extends Entity
                     ['type', '=', 'email'],
                     ['title', '=', '_smodders_tgcore__user_command.', '$title'],
                     ['addon_id', '=', '']
-                ]
+                ],
+                'cascadeDelete' => true
             ],
 
             'Command' => [
                 'entity' => 'SModders\TelegramCore:Command',
                 'type' => self::TO_ONE,
-                'conditions' => 'command_id'
+                'conditions' => 'command_id',
+                'cascadeDelete' => true
             ]
         ];
 

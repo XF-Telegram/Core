@@ -1,0 +1,9 @@
+{
+    "event_id": "bb_code_renderer_map",
+    "execute_order": 10,
+    "callback_class": "SModders\\TelegramCore\\Listener",
+    "callback_method": "bb_code_renderer_map",
+    "active": true,
+    "hint": "",
+    "description": "Appends own renderer for internal (and third-party) purposes"
+}
