@@ -11,8 +11,8 @@ namespace SModders\TelegramCore\Entity;
 
 
 use SModders\TelegramCore\CommandDispatcher;
-use TelegramBot\Api\BotApi;
-use TelegramBot\Api\Client;
+use SModders\TelegramCore\BotApi;
+use SModders\TelegramCore\Client;
 use XF\Mvc\Entity\Structure;
 
 /**

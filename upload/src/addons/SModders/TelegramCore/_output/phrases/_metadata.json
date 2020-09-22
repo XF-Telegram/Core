@@ -47,12 +47,6 @@
         "version_string": "2.0.0 Alpha 2",
         "hash": "1c63620d4f83a6e5a8d10885e7e27c29"
     },
-    "option.smodders_tgcore__webHookProxy.txt": {
-        "global_cache": false,
-        "version_id": 2000013,
-        "version_string": "2.0.0 Alpha 3",
-        "hash": "78c70034556a54256afdc0436874fa4e"
-    },
     "option_explain.smodders_tgcore__actions.txt": {
         "global_cache": false,
         "version_id": 2001070,
@@ -64,12 +58,6 @@
         "version_id": 2000013,
         "version_string": "2.0.0 Alpha 3",
         "hash": "e537bfc66e21cd6faf21bcf31031c286"
-    },
-    "option_explain.smodders_tgcore__webHookProxy.txt": {
-        "global_cache": false,
-        "version_id": 2000013,
-        "version_string": "2.0.0 Alpha 3",
-        "hash": "d5d86ef9d632859baad7e04aca1afb03"
     },
     "option_group.smodders_telegram.txt": {
         "global_cache": false,

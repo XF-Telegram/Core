@@ -43,12 +43,14 @@ class Telegram extends AbstractSubContainer
         {
             return function ($token) use ($c)
             {
-                // TODO: add extending vendor classes.
-                // $className = \XF::extendClass('TelegramBot\\Api\\BotApi');
-                $api = new BotApi($token);
+                $extension = $this->app->extension();
+
+                /** @var \SModders\TelegramCore\BotApi $api */
+                $className = $extension->extendClass('SModders\TelegramCore\BotApi');
+                $api = new $className($token);
                 $api->setProxy($c['proxy']);
-    
-                \XF::extension()->fire('smodders_tgcore__api_setup', [$api]);
+
+                $extension->fire('smodders_tgcore__api_setup', [$api]);
                 return $api;
             };
         };
@@ -57,15 +59,18 @@ class Telegram extends AbstractSubContainer
         {
             return function ($token) use ($c)
             {
-                // TODO: add extending vendor classes.
-                // $className = \XF::extendClass('TelegramBot\\Api\\Client');
-                $client = new Client($token);
+                $extension = $this->app->extension();
+
+                /** @var \SModders\TelegramCore\Client $client */
+                $className = $extension->extendClass('SModders\TelegramCore\Client');
+                $client = new $className($token);
                 $client->setProxy($c['proxy']);
 
-                // Scratch for fixing internal EventCollection from third-party library
+                // Scratch for fixing internal EventCollection from third-party library.
+                // TODO: move to class constructor.
                 $client->on(function() { return true; });
-    
-                \XF::extension()->fire('smodders_tgcore__client_setup', [$client]);
+
+                $extension->fire('smodders_tgcore__client_setup', [$client]);
                 return $client;
             };
         };
@@ -93,7 +98,7 @@ class Telegram extends AbstractSubContainer
             }
 
             $botId = $telegramProviderEntity->options['bot_id'] ?? -1;
-            if ($botId != -1)
+            if ($botId == -1)
             {
                 $bot = $this->app->em()->create('SModders\TelegramCore:Bot');
                 $bot->setReadOnly(true);
@@ -101,7 +106,7 @@ class Telegram extends AbstractSubContainer
                 return $bot;
             }
 
-            return $this->app->em()->findOne('SModders\TelegramCore:Bot', $botId);
+            return $this->app->em()->find('SModders\TelegramCore:Bot', $botId);
         };
 
         $container['bot.isInstalled'] = function (Container $c)

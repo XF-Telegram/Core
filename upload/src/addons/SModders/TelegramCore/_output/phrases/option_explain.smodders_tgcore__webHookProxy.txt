@@ -1,2 +1,0 @@
-If your hosting provider blocks incoming connections from Telegram, and you want use WebHook - you need web script for proxying webhooks. <br />
-Leave empty, if you can handle webhook connections directly.
