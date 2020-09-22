@@ -1,0 +1,2 @@
+<!-- CAS - Connected Account Settings -->
+Select here one of previously created bots. If you don't have one, create <a href="{botCreateUrl}">new</a>.

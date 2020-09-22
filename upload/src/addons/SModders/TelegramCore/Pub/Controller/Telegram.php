@@ -35,15 +35,14 @@ class Telegram extends AbstractController
     public function actionHandleWebhook(ParameterBag $params)
     {
         $this->assertPostOnly();
-        $this->assertWebHookToken($this->request->get('token'));
         $this->setResponseType('json');
+        $bot = $this->assertBotExists($this->request->get('token'));
 
         try
         {
             if ($data = BotApi::jsonValidate($this->request()->getInputRaw(), true))
             {
-                $this->getTelegramContainer()->dispatcher()
-                    ->run([Update::fromResponse($data)]);
+                $bot->CommandDispatcher->run([Update::fromResponse($data)]);
             }
         }
         catch (\Exception $e)
@@ -53,6 +52,18 @@ class Telegram extends AbstractController
         }
 
         return $this->message('Ok');
+    }
+
+    protected function assertBotExists($token)
+    {
+        /** @var \SModders\TelegramCore\Entity\Bot $bot */
+        $bot = $this->em()->findOne('SModders\TelegramCore:Bot', ['secret_token', $token]);
+        if (!$bot)
+        {
+            throw $this->exception($this->notFound());
+        }
+
+        return $bot;
     }
 
     protected function assertWebHookToken($token)

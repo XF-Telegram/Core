@@ -1,0 +1,1 @@
+After enabling, we're request Telegram send all actions with this bot - on forum in our internal events handler. This allow use some addons when required user interaction.

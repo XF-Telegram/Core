@@ -92,14 +92,16 @@ class Telegram extends AbstractSubContainer
                 throw new \RuntimeException("Can't find Connected Account Provider. Is this AddOn installed?");
             }
 
-            /** @var \SModders\TelegramCore\ConnectedAccount\Provider\Telegram $telegramProvider */
-            $telegramProvider = $telegramProviderEntity->getHandler();
-            if (!$telegramProvider)
+            $botId = $telegramProviderEntity->options['bot_id'] ?? -1;
+            if ($botId != -1)
             {
-                throw new \RuntimeException("Can't create instance for Telegram provider.");
+                $bot = $this->app->em()->create('SModders\TelegramCore:Bot');
+                $bot->setReadOnly(true);
+
+                return $bot;
             }
-    
-            return array_replace($telegramProvider->getDefaultOptions(), $telegramProviderEntity->options);
+
+            return $this->app->em()->findOne('SModders\TelegramCore:Bot', $botId);
         };
 
         $container['bot.isInstalled'] = function (Container $c)
@@ -109,7 +111,7 @@ class Telegram extends AbstractSubContainer
 
         $container['bot.name'] = function (Container $c)
         {
-            return $c['bot']['name'];
+            return $c['bot']['username'];
         };
 
         $container['bot.token'] = function (Container $c)
@@ -135,29 +137,32 @@ class Telegram extends AbstractSubContainer
 
         $container['commandDispatcher'] = function (Container $c) use ($telegram, $app)
         {
-            /** @var \SModders\TelegramCore\CommandDispatcher $dispatcher */
-            $className = \XF::extendClass('SModders\TelegramCore\CommandDispatcher');
-            $dispatcher = new $className($app, $telegram);
-
-            foreach ($c['commands.addOns'] as $name => $handlers)
+            return function (Client $client) use ($c, $telegram, $app)
             {
-                foreach ($handlers as $commandHandler)
+                /** @var \SModders\TelegramCore\CommandDispatcher $dispatcher */
+                $className = \XF::extendClass('SModders\TelegramCore\CommandDispatcher');
+                $dispatcher = new $className($app, $telegram, $client);
+
+                foreach ($c['commands.addOns'] as $name => $handlers)
                 {
-                    $dispatcher->addCommandListener($name, function (Message $message, array $parameters, \Closure $nextCall)
-                        use ($commandHandler, $app, $dispatcher)
+                    foreach ($handlers as $commandHandler)
                     {
-                        /** @var AbstractHandler $handler */
-                        $className = \XF::extendClass($commandHandler['provider']);
-                        $handler = new $className($app, $dispatcher);
-                        $handler->setNextCall($nextCall);
+                        $dispatcher->addCommandListener($name, function (Message $message, array $parameters, \Closure $nextCall)
+                        use ($commandHandler, $app, $dispatcher)
+                        {
+                            /** @var AbstractHandler $handler */
+                            $className = \XF::extendClass($commandHandler['provider']);
+                            $handler = new $className($app, $dispatcher);
+                            $handler->setNextCall($nextCall);
 
-                        return $handler->run($message, $parameters);
-                    }, $commandHandler['execution_order']);
+                            return $handler->run($message, $parameters);
+                        }, $commandHandler['execution_order']);
+                    }
                 }
-            }
 
-            $app->fire('smodders_tgcore__dispatcher_setup', [&$dispatcher]);
-            return $dispatcher;
+                $app->fire('smodders_tgcore__dispatcher_setup', [&$dispatcher]);
+                return $dispatcher;
+            };
         };
     }
 
@@ -334,8 +339,13 @@ class Telegram extends AbstractSubContainer
     /**
      * @return \SModders\TelegramCore\CommandDispatcher
      */
-    public function dispatcher()
+    public function dispatcher(Client $client = null)
     {
-        return $this->container['commandDispatcher'];
+        if ($client === null)
+        {
+            $client = $this->client();
+        }
+
+        return $this->container['commandDispatcher']($client);
     }
 }

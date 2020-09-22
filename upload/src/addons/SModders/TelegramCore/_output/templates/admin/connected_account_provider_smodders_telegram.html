@@ -1,16 +1,14 @@
-<!-- [SModders\Telegram:Notification] -->
-<div class="blockMessage blockMessage--iconic blockMessage--important" style="margin-bottom: 0;">
-	<xf:set var="$bot">
-		<a href="tg://resolve?domain=botfather" target="_blank">@BotFather</a>
-	</xf:set>
+<xf:set var="$botCreateUrl" value="{{ link('smodders_telegram/bots/add') }}" />
 
-	{{ phrase('smodders_tgcore.provider_blockMessage', {'bot': $bot}) }}<br />
-	{{ phrase('smodders_tgcore.proxy_message') }}
-</div>
-<!-- /[SModders\Telegram:Notification] -->
+<!-- [SModders\Telegram:ActiveBot] -->
+<xf:selectrow name="options[bot_id]" value="{$options.bot_id}"
+			  label="{{ phrase('smodders_tgcore.bot') }}"
+			  explain="{{ phrase('smodders_tgcore.bot_explain_cas', {'botCreateUrl': $botCreateUrl}) }}">
 
-<!-- [SModders\Telegram:BotToken] -->
-<xf:textboxrow name="options[token]" value="{$options.token}"
-	label="{{ phrase('smodders_tgcore.token') }}" hint="{{ phrase('required') }}"
-	explain="{{ phrase('smodders_tgcore.token_explain') }}" />
-<!-- /[SModders\Telegram:BotToken] -->
+	<xf:option value="-1" label="{{ phrase('(none)') }}" />
+	
+	<xf:foreach loop="$bots" value="$bot">
+		<xf:option value="{$bot.bot_id}" label="{$bot.title}" />
+	</xf:foreach>
+</xf:selectrow>
+<!-- /[SModders\Telegram:ActiveBot] -->

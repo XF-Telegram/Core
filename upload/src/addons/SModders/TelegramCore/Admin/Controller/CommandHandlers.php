@@ -47,7 +47,6 @@ class CommandHandlers extends AbstractCrudController
     {
         $commandName = $this->filter('title', 'str');
 
-
         /** @var \SModders\TelegramCore\Entity\UserCommand $entity */
         $formAction = parent::entitySaveProcess($entity);
         $formAction->setup(function ($formAction) use ($entity, $commandName)

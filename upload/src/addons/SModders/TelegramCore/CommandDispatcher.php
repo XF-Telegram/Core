@@ -11,6 +11,7 @@ namespace SModders\TelegramCore;
 
 
 use SModders\TelegramCore\SubContainer\Telegram;
+use TelegramBot\Api\Client;
 use TelegramBot\Api\Types\Message;
 use TelegramBot\Api\Types\Update;
 use XF\App;
@@ -35,12 +36,11 @@ class CommandDispatcher
     /** @var array */
     protected $_arguments = [];
 
-    public function __construct(App $app, Telegram $container)
+    public function __construct(App $app, Telegram $container, Client $client)
     {
         $this->app = $app;
         $this->container = $container;
-
-        $this->client = $container->client();
+        $this->client = $client;
     }
 
     /**

@@ -27,9 +27,7 @@ class Telegram extends AbstractProvider
     public function getDefaultOptions()
     {
         return [
-            'name'      => '',
-            'token'     => '',
-            'method'    => 'direct',
+            'bot_id' => -1
         ];
     }
 
@@ -46,24 +44,34 @@ class Telegram extends AbstractProvider
             'method'    => $provider->options['method'],
         ];
     }
-    
+
+    public function isUsable(ConnectedAccountProvider $provider)
+    {
+        $options = $provider->options;
+        if (!isset($options['bot_id']))
+        {
+            return (!empty($options['token']) && !empty($options['name']));
+        }
+
+        return intval($options['bot_id']) != -1;
+    }
+
     public function handleAuthorization(Controller $controller, ConnectedAccountProvider $provider, $returnUrl)
     {
         $app = \XF::app();
         $session = $app['session.public'];
         $session->set('connectedAccountRequest', [
             'provider'  => $this->providerId,
+            'smTgCoreBotId' => $provider->options['bot_id'],
             'returnUrl' => $returnUrl,
             'test'      => $this->testMode,
         ]);
         $session->save();
 
-        /** @var \SModders\TelegramCore\SubContainer\Telegram $telegram */
-        $telegram = $app['smodders.telegram'];
-    
+        $bot = $provider->em()->find('SModders\TelegramCore:Bot', $provider->options['bot_id']);
         $viewParams = [
-            'botName'       => $provider->options['name'],
-            'redirectUri'   => $this->getRedirectUri($provider),
+            'botName'       => $bot->username,
+            'redirectUri'   => $this->getRedirectUri($provider)
         ];
     
         return $controller->view('SModders\TelegramCore:AuthMethod\OAuth', 'public:smodders_tgcore__auth_page', $viewParams);
@@ -103,27 +111,7 @@ class Telegram extends AbstractProvider
     
     public function verifyConfig(array &$options, &$error = null)
     {
-        if (empty($options['token']))
-        {
-            $options = [];
-            return true;
-        }
-        
-        $app = \XF::app();
-        try {
-            /** @var \TelegramBot\Api\BotApi $api */
-            $api = $app['smodders.telegram']->api($options['token']);
-            $options['name'] = $api->getMe()->getUsername();
-        } catch (\Exception $e) {
-            $message = $e->getMessage();
-            if ($message == 'Not Found')
-            {
-                $message = \XF::phraseDeferred('smodders_tgcore.invalid_token');
-            }
-
-            $error = $message;
-            return false;
-        }
+        $options['bot_id'] = intval($options['bot_id']); // just rewrite for storing integer value, not string.
 
         return true;
     }
@@ -144,11 +132,28 @@ class Telegram extends AbstractProvider
         
         sort($hashdata);
         $hashdata = implode("\n", $hashdata);
-        
-        // Second, prepare secret key.
-        $secretKey = hash('sha256', \XF::app()->get('smodders.telegram')->get('bot.token'), true);
+
+        // Second, grab a bot and prepare secret key.
+        /** @var \XF\Session\Session $session */
+        /** @var \SModders\TelegramCore\Entity\Bot $bot */
+        $app = \XF::app();
+        $session = $app['session.public'];
+        $bot = $app->em()->find('SModders\TelegramCore:Bot', $session->get('connectedAccountRequest')['smTgCoreBotId']);
+
+        $secretKey = hash('sha256', $bot->token, true);
         
         // Third, verify hash.
         return hash_equals($data['hash'], hash_hmac('sha256', $hashdata, $secretKey));
+    }
+
+    public function renderConfig(ConnectedAccountProvider $provider)
+    {
+        $app = \XF::app();
+        $bots = $app->finder('SModders\TelegramCore:Bot')->order('bot_id')->fetch();
+
+        return $app->templater()->renderTemplate('admin:connected_account_provider_' . $provider->provider_id, [
+            'options' => $this->getEffectiveOptions($provider->options),
+            'bots' => $bots
+        ]);
     }
 }

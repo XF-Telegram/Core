@@ -10,19 +10,28 @@
 namespace SModders\TelegramCore\Service;
 
 
+use SModders\TelegramCore\Entity\Bot;
 use XF\PrintableException;
 use XF\Service\AbstractService;
 use XF\Util\Hash;
 
 class WebHook extends AbstractService
 {
+    /** @var Bot */
+    protected $bot;
+
+    public function __construct(\XF\App $app, Bot $bot)
+    {
+        $this->bot = $bot;
+        parent::__construct($app);
+    }
+
     public function update($setup)
     {
         $url = $setup ? $this->getWebhookUrl() : '';
 
         try {
-            $this->telegram()->api()
-                ->setWebhook($url);
+            $this->bot->Api->setWebhook($url);
         } catch (\Exception $e) {
             \XF::logException($e); // :thinking:
             return false;
@@ -37,7 +46,7 @@ class WebHook extends AbstractService
         $options = $app->options();
         
         $link = $app->router('public')->buildLink('canonical:smodders_telegram/handle-webhook', null, [
-            'token' => Hash::hashText($app->get('smodders.telegram')->get('bot.token'))
+            'token' => $this->bot->secret_token
         ]);
         
         $webProxy = $options['smodders_tgcore__webHookProxy'];

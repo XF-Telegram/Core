@@ -1,8 +1,8 @@
 {
     "admin/connected_account_provider_smodders_telegram.html": {
-        "version_id": 2002070,
-        "version_string": "2.0.2",
-        "hash": "cea33fcf97939a45fa0225294ae5717d"
+        "version_id": 2005013,
+        "version_string": "2.0.5 Alpha 3",
+        "hash": "bdf81235185fa0f08c0feeda485eda57"
     },
     "admin/connected_account_provider_test_smodders_telegram.html": {
         "version_id": 2000052,
@@ -13,6 +13,16 @@
         "version_id": 2001070,
         "version_string": "2.0.1",
         "hash": "cccb4417cbd16f6f8582e4ae35739606"
+    },
+    "admin/smodders_tgcore__bots_edit.html": {
+        "version_id": 2005013,
+        "version_string": "2.0.5 Alpha 3",
+        "hash": "e75c025d9a67a6424b8f0793b1e3fa76"
+    },
+    "admin/smodders_tgcore__bots_index.html": {
+        "version_id": 2005013,
+        "version_string": "2.0.5 Alpha 3",
+        "hash": "8ff03f137f77e44807960f68b893ac9d"
     },
     "admin/smodders_tgcore__command_handlers_edit.html": {
         "version_id": 2005010,
@@ -39,6 +49,11 @@
         "version_string": "2.0.1",
         "hash": "8159dbd0d295c842e7e19435266ab58d"
     },
+    "email/smodders_tgcore__directauth_message.html": {
+        "version_id": 2005010,
+        "version_string": "2.0.5 Alpha",
+        "hash": "77d3f07eada251bb666f2940d0a505c8"
+    },
     "public/connected_account_associated_smodders_telegram.html": {
         "version_id": 2000013,
         "version_string": "2.0.0 Alpha 3",
@@ -53,10 +68,5 @@
         "version_id": 2000051,
         "version_string": "2.0.0 Release Candidate 1",
         "hash": "8b402799be9f40a462f5172e21244174"
-    },
-    "email/smodders_tgcore__directauth_message.html": {
-        "version_id": 2005010,
-        "version_string": "2.0.5 Alpha",
-        "hash": "77d3f07eada251bb666f2940d0a505c8"
     }
 }

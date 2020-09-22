@@ -1,0 +1,43 @@
+<xf:if is="$entity.isInsert()">
+	<xf:title>{{ phrase('smodders_tgcore.add_bot') }}</xf:title>
+<xf:else />
+	<xf:title>{{ phrase('smodders_tgcore.edit_bot:') }} {$entity.title}</xf:title>
+</xf:if>
+
+<xf:pageaction if="$entity.isUpdate()">
+	<xf:button href="{{ link('smodders_telegram/bots/delete', $entity) }}" icon="delete" overlay="true" />
+</xf:pageaction>
+
+<!-- [SModders\Telegram:Notification] -->
+<div class="blockMessage blockMessage--iconic blockMessage--important" style="margin-bottom: 0;">
+	<xf:set var="$bot">
+		<a href="tg://resolve?domain=botfather" target="_blank">@BotFather</a>
+	</xf:set>
+
+	{{ phrase('smodders_tgcore.provider_blockMessage', {'bot': $bot}) }}<br />
+	{{ phrase('smodders_tgcore.proxy_message') }}
+</div>
+<!-- /[SModders\Telegram:Notification] -->
+
+<xf:form action="{$saveUrl}" ajax="true" class="block">
+	<div class="block-container">
+		<div class="block-body">
+			<xf:textboxrow name="title" value="{$entity.title}"
+				maxlength="{{ max_length($entity, 'title') }}"
+				label="{{ phrase('title') }}"
+				dir="ltr" />
+
+			<xf:textboxrow name="token" value="{$entity.token}"
+				maxlength="{{ max_length($entity, 'token') }}"
+				label="{{ phrase('smodders_tgcore.token') }}"
+				hint="{{ phrase('smodders_tgcore.token_explain') }}"
+				dir="ltr" />
+
+			<xf:checkboxrow label="">
+				<xf:option checked="{$entity.listen_events}" name="listen_events" required="required" hint="{{ phrase('smodders_tgcore.listen_events_explain') }}">{{ phrase('smodders_tgcore.listen_events') }}</xf:option>
+			</xf:checkboxrow>
+		</div>
+
+		<xf:submitrow sticky="true" icon="save" />
+	</div>
+</xf:form>

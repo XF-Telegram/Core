@@ -137,6 +137,45 @@ class Setup extends AbstractSetup
         $this->createTableFromInternalArr('xf_smodders_tgcore_user_command');
     }
 
+    public function upgrade2005013Step1()
+    {
+        $this->createTableFromInternalArr('xf_smodders_tgcore_bot');
+    }
+
+    public function upgrade2005013Step2()
+    {
+        $app = $this->app;
+        $options = $app->options();
+        $em = $app->em();
+
+        /** @var \XF\Entity\ConnectedAccountProvider $provider */
+        $provider = $em->find('XF:ConnectedAccountProvider', $this->getProviderDetails('provider_id'));
+        $options = $provider->options;
+        if ($provider->isUsable())
+        {
+            /** @var \SModders\TelegramCore\Entity\Bot $bot */
+            $bot = $em->create('SModders\TelegramCore:Bot');
+            $bot->username = $options['name'];
+            $bot->title = 'Authorization bot (@' . $bot->username . ')';
+            $bot->token = $options['token'];
+            $bot->listen_events = ($options['smodders_tgcore__updateMode'] ?? 'none') != 'none';
+            $bot->recalculateSecretToken();
+            $bot->save();
+
+            $provider->options = [
+                'bot_id' => $bot->bot_id
+            ];
+        }
+        else
+        {
+            $provider->options = [
+                'bot_id' => -1
+            ];
+        }
+
+        $provider->save();
+    }
+
     protected function createTableFromInternalArr($name)
     {
         $tables = $this->getTables();
@@ -151,6 +190,17 @@ class Setup extends AbstractSetup
         $tables = [];
         $prefix = 'xf_smodders_tgcore_';
 
+        $tables[$prefix . 'bot'] = function (Create $table)
+        {
+            $table->addColumn('bot_id', 'int')->primaryKey()->autoIncrement();
+            $table->addColumn('title', 'varchar', 128);
+            $table->addColumn('username', 'varchar', 32);
+            $table->addColumn('token', 'varchar', 64);
+            $table->addColumn('listen_events', 'bool')->setDefault(0);
+
+            $table->addColumn('secret_token', 'varchar', 32);
+            $table->addKey('secret_token');
+        };
         $tables[$prefix . 'user'] = function (Create $table)
         {
             $table->addColumn('id',         'int')->primaryKey();
