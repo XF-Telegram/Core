@@ -48,15 +48,14 @@ class WebHook extends AbstractService
         $link = $app->router('public')->buildLink('canonical:smodders_telegram/handle-webhook', null, [
             'token' => $this->bot->secret_token
         ]);
-        
-        $webProxy = $options['smodders_tgcore__webHookProxy'];
-        if (!empty($webProxy))
-        {
-            $link = str_replace('{webHook}', urlencode($link), $webProxy);
-        }
-        
+
+        $this->filterWebhookUrl($link);
         $this->assertWebHookIsHttps($link);
         return $link;
+    }
+
+    protected function filterWebhookUrl(&$link)
+    {
     }
     
     /**

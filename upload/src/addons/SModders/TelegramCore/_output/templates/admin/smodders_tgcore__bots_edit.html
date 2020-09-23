@@ -6,6 +6,8 @@
 
 <xf:pageaction if="$entity.isUpdate()">
 	<xf:button href="{{ link('smodders_telegram/bots/delete', $entity) }}" icon="delete" overlay="true" />
+	<xf:button href="{{ link('smodders_telegram/bots/get-webhook-info', $entity) }}" overlay="true">{{ phrase('smodders_tgcore.get_webhook_info') }}</xf:button>
+	<xf:button href="{{ link('smodders_telegram/bots/update-webhook-details', $entity) }}" overlay="true">{{ phrase('smodders_tgcore.update_webhook_details') }}</xf:button>
 </xf:pageaction>
 
 <!-- [SModders\Telegram:Notification] -->

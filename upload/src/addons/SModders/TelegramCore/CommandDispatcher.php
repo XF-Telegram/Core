@@ -68,7 +68,7 @@ class CommandDispatcher
     }
 
     /**
-     * @return \TelegramBot\Api\Client
+     * @return \SModders\TelegramCore\Client
      */
     public function client()
     {

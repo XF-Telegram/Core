@@ -10,14 +10,14 @@
         "hash": "d7f1ece8e61476831c5ef286db77b19a"
     },
     "admin/smodders_tgcore__admin_macro.html": {
-        "version_id": 2001070,
-        "version_string": "2.0.1",
-        "hash": "cccb4417cbd16f6f8582e4ae35739606"
+        "version_id": 2005015,
+        "version_string": "2.0.5 Alpha 5",
+        "hash": "a33234c4877d4ae79a19428e286aa5c5"
     },
     "admin/smodders_tgcore__bots_edit.html": {
-        "version_id": 2005013,
-        "version_string": "2.0.5 Alpha 3",
-        "hash": "e75c025d9a67a6424b8f0793b1e3fa76"
+        "version_id": 2005015,
+        "version_string": "2.0.5 Alpha 5",
+        "hash": "62cf9a0e755f500aeb5b6b8d9a87e81b"
     },
     "admin/smodders_tgcore__bots_index.html": {
         "version_id": 2005013,

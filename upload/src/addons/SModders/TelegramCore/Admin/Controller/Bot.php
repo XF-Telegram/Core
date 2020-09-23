@@ -11,11 +11,16 @@ namespace SModders\TelegramCore\Admin\Controller;
 
 
 use SModders\Core\Admin\Controller\AbstractCrudController;
+use SModders\TelegramCore\BotApi;
 use XF\Mvc\Entity\Entity;
 use XF\Mvc\FormAction;
+use XF\Mvc\ParameterBag;
+use XF\Mvc\Reply\AbstractReply;
 
 class Bot extends AbstractCrudController
 {
+    use SharedControllerMethodsTrait;
+
     protected function _entityName()
     {
         return 'SModders\TelegramCore:Bot';
@@ -89,4 +94,33 @@ class Bot extends AbstractCrudController
 
         return $form;
     }
+
+    public function actionGetWebhookInfo(ParameterBag $params)
+    {
+        /** @var \SModders\TelegramCore\Entity\Bot $bot */
+        $bot = $this->assertRecordExists('SModders\TelegramCore:Bot', $params->bot_id);
+        $apiResult = $this->assertSuccessRun(function (BotApi $api)
+        {
+            return $api->call('getWebhookInfo');
+        }, $bot, true);
+
+        // If connection failed - we got an AbstractReply body.
+        if ($apiResult instanceof AbstractReply)
+        {
+            return $apiResult;
+        }
+
+        return $this->view('SModders\TelegramCore:Misc\ViewWebhookInfo', 'smodders_tgcore__webhook_info', ['info' => $apiResult]);
+    }
+
+    public function actionUpdateWebhookDetails(ParameterBag $params)
+    {
+        /** @var \SModders\TelegramCore\Entity\Bot $bot */
+        $bot = $this->assertRecordExists('SModders\TelegramCore:Bot', $params->bot_id);
+        $this->service('SModders\TelegramCore:WebHook', $bot)
+            ->update($bot->listen_events);
+
+        return $this->message(\XF::phrase('action_completed_successfully'));
+    }
+
 }

@@ -30,7 +30,7 @@ class Client extends \TelegramBot\Api\Client
         }
 
         // We're don't use parent constructor because this is uses BotApi class from vendor library.
-        $this->api = ($this->bot ?? $this->bot->Api) ?? \XF::app()->get('smodders.telegram')->api($token);
+        $this->api = ($this->bot ? $this->bot->Api : \XF::app()->get('smodders.telegram')->api($token));
         $this->events = new EventCollection($trackerToken);
     }
 
