@@ -80,12 +80,12 @@ class Bot extends Entity
 
     protected function getClient()
     {
-        return $this->telegramContainer()->client($this->token);
+        return $this->telegramContainer()->client($this);
     }
 
     protected function getApi()
     {
-        return $this->telegramContainer()->api($this->token);
+        return $this->telegramContainer()->api($this);
     }
 
     protected function getCommandDispatcher()
