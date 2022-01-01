@@ -13,6 +13,7 @@ use XF\AddOn\AbstractSetup;
 use XF\AddOn\StepRunnerInstallTrait;
 use XF\AddOn\StepRunnerUninstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
+use XF\Db\Schema\Alter;
 use XF\Db\Schema\Create;
 use XF\Util\Arr;
 
@@ -49,6 +50,15 @@ class Setup extends AbstractSetup
         $provider = $this->app->em()->create('XF:ConnectedAccountProvider');
         $provider->bulkSet($this->getProviderDetails());
         $provider->save();
+    }
+
+    /**
+     * Upgrades the column type `id` to BigInt.
+     * @return void
+     */
+    public function upgrade2004071Step1()
+    {
+        $this->upgradeUserIdToLong();
     }
 
     /**
@@ -98,7 +108,7 @@ class Setup extends AbstractSetup
 
         $tables[$prefix . 'user'] = function (Create $table)
         {
-            $table->addColumn('id',         'int')->primaryKey();
+            $table->addColumn('id',         'bigint')->primaryKey();
             $table->addColumn('first_name', 'varchar', 64)->setDefault('');
             $table->addColumn('last_name',  'varchar', 64)->setDefault('');
             $table->addColumn('username',   'varchar', 32)->nullable();
@@ -128,5 +138,13 @@ class Setup extends AbstractSetup
         }
 
         return $details[$field];
+    }
+
+    protected function upgradeUserIdToLong()
+    {
+        $this->alterTable('xf_smodders_tgcore_user', function (Alter $table)
+        {
+            $table->changeColumn('id', 'bigint');
+        });
     }
 }
