@@ -31,7 +31,7 @@ class User extends Entity
         $structure->primaryKey = 'id';
 
         $structure->columns = [
-            'id'            => ['type'  => self::UINT,  'required'  => true],
+            'id'            => ['type'  => self::UINT,  'required'  => true, 'max' => PHP_INT_MAX],
             'first_name'    => ['type'  => self::STR,   'default'   => ''],
             'last_name'     => ['type'  => self::STR,   'default'   => ''],
             'username'      => ['type'  => self::STR,   'default'   => ''],
