@@ -71,6 +71,15 @@ class Setup extends AbstractSetup
     }
 
     /**
+     * Upgrades the column type `id` to BigInt.
+     * @return void
+     */
+    public function upgrade2005018Step1()
+    {
+        $this->upgradeUserIdToLong();
+    }
+
+    /**
      * Deletes all connections with Telegram.
      * @return void
      */
