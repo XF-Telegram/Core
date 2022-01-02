@@ -3,7 +3,7 @@
     "title": "[Telegram] Core",
     "description": "Provides the ability to log in via Telegram",
     "version_id": 2005018,
-    "version_string": "2.0.5 Alpha 8",
+    "version_string": "2.0.5 Alpha 9",
     "dev": "SourceModders",
     "dev_url": "https://board.kruzya.me",
     "faq_url": "https://github.com/XF-Telegram/Core/wiki/FAQ",
@@ -15,8 +15,8 @@
             "XenForo v2.1.0"
         ],
         "SModders/Core": [
-            1000273,
-            "[SModders] Core v1.0.2.3+"
+            1000274,
+            "[SModders] Core v1.0.2.4+"
         ]
     },
     "icon": "fa-telegram fab",
