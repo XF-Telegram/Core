@@ -12,15 +12,17 @@ namespace SModders\TelegramCore\Admin\Controller;
 
 use TelegramBot\Api\BotApi;
 use TelegramBot\Api\Exception;
-use XF\Mvc\Reply\AbstractReply;
-use XF\PrintableException;
+use XF;
+use XF\Admin\Controller\AbstractController;
+use XF\Mvc\Reply\Message;
+use XF\Mvc\Reply\View;
 
-class Telegram extends \XF\Admin\Controller\AbstractController
+class Telegram extends AbstractController
 {
     use SharedControllerMethodsTrait;
 
     /**
-     * @return \XF\Mvc\Reply\View
+     * @return View
      */
     public function actionIndex()
     {
@@ -28,16 +30,16 @@ class Telegram extends \XF\Admin\Controller\AbstractController
     }
 
     /**
-     * @return \XF\Mvc\Reply\Message
+     * @return Message
      */
     public function actionVerifyConnection()
     {
         if ($this->isConnectionExists($error))
         {
-            return $this->message(\XF::phrase('action_completed_successfully'));
+            return $this->message(XF::phrase('action_completed_successfully'));
         }
     
-        return $this->message(\XF::phrase('smodders_tgcore.failure_connection', ['message' => $error]));
+        return $this->message(XF::phrase('smodders_tgcore.failure_connection', ['message' => $error]));
     }
 
     /**
@@ -71,7 +73,7 @@ class Telegram extends \XF\Admin\Controller\AbstractController
         $token = $this->telegram()->get('bot.token');
         if (empty($token))
         {
-            throw $this->exception($this->message(\XF::phrase('smodders_tgcore.no_token')));
+            throw $this->exception($this->message(XF::phrase('smodders_tgcore.no_token')));
         }
     }
 }

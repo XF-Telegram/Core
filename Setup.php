@@ -15,7 +15,6 @@ use XF\AddOn\StepRunnerUninstallTrait;
 use XF\AddOn\StepRunnerUpgradeTrait;
 use XF\Db\Schema\Alter;
 use XF\Db\Schema\Create;
-use XF\Util\Arr;
 
 class Setup extends AbstractSetup
 {

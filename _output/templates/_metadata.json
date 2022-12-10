@@ -15,14 +15,14 @@
         "hash": "a33234c4877d4ae79a19428e286aa5c5"
     },
     "admin/smodders_tgcore__bots_edit.html": {
-        "version_id": 2005015,
-        "version_string": "2.0.5 Alpha 5",
-        "hash": "62cf9a0e755f500aeb5b6b8d9a87e81b"
+        "version_id": 2005018,
+        "version_string": "2.0.5 Alpha 9",
+        "hash": "9b17d8da1e970f6c9ce040ac11a59288"
     },
     "admin/smodders_tgcore__bots_index.html": {
         "version_id": 2005018,
-        "version_string": "2.0.5 Alpha 8",
-        "hash": "2951e1443c654cad5648c3c8148bc7b2"
+        "version_string": "2.0.5 Alpha 9",
+        "hash": "4926d22b936772d00f4bf40059166717"
     },
     "admin/smodders_tgcore__command_handlers_edit.html": {
         "version_id": 2005010,
@@ -31,8 +31,8 @@
     },
     "admin/smodders_tgcore__command_handlers_index.html": {
         "version_id": 2005018,
-        "version_string": "2.0.5 Alpha 8",
-        "hash": "b33b9114834689a92c60996a7c8ac463"
+        "version_string": "2.0.5 Alpha 9",
+        "hash": "690a2dbb1a02b13bc8f1f4426b5b7b4e"
     },
     "admin/smodders_tgcore__index.html": {
         "version_id": 2005010,

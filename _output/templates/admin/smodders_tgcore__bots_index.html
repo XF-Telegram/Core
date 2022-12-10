@@ -1,0 +1,62 @@
+<xf:macro name="row" arg-entity="!">
+
+</xf:macro>
+
+<xf:title>{{ phrase('admin_navigation.smodders_tgcore__bots') }}</xf:title>
+<xf:pageaction>
+	<xf:button href="{{ link('smodders_telegram/bots/add') }}" icon="add"
+			   data-xf-click="prefix-grabber"
+			   data-filter-element="[data-xf-init~=filter]">
+		{{ phrase('smodders_tgcore.add_bot') }}
+	</xf:button>
+</xf:pageaction>
+
+
+<xf:if is="$entities is not empty">
+	<div class="block">
+		<div class="block-outer">
+			<xf:macro template="filter_macros" name="quick_filter"
+					  arg-key="smodders_tgcore__bots_index"
+					  arg-ajax="{$searchFilterUrl}"
+					  arg-class="block-outer-opposite" />
+		</div>
+
+		<div class="block-container">
+			<div class="block-body">
+				<xf:datalist>
+					<xf:foreach loop="$entities" value="$entity">
+						<xf:datarow>
+							<xf:main href="{{ link('smodders_telegram/bots/edit', $entity) }}"
+									 label="{$entity.title}"
+									 hash="{$entity.title}"
+									 dir="auto" />
+
+							<xf:delete href="{{ link('smodders_telegram/bots/delete', $entity) }}"
+									   tooltip="{{ phrase('delete') }} " />
+						</xf:datarow>				
+					</xf:foreach>
+					<xf:if is="$filter AND $total > $perPage">
+						<xf:datarow rowclass="dataList-row--note dataList-row--noHover js-filterForceShow">
+							<xf:cell colspan="2">{{ phrase('more_records_matching_filter_more_specific') }}</xf:cell>
+						</xf:datarow>
+					</xf:if>
+				</xf:datalist>
+			</div>
+
+			<div class="block-footer">
+				<span class="block-footer-counter">{{ display_totals($entities, $total) }}</span>
+			</div>
+		</div>
+	</div>
+<xf:else />
+	<div class="blockMessage">
+		{{ phrase('no_items_have_been_created_yet') }}
+	</div>
+</xf:if>
+
+<xf:pagenav
+			page="{$page}" perpage="{$perPage}" total="{$total}"
+			link="{$searchFilterUrl}"
+			params=""
+			data="{$style}"
+			wrapperclass="js-filterHide block-outer block-outer--after" />
