@@ -1,15 +1,3 @@
-<xf:macro name="row" arg-entity="!">
-	<xf:datarow>
-		<xf:main href="{{ link('smodders_telegram/command-handlers/edit', $entity) }}"
-				 label="{$entity.title}"
-				 hash="{$entity.title}"
-				 dir="auto" />
-
-		<xf:delete href="{{ link('smodders_telegram/command-handlers/delete', $entity) }}"
-					tooltip="{{ phrase('delete') }} " />
-	</xf:datarow>
-</xf:macro>
-
 <xf:title>{{ phrase('admin_navigation.smodders_tgcore__command_handlers') }}</xf:title>
 <xf:pageaction>
 	<xf:button href="{{ link('smodders_telegram/command-handlers/add') }}" icon="add"
@@ -19,6 +7,45 @@
 	</xf:button>
 </xf:pageaction>
 
-<xf:macro template="smcore_crud_list" name="full_block" arg-parentTemplate="smodders_tgcore__command_handlers_index"
-		  arg-searchFilterUrl="{$searchFilterUrl}" arg-entities="{$entities}" arg-entityRow="row"
-		  arg-total="{$total}" arg-perPage="{$perPage}" arg-page="{$page}" />
+<div class="block">
+	<div class="block-outer">
+		<xf:macro template="filter_macros" name="quick_filter"
+				  arg-key="smodders_tgcore__command_handlers_index"
+				  arg-ajax="{$searchFilterUrl}"
+				  arg-class="block-outer-opposite" />
+	</div>
+
+	<div class="block-container">
+		<div class="block-body">
+			<xf:datalist>
+				<xf:foreach loop="$entities" value="$entity">
+					<xf:datarow>
+						<xf:main href="{{ link('smodders_telegram/command-handlers/edit', $entity) }}"
+								 label="{$entity.title}"
+								 hash="{$entity.title}"
+								 dir="auto" />
+
+						<xf:delete href="{{ link('smodders_telegram/command-handlers/delete', $entity) }}"
+								   tooltip="{{ phrase('delete') }} " />
+					</xf:datarow>				
+				</xf:foreach>
+
+				<xf:if is="$filter AND $total > $perPage">
+					<xf:datarow rowclass="dataList-row--note dataList-row--noHover js-filterForceShow">
+						<xf:cell colspan="2">{{ phrase('more_records_matching_filter_more_specific') }}</xf:cell>
+					</xf:datarow>
+				</xf:if>
+			</xf:datalist>
+		</div>
+
+		<div class="block-footer">
+			<span class="block-footer-counter">{{ display_totals($entities, $total) }}</span>
+		</div>
+	</div>
+</div>
+
+<xf:pagenav page="{$page}" perpage="{$perPage}" total="{$total}"
+	link="{$searchFilterUrl}"
+	params=""
+	data="{$style}"
+	wrapperclass="js-filterHide block-outer block-outer--after" />

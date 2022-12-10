@@ -10,7 +10,6 @@
 namespace SModders\TelegramCore\Admin\Controller;
 
 
-use SModders\Core\Admin\Controller\AbstractCrudController;
 use SModders\TelegramCore\BotApi;
 use XF\Mvc\Entity\Entity;
 use XF\Mvc\FormAction;
