@@ -47,8 +47,8 @@ before_script:
 
 script:
     # Copy files for our addon, import all, grab composer packages and build release.
-    - cp -Rf ${TRAVIS_BUILD_DIR}/upload/* ${XENFORO_INSTALLATION}/
-    - cd ${XENFORO_INSTALLATION}/src/addons/SModders/TelegramCore
+    - cp -Rf ${TRAVIS_BUILD_DIR}/* ${XENFORO_INSTALLATION}/src/addons/${XENFORO_ADDON_ID}
+    - cd ${XENFORO_INSTALLATION}/src/addons/${XENFORO_ADDON_ID}
     - composer install
     - cd ${XENFORO_INSTALLATION}
     - php cmd.php xf-addon:install -n ${XENFORO_ADDON_ID} && php cmd.php xf-dev:import -n -a ${XENFORO_ADDON_ID} && php cmd.php xf-addon:build-release ${XENFORO_ADDON_ID}
