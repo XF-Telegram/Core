@@ -227,6 +227,8 @@ class Telegram extends AbstractSubContainer
                 $templater = $app->templater();
 
                 $newLanguage = $app->language($user->language_id);
+                $newLanguage->setTimeZone($user->timezone);
+
                 $oldLanguage = \XF::language();
                 $oldTemplaterLanguage = $templater->getLanguage();
 

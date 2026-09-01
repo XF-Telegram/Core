@@ -1,26 +1,27 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "4436204c0d5f43443ce858a5077afd8c",
     "packages": [
         {
             "name": "telegram-bot/api",
-            "version": "v2.3.13",
+            "version": "v2.3.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TelegramBot/Api.git",
-                "reference": "8d34f3ccd3230a9fd7c7fd9ba8ec0110a059f781"
+                "reference": "579f64d0ffe7f21d1f61cb8734e297686b286bf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TelegramBot/Api/zipball/8d34f3ccd3230a9fd7c7fd9ba8ec0110a059f781",
-                "reference": "8d34f3ccd3230a9fd7c7fd9ba8ec0110a059f781",
+                "url": "https://api.github.com/repos/TelegramBot/Api/zipball/579f64d0ffe7f21d1f61cb8734e297686b286bf7",
+                "reference": "579f64d0ffe7f21d1f61cb8734e297686b286bf7",
                 "shasum": ""
             },
             "require": {
+                "ext-curl": "*",
                 "php": ">=5.5.0"
             },
             "require-dev": {
@@ -59,7 +60,11 @@
                 "php",
                 "telegram"
             ],
-            "time": "2018-04-30T11:46:15+00:00"
+            "support": {
+                "issues": "https://github.com/TelegramBot/Api/issues",
+                "source": "https://github.com/TelegramBot/Api/tree/v2.3.24"
+            },
+            "time": "2021-12-06T13:05:34+00:00"
         }
     ],
     "packages-dev": [],
@@ -69,5 +74,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
